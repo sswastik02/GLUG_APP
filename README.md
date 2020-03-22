@@ -1,6 +1,6 @@
 # glug_app
 
-The official app for the GNU LInux Users&#x27; Group NITDGP
+The official app for the GNU Linux Users&#x27; Group NITDGP
 
 ## Getting Started
 

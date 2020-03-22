@@ -12,8 +12,7 @@ class Event {
   final String status;
 
   Event.fromJSON(Map<String, dynamic> jsonMap)
-      :
-        show_bool = jsonMap['show_bool'],
+      : show_bool = jsonMap['show_bool'],
         id = jsonMap['id'],
         identifier = jsonMap['identifier'],
         title = jsonMap['title'],
@@ -24,5 +23,4 @@ class Event {
         facebook_link = jsonMap['facebook_link'],
         event_image = jsonMap['event_image'],
         status = jsonMap['status'];
-
 }
