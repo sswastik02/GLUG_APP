@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glug_app/screens/blog.dart';
 import 'package:glug_app/screens/blog_screen.dart';
 import 'package:glug_app/screens/event_screen.dart';
 import 'package:glug_app/screens/linit_screen.dart';

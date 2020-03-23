@@ -1,6 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:glug_app/models/blog_post_model.dart';
 import 'package:flutter/material.dart';
+import 'package:glug_app/screens/blog.dart';
 import 'package:html/parser.dart';
 
 class BlogPostTile extends StatelessWidget {
@@ -112,7 +113,13 @@ class BlogPostTile extends StatelessWidget {
                       elevation: 5.0,
                       color: Colors.deepOrangeAccent,
                       textColor: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+
+                        Navigator.push(context,MaterialPageRoute(
+                          builder: (context) => Blog(post: post),
+                        ));
+
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(

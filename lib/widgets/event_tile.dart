@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/event_model.dart';
+import 'package:glug_app/screens/webpage.dart';
 import 'package:html/parser.dart';
 import 'package:date_format/date_format.dart';
 
-
 class EventTile extends StatelessWidget {
-
   final Event event;
 
   EventTile({this.event});
@@ -60,7 +60,6 @@ class EventTile extends StatelessWidget {
         fontWeight: FontWeight.bold,
       ),
     );
-
 
     var date = " $day, $year";
     Widget txt3 = Text(
@@ -179,18 +178,41 @@ class EventTile extends StatelessWidget {
             SizedBox(
               height: 25.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 10.0,
+//            Padding(
+//              padding: EdgeInsets.symmetric(
+//                horizontal: 10.0,
+//                vertical: 10.0,
+//              ),
+//              child: Text(
+//                _parseHtmlString(event.description),
+//                overflow: TextOverflow.visible,
+//                style: TextStyle(
+//                  color: Colors.grey,
+//                ),
+//              ),
+//            ),
+            Html(
+              data: event.description,
+              //Optional parameters:
+              padding: EdgeInsets.all(8.0),
+
+              defaultTextStyle: TextStyle(fontFamily: 'serif',color: Colors.grey),
+              linkStyle: const TextStyle(
+                color: Colors.blueAccent,
               ),
-              child: Text(
-                _parseHtmlString(event.description),
-                overflow: TextOverflow.visible,
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
+              useRichText: false,
+              onLinkTap: (url) {
+                print("Opening $url");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => WebPage(
+                          URL: url,
+                        )));
+              },
+              onImageTap: (src) {
+                // Display the image in large form.
+              },
             ),
           ],
         ),

@@ -14,3 +14,4 @@ Future<Stream<BlogPost>> getBlogPosts() async {
       .expand((data) => (data as List))
       .map((data) => BlogPost.fromJSON(data));
 }
+
