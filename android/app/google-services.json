@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "235859580858",
+    "firebase_url": "https://glug-app-78220.firebaseio.com",
+    "project_id": "glug-app-78220",
+    "storage_bucket": "glug-app-78220.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235859580858:android:ee6d743202f95e9346af83",
+        "android_client_info": {
+          "package_name": "org.nitdgplug.glug_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235859580858-0553v88i1hdbgdhni48htt0dvegfm19p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nitdgplug.glug_app",
+            "certificate_hash": "4efc1976a4b9a09cdde7c7f1a0a72b76aae19664"
+          }
+        },
+        {
+          "client_id": "235859580858-ste13au56l2uua55fgg2f0q2usv9kpta.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0G6hJHf3kInH1fzU6cVIebs_yre4Ys2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235859580858-ste13au56l2uua55fgg2f0q2usv9kpta.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
