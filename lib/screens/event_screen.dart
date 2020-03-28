@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/database/event_database.dart';
 import 'package:glug_app/models/event_model.dart';
@@ -12,7 +13,9 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
+
   Future<List<Event>> listenForEvents() async {
+
     List<Event> events = [];
 
     final Stream<Event> stream = await getEvents();
@@ -20,6 +23,12 @@ class _EventScreenState extends State<EventScreen> {
 
     return events;
   }
+
+  List<Event> _sort(List<Event> e){
+    e.sort((a,b) => DateTime.parse(a.event_timing).toLocal().compareTo(DateTime.parse(b.event_timing).toLocal()));
+    return e;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +87,14 @@ class _EventScreenState extends State<EventScreen> {
               future: listenForEvents(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
+
+                  List<Event> ev = _sort(snapshot.data);
+                  ev = ev.reversed.toList();
+
                   return ListView.builder(
-                      itemCount: snapshot.data.length,
+                      itemCount: ev.length,
                       itemBuilder: (context, index) {
-                        return EventTile(event: snapshot.data[index]);
+                        return EventTile(event: ev[index]);
                       });
                 }
                 return Center(child: CircularProgressIndicator());
