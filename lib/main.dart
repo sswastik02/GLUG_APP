@@ -3,7 +3,9 @@ import 'package:glug_app/screens/blog_screen.dart';
 import 'package:glug_app/screens/event_screen.dart';
 import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/linit_screen.dart';
+import 'package:glug_app/screens/members_screen.dart';
 import 'package:glug_app/screens/notification.dart';
+import 'package:glug_app/screens/webpage.dart';
 
 void main() => runApp(MainApp());
 
@@ -19,6 +21,7 @@ class MainApp extends StatelessWidget {
       home: EventScreen(),
       routes: {
         EventScreen.id: (context) => EventScreen(),
+        MembersScreen.id: (context) => MembersScreen(),
         BlogScreen.id: (context) => BlogScreen(),
         LinitScreen.id: (context) => LinitScreen(),
       },

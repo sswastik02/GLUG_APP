@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glug_app/screens/blog_screen.dart';
 import 'package:glug_app/screens/event_screen.dart';
 import 'package:glug_app/screens/linit_screen.dart';
+import 'package:glug_app/screens/members_screen.dart';
 
 int selectedIndex;
 
@@ -10,7 +11,7 @@ class DrawerContents extends StatefulWidget {
 
   final int sIndex;
 
-  DrawerContents(this.sIndex){
+  DrawerContents(this.sIndex) {
     selectedIndex = sIndex;
   }
 
@@ -19,8 +20,6 @@ class DrawerContents extends StatefulWidget {
 }
 
 class _DrawerContentsState extends State<DrawerContents> {
-
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -34,6 +33,9 @@ class _DrawerContentsState extends State<DrawerContents> {
               switch (selectedIndex) {
                 case 1:
                   Navigator.pushReplacementNamed(context, EventScreen.id);
+                  break;
+                case 2:
+                  Navigator.pushReplacementNamed(context, MembersScreen.id);
                   break;
                 case 3:
                   Navigator.pushReplacementNamed(context, BlogScreen.id);
