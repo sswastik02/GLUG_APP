@@ -47,6 +47,12 @@ Run the project on an AVD or an Android Mobile Device to use the App.
 ## Screenshots
 
 ![](screenshots/event_screen.jpg)
+
+
+
 ![](screenshots/blog_screen.jpg)
+
+
+
 ![](screenshots/blog.jpg)
 
