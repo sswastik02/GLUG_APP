@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glug_app/screens/blog_screen.dart';
 import 'package:glug_app/screens/event_screen.dart';
+import 'package:glug_app/screens/home_screen.dart';
 import 'package:glug_app/screens/linit_screen.dart';
 import 'package:glug_app/screens/members_screen.dart';
 
@@ -31,6 +32,9 @@ class _DrawerContentsState extends State<DrawerContents> {
                 selectedIndex = index;
               });
               switch (selectedIndex) {
+                case 0:
+                  Navigator.pushReplacementNamed(context, HomeScreen.id);
+                  break;
                 case 1:
                   Navigator.pushReplacementNamed(context, EventScreen.id);
                   break;
