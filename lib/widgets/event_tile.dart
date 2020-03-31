@@ -196,7 +196,8 @@ class EventTile extends StatelessWidget {
               //Optional parameters:
               padding: EdgeInsets.all(8.0),
 
-              defaultTextStyle: TextStyle(fontFamily: 'serif',color: Colors.grey),
+              defaultTextStyle:
+                  TextStyle(fontFamily: 'serif', color: Colors.grey),
               linkStyle: const TextStyle(
                 color: Colors.blueAccent,
               ),
@@ -207,8 +208,8 @@ class EventTile extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => WebPage(
-                          URL: url,
-                        )));
+                              URL: url,
+                            )));
               },
               onImageTap: (src) {
                 // Display the image in large form.
