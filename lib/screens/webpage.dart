@@ -1,7 +1,16 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+
+const kAndroidUserAgent =
+    'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
+
+final Set<JavascriptChannel> jsChannels = [
+  JavascriptChannel(
+      name: 'Print',
+      onMessageReceived: (JavascriptMessage message) {
+        print(message.message);
+      }),
+].toSet();
 
 var url;
 
@@ -17,14 +26,15 @@ class WebPage extends StatefulWidget {
 }
 
 class _WebPageState extends State<WebPage> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+  final flutterWebViewPlugin = FlutterWebviewPlugin();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WebviewScaffold(
+      url: url,
+      javascriptChannels: jsChannels,
+      mediaPlaybackRequiresUserGesture: false,
       appBar: AppBar(
-        leading: SizedBox(),
         centerTitle: true,
         title: Text(
           url.toString(),
@@ -33,46 +43,55 @@ class _WebPageState extends State<WebPage> {
             fontWeight: FontWeight.normal,
           ),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )
-        ],
       ),
-      body: Builder(builder: (BuildContext context) {
-        return WebView(
-          initialUrl: url,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {
-            _controller.complete(webViewController);
-          },
-          onPageStarted: (String url) {
-            print('Page started loading: $url');
-          },
-          onPageFinished: (String url) {
-            print('Page finished loading: $url');
-          },
-          gestureNavigationEnabled: true,
-        );
-      }),
-      floatingActionButton: FutureBuilder<WebViewController>(
-        future: _controller.future,
-        builder: (BuildContext context,
-            AsyncSnapshot<WebViewController> controller) {
-          if (controller.hasData) {
-            return FloatingActionButton(
-              backgroundColor: Theme.of(context).primaryColor,
-              child: Icon(Icons.arrow_back),
+      withZoom: true,
+      withLocalStorage: true,
+      hidden: true,
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).primaryColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              ),
               onPressed: () {
-                controller.data.goBack();
+                flutterWebViewPlugin.goBack();
               },
-            );
-          }
-          return Container();
-        },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                flutterWebViewPlugin.goForward();
+              },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.autorenew,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                flutterWebViewPlugin.reload();
+              },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                flutterWebViewPlugin.close();
+                flutterWebViewPlugin.dispose();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

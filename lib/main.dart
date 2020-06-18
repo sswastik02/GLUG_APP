@@ -7,7 +7,10 @@ import 'package:glug_app/screens/linit_screen.dart';
 import 'package:glug_app/screens/members_screen.dart';
 import 'package:glug_app/screens/notification.dart';
 
-void main() => runApp(MainApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MainApp());
+}
 
 class MainApp extends StatelessWidget {
   @override
