@@ -5,6 +5,8 @@ class Linit {
   final int year_edition;
   final String pdf;
 
+  Linit(this.title, this.description, this.image, this.year_edition, this.pdf);
+
   Linit.fromJSON(Map<String, dynamic> jsonMap)
       : title = jsonMap['title'],
         description = jsonMap['description'],

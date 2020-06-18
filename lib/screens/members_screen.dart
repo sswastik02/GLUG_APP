@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:glug_app/database/profile_database.dart';
+import 'package:glug_app/blocs/profiles_bloc.dart';
 import 'package:glug_app/models/profile_model.dart';
+import 'package:glug_app/models/profile_response.dart';
 import 'package:glug_app/widgets/drawer_contents.dart';
+import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/profile_tile.dart';
 
 class MembersScreen extends StatefulWidget {
@@ -12,26 +14,16 @@ class MembersScreen extends StatefulWidget {
 }
 
 class _MembersScreenState extends State<MembersScreen> {
-  List<Profile> _profiles = [];
-
   @override
   void initState() {
-    // TODO: implement initState
+    profilesBloc.fetchAllProfiles();
     super.initState();
-    listenForProfiles();
   }
 
-//  Future<List<Profile>> listenForProfiles() async {
-//    List<Profile> profiles = [];
-//
-//    final Stream<Profile> stream = await getProfiles();
-//    stream.listen((Profile profile) => setState(() => profiles.add(profile)));
-//    return profiles;
-//  }
-
-  void listenForProfiles() async {
-    final Stream<Profile> stream = await getProfiles();
-    stream.listen((Profile profile) => setState(() => _profiles.add(profile)));
+  @override
+  void dispose() {
+    profilesBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -59,6 +51,7 @@ class _MembersScreenState extends State<MembersScreen> {
                   fit: BoxFit.fill,
                 ),
               ),
+              child: null,
             ),
             Expanded(
               child: DrawerContents(2),
@@ -87,30 +80,27 @@ class _MembersScreenState extends State<MembersScreen> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: ListView.builder(
-              itemCount: _profiles.length,
-              itemBuilder: (context, index) {
-                return ProfileTile(
-                  profile: _profiles[index],
-                );
+            child: StreamBuilder(
+              stream: profilesBloc.allProfiles,
+              builder: (context, AsyncSnapshot<ProfileResponse> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data.error != null &&
+                      snapshot.data.error.length > 0) {
+                    return errorWidget(snapshot.data.error);
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data.profiles.length,
+                    itemBuilder: (context, index) {
+                      return ProfileTile(
+                          profile: snapshot.data.profiles[index]);
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return errorWidget(snapshot.error);
+                } else
+                  return Center(child: CircularProgressIndicator());
               },
             ),
-//            child: FutureBuilder(
-//              future: listenForProfiles(),
-//              builder: (context, snapshot) {
-//                if (snapshot.hasData) {
-//                  return ListView.builder(
-//                    itemCount: snapshot.data.length,
-//                    itemBuilder: (context, index) {
-//                      return ProfileTile(profile: snapshot.data[index]);
-//                    },
-//                  );
-//                }
-//                return Center(
-//                  child: CircularProgressIndicator(),
-//                );
-//              },
-//            ),
           )
         ],
       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:glug_app/database/event_database.dart';
+import 'package:glug_app/blocs/events_bloc.dart';
 import 'package:glug_app/models/event_model.dart';
+import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/widgets/drawer_contents.dart';
+import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/event_tile.dart';
 
 class EventScreen extends StatefulWidget {
@@ -12,13 +14,16 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
-  Future<List<Event>> listenForEvents() async {
-    List<Event> events = [];
+  @override
+  void initState() {
+    eventsBloc.fetchAllEvents();
+    super.initState();
+  }
 
-    final Stream<Event> stream = await getEvents();
-    stream.listen((Event event) => setState(() => events.add(event)));
-
-    return events;
+  @override
+  void dispose() {
+    eventsBloc.dispose();
+    super.dispose();
   }
 
   List<Event> _sort(List<Event> e) {
@@ -53,6 +58,7 @@ class _EventScreenState extends State<EventScreen> {
                   fit: BoxFit.fill,
                 ),
               ),
+              child: null,
             ),
             Expanded(
               child: DrawerContents(1),
@@ -81,11 +87,15 @@ class _EventScreenState extends State<EventScreen> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: FutureBuilder(
-              future: listenForEvents(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
+            child: StreamBuilder(
+              stream: eventsBloc.allEvents,
+              builder: (BuildContext context,
+                  AsyncSnapshot<EventResponse> snapshot) {
                 if (snapshot.hasData) {
-                  List<Event> ev = _sort(snapshot.data);
+                  if (snapshot.data.error != null &&
+                      snapshot.data.error.length > 0)
+                    return errorWidget(snapshot.data.error);
+                  List<Event> ev = _sort(snapshot.data.events);
                   ev = ev.reversed.toList();
 
                   return ListView.builder(
@@ -93,8 +103,10 @@ class _EventScreenState extends State<EventScreen> {
                       itemBuilder: (context, index) {
                         return EventTile(event: ev[index]);
                       });
-                }
-                return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return errorWidget(snapshot.error);
+                } else
+                  return Center(child: CircularProgressIndicator());
               },
             ),
           ),

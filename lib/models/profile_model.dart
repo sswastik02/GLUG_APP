@@ -15,6 +15,23 @@ class Profile {
   final String redditLink;
   final String linkedinLink;
 
+  Profile(
+      this.id,
+      this.userName,
+      this.firstName,
+      this.lastName,
+      this.alias,
+      this.bio,
+      this.yearName,
+      this.position,
+      this.email,
+      this.image,
+      this.degreeName,
+      this.gitLink,
+      this.facebookLink,
+      this.redditLink,
+      this.linkedinLink);
+
   Profile.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         userName = json['user_name'],

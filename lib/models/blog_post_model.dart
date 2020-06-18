@@ -8,6 +8,16 @@ class BlogPost {
   final String date_to_show;
   final List comments;
 
+  BlogPost(
+      this.show_bool,
+      this.id,
+      this.title,
+      this.author_name,
+      this.thumbnail_image,
+      this.content_body,
+      this.date_to_show,
+      this.comments);
+
   BlogPost.fromJSON(Map<String, dynamic> jsonMap)
       : show_bool = jsonMap['show_bool'],
         id = jsonMap['id'],

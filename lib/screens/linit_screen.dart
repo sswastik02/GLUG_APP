@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:glug_app/database/linit_database.dart';
+import 'package:glug_app/blocs/linitMagazines_bloc.dart';
 import 'package:glug_app/models/linit_model.dart';
+import 'package:glug_app/models/linit_response.dart';
 import 'package:glug_app/widgets/drawer_contents.dart';
+import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/linit_tile.dart';
 
 class LinitScreen extends StatefulWidget {
-
   static final id = 'linitscreen';
 
   @override
@@ -13,13 +14,16 @@ class LinitScreen extends StatefulWidget {
 }
 
 class _LinitScreenState extends State<LinitScreen> {
-  Future<List<Linit>> listenForLinit() async {
-    List<Linit> magazines = [];
+  @override
+  void initState() {
+    linitMagazinesBloc.fetchAllLinitMagazines();
+    super.initState();
+  }
 
-    final Stream<Linit> stream = await getLinit();
-    stream.listen((Linit linit) => setState(() => magazines.add(linit)));
-
-    return magazines;
+  @override
+  void dispose() {
+    linitMagazinesBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,6 +51,7 @@ class _LinitScreenState extends State<LinitScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
+              child: null,
             ),
             Expanded(
               child: DrawerContents(4),
@@ -75,19 +80,30 @@ class _LinitScreenState extends State<LinitScreen> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: FutureBuilder(
-              future: listenForLinit(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: snapshot.data.length,
+            child: StreamBuilder(
+                stream: linitMagazinesBloc.allLinitMagazines,
+                builder: (context, AsyncSnapshot<LinitResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0) {
+                      return errorWidget(snapshot.data.error);
+                    }
+                    List<Linit> lm = snapshot.data.linitMagazines;
+                    lm = lm.reversed.toList();
+
+                    return ListView.builder(
+                      itemCount: lm.length,
                       itemBuilder: (context, index) {
-                        return LinitTile(magazine: snapshot.data.reversed.toList()[index]);
-                      });
-                }
-                return Center(child: CircularProgressIndicator());
-              },
-            ),
+                        return LinitTile(
+                          magazine: lm[index],
+                        );
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return errorWidget(snapshot.error);
+                  } else
+                    return Center(child: CircularProgressIndicator());
+                }),
           ),
         ],
       ),

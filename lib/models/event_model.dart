@@ -11,6 +11,19 @@ class Event {
   final String event_image;
   final String status;
 
+  Event(
+      this.show_bool,
+      this.id,
+      this.identifier,
+      this.title,
+      this.description,
+      this.venue,
+      this.url,
+      this.event_timing,
+      this.facebook_link,
+      this.event_image,
+      this.status);
+
   Event.fromJSON(Map<String, dynamic> jsonMap)
       : show_bool = jsonMap['show_bool'],
         id = jsonMap['id'],

@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:glug_app/database/carousel_database.dart';
-import 'package:glug_app/models/carousel_model.dart';
+import 'package:glug_app/blocs/home_bloc.dart';
+import 'package:glug_app/models/carousel_response.dart';
 import 'package:glug_app/widgets/drawer_contents.dart';
+import 'package:glug_app/widgets/error_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   static final id = 'homescreen';
@@ -15,16 +14,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int imgIndex = 0;
 
-
-  Future<List<Carousel>> listenForCarouselItems() async {
-    List<Carousel> items = [];
-
-    final Stream<Carousel> stream = await getCarouselItems();
-    stream.listen((Carousel carousel) => setState(() => items.add(carousel)));
-
-    return items;
-  }
-
   void _onPrev(int length) {
     setState(() {
       imgIndex = (imgIndex == 0) ? length - 1 : imgIndex - 1;
@@ -35,6 +24,18 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       imgIndex = (imgIndex == length - 1) ? 0 : imgIndex + 1;
     });
+  }
+
+  @override
+  void initState() {
+    homeBloc.fetchAllData();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    homeBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -62,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fit: BoxFit.fill,
                 ),
               ),
+              child: null,
             ),
             Expanded(
               child: DrawerContents(0),
@@ -87,10 +89,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: FutureBuilder(
-        future: listenForCarouselItems(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
+      body: StreamBuilder(
+        stream: homeBloc.allData,
+        builder:
+            (BuildContext context, AsyncSnapshot<CarouselResponse> snapshot) {
           if (snapshot.hasData) {
+            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+              return errorWidget(snapshot.data.error);
+            }
+
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         image: DecorationImage(
-                          image: NetworkImage(snapshot.data[imgIndex].image),
+                          image: NetworkImage(
+                              snapshot.data.carousel[imgIndex].image),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -116,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 50.0,
                         child: Center(
                           child: Text(
-                            snapshot.data[imgIndex].heading,
+                            snapshot.data.carousel[imgIndex].heading,
                             style: TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
@@ -145,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         color: Theme.of(context).primaryColor,
                         onPressed: () {
-                          _onPrev(snapshot.data.length);
+                          _onPrev(snapshot.data.carousel.length);
                         },
                       ),
                       SizedBox(
@@ -158,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         color: Theme.of(context).primaryColor,
                         onPressed: () {
-                          _onNext(snapshot.data.length);
+                          _onNext(snapshot.data.carousel.length);
                         },
                       ),
                       SizedBox(
@@ -185,11 +193,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             );
-          }
-
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          } else if (snapshot.hasError) {
+            return errorWidget(snapshot.error);
+          } else
+            return Center(child: CircularProgressIndicator());
         },
       ),
     );

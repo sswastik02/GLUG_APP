@@ -7,17 +7,11 @@ class ProfileTile extends StatelessWidget {
 
   ProfileTile({this.profile});
 
-  final List<String> yr = [
-    '1st year',
-    '2nd year',
-    '3rd year',
-    'Final year',
-    'Graduated'
-  ];
+  final List<String> yr = ['1st year', '2nd year', '3rd year', 'Final year'];
 
   String _aboutText() {
     String about = "";
-    about += yr[profile.yearName - 1];
+    about += profile.yearName <= 4 ? yr[profile.yearName - 1] : "Graduated";
     about += ", " + profile.degreeName + "\n";
     about += '~' + profile.bio;
     return about;
