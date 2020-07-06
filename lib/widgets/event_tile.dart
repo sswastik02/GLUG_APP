@@ -48,6 +48,7 @@ class EventTile extends StatelessWidget {
     Widget txt1 = Text(
       m.substring(0, 3),
       style: TextStyle(
+        fontFamily: "Montserrat",
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
@@ -55,6 +56,7 @@ class EventTile extends StatelessWidget {
     Widget txt2 = Text(
       m.substring(3),
       style: TextStyle(
+        fontFamily: "Montserrat",
         color: Colors.deepOrange,
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
@@ -65,6 +67,7 @@ class EventTile extends StatelessWidget {
     Widget txt3 = Text(
       date,
       style: TextStyle(
+        fontFamily: "Montserrat",
         color: Colors.deepOrangeAccent,
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
@@ -105,6 +108,8 @@ class EventTile extends StatelessWidget {
         vertical: 20.0,
       ),
       child: Card(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         elevation: 10.0,
         child: Column(
           children: <Widget>[
@@ -114,6 +119,7 @@ class EventTile extends StatelessWidget {
               ),
               alignment: Alignment.bottomLeft,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
                   image: event.event_image != null
                       ? NetworkImage(event.event_image)
@@ -145,6 +151,7 @@ class EventTile extends StatelessWidget {
               child: Text(
                 event.title,
                 style: TextStyle(
+                  fontFamily: "Montserrat",
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Theme.of(context).primaryColor,
@@ -164,7 +171,12 @@ class EventTile extends StatelessWidget {
                 SizedBox(
                   width: 5.0,
                 ),
-                Text(_getTime(event.event_timing)),
+                Text(
+                  _getTime(event.event_timing),
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                  ),
+                ),
                 SizedBox(
                   width: 10.0,
                 ),
@@ -172,7 +184,12 @@ class EventTile extends StatelessWidget {
                 SizedBox(
                   width: 5.0,
                 ),
-                Text(event.venue != null ? event.venue : 'Online'),
+                Text(
+                  event.venue != null ? event.venue : 'Online',
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                  ),
+                ),
               ],
             ),
             SizedBox(
@@ -197,7 +214,7 @@ class EventTile extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
 
               defaultTextStyle:
-                  TextStyle(fontFamily: 'serif', color: Colors.grey),
+                  TextStyle(fontFamily: "Montserrat", color: Colors.grey),
               linkStyle: const TextStyle(
                 color: Colors.blueAccent,
               ),

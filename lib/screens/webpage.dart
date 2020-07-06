@@ -39,6 +39,7 @@ class _WebPageState extends State<WebPage> {
         title: Text(
           url.toString(),
           style: TextStyle(
+            fontFamily: "Montserrat",
             fontSize: 15.0,
             fontWeight: FontWeight.normal,
           ),

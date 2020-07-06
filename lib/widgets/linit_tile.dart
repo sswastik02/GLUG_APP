@@ -14,6 +14,8 @@ class LinitTile extends StatelessWidget {
         vertical: 20.0,
       ),
       child: Card(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         elevation: 10.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,6 +25,7 @@ class LinitTile extends StatelessWidget {
                 height: 500.0,
               ),
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
                   image: magazine.image != null
                       ? NetworkImage(magazine.image)
@@ -39,6 +42,7 @@ class LinitTile extends StatelessWidget {
               child: Text(
                 magazine.title,
                 style: TextStyle(
+                  fontFamily: "Montserrat",
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,

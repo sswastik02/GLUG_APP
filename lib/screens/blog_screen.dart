@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/blocs/blogPosts_bloc.dart';
 import 'package:glug_app/models/blog_post_model.dart';
 import 'package:glug_app/models/blog_response.dart';
-import 'package:glug_app/widgets/drawer_contents.dart';
 import 'package:glug_app/widgets/blog_post_tile.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 
@@ -35,84 +35,58 @@ class _BlogScreenState extends State<BlogScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "BLOG",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 20.0,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                "Blog",
+                style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic),
+              ),
+              FaIcon(FontAwesomeIcons.blog),
+            ],
           ),
         ),
-        centerTitle: true,
-      ),
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('images/drawer_header.jpeg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: null,
-            ),
-            Expanded(
-              child: DrawerContents(3),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 20.0,
-                left: 5.0,
-              ),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: AssetImage('images/glug_logo.jpeg'),
-                ),
-                title: Text(
-                  "Developed by the GNU Linux Users' Group NITDGP",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ),
-            ),
-          ],
+        Divider(
+          thickness: 1.0,
+          color: Theme.of(context).primaryColor,
         ),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: StreamBuilder(
-              stream: blogPostsBloc.allBlogPosts,
-              builder: (context, AsyncSnapshot<BlogResponse> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.error != null &&
-                      snapshot.data.error.length > 0) {
-                    return errorWidget(snapshot.data.error);
-                  }
-                  List<BlogPost> posts = _sort(snapshot.data.blogPosts);
-                  posts = posts.reversed.toList();
-
-                  return ListView.builder(
-                      itemCount: posts.length,
-                      itemBuilder: (context, index) {
-                        return BlogPostTile(post: posts[index]);
-                      });
-                } else if (snapshot.hasError) {
-                  return errorWidget(snapshot.error);
-                } else {
-                  return Center(child: CircularProgressIndicator());
+        Expanded(
+          child: StreamBuilder(
+            stream: blogPostsBloc.allBlogPosts,
+            builder: (context, AsyncSnapshot<BlogResponse> snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data.error != null &&
+                    snapshot.data.error.length > 0) {
+                  return errorWidget(snapshot.data.error);
                 }
-              },
-            ),
+                List<BlogPost> posts = _sort(snapshot.data.blogPosts);
+                posts = posts.reversed.toList();
+
+                return ListView.builder(
+                    itemCount: posts.length,
+                    itemBuilder: (context, index) {
+                      return BlogPostTile(post: posts[index]);
+                    });
+              } else if (snapshot.hasError) {
+                return errorWidget(snapshot.error);
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

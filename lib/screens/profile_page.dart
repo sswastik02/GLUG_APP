@@ -40,6 +40,7 @@ class ProfilePage extends StatelessWidget {
         title: Text(
           profile.firstName + " " + profile.lastName,
           style: TextStyle(
+            fontFamily: "Montserrat",
             color: Colors.white,
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
@@ -72,6 +73,7 @@ class ProfilePage extends StatelessWidget {
             Text(
               _titleText(),
               style: TextStyle(
+                fontFamily: "Montserrat",
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -83,7 +85,12 @@ class ProfilePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: 20.0,
               ),
-              child: Text(_aboutText()),
+              child: Text(
+                _aboutText(),
+                style: TextStyle(
+                  fontFamily: "Montserrat",
+                ),
+              ),
             ),
             SizedBox(
               height: 25.0,

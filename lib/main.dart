@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:glug_app/screens/blog_screen.dart';
+import 'package:glug_app/screens/dashboard.dart';
 import 'package:glug_app/screens/event_screen.dart';
 import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/home_screen.dart';
@@ -9,6 +11,7 @@ import 'package:glug_app/screens/notification.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(MainApp());
 }
 
@@ -19,9 +22,9 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "GLUG App",
       theme: ThemeData(
-        primaryColor: Color(0xFF303C42),
+        primaryColor: Colors.deepOrangeAccent,
       ),
-      home: HomeScreen(),
+      home: Dashboard(),
       routes: {
         HomeScreen.id: (context) => HomeScreen(),
         EventScreen.id: (context) => EventScreen(),

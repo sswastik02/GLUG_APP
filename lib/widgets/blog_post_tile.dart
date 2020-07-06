@@ -32,6 +32,8 @@ class BlogPostTile extends StatelessWidget {
               vertical: 20.0,
             ),
             child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0)),
               elevation: 10.0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -41,6 +43,7 @@ class BlogPostTile extends StatelessWidget {
                       height: 250.0,
                     ),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
                       image: DecorationImage(
                         image: post.thumbnail_image != null
                             ? NetworkImage(post.thumbnail_image)
@@ -61,6 +64,7 @@ class BlogPostTile extends StatelessWidget {
                       child: Text(
                         post.title,
                         style: TextStyle(
+                          fontFamily: "Montserrat",
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor,
                           fontSize: 18.0,
@@ -78,7 +82,12 @@ class BlogPostTile extends StatelessWidget {
                       SizedBox(
                         width: 5.0,
                       ),
-                      Text(_getDate(post.date_to_show)),
+                      Text(
+                        _getDate(post.date_to_show),
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                        ),
+                      ),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -86,7 +95,12 @@ class BlogPostTile extends StatelessWidget {
                       SizedBox(
                         width: 5.0,
                       ),
-                      Text(post.author_name),
+                      Text(
+                        post.author_name,
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -114,17 +128,19 @@ class BlogPostTile extends StatelessWidget {
                       color: Colors.deepOrangeAccent,
                       textColor: Colors.white,
                       onPressed: () {
-
-                        Navigator.push(context,MaterialPageRoute(
-                          builder: (context) => Blog(post: post),
-                        ));
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Blog(post: post),
+                            ));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
                           'Read',
                           style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontWeight: FontWeight.bold,
                             fontSize: 16.0,
                           ),
                         ),

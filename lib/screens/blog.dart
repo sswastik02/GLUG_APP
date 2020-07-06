@@ -33,6 +33,7 @@ class Blog extends StatelessWidget {
         title: Text(
           post.title,
           style: TextStyle(
+            fontFamily: "Montserrat",
             color: Colors.white,
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
@@ -72,7 +73,12 @@ class Blog extends StatelessWidget {
                 SizedBox(
                   width: 5.0,
                 ),
-                Text(_getDate(post.date_to_show)),
+                Text(
+                  _getDate(post.date_to_show),
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                  ),
+                ),
                 SizedBox(
                   width: 10.0,
                 ),
@@ -80,7 +86,12 @@ class Blog extends StatelessWidget {
                 SizedBox(
                   width: 5.0,
                 ),
-                Text(post.author_name),
+                Text(
+                  post.author_name,
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                  ),
+                ),
               ],
             ),
 //            SizedBox(
@@ -110,7 +121,9 @@ class Blog extends StatelessWidget {
                 horizontal: 20.0,
               ),
 
-              defaultTextStyle: TextStyle(fontFamily: 'serif'),
+              defaultTextStyle: TextStyle(
+                fontFamily: "Montserrat",
+              ),
               linkStyle: const TextStyle(
                 color: Colors.blueAccent,
               ),

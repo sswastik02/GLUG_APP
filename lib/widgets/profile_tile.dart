@@ -45,18 +45,27 @@ class ProfileTile extends StatelessWidget {
       title: Text(
         _titleText(),
         style: TextStyle(
+          fontFamily: "Montserrat",
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),
       ),
       subtitle: Text(
         _aboutText(),
+        style: TextStyle(
+          fontFamily: "Montserrat",
+        ),
       ),
       contentPadding: EdgeInsets.symmetric(
         horizontal: 10.0,
         vertical: 20.0,
       ),
-      trailing: Text(profile.alias != null ? "@" + profile.alias : ""),
+      trailing: Text(
+        profile.alias != null ? "@" + profile.alias : "",
+        style: TextStyle(
+          fontFamily: "Montserrat",
+        ),
+      ),
       onTap: () {
         Navigator.push(
             context,
