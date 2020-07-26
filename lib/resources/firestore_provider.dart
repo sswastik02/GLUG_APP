@@ -1,0 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class FirestoreProvider {
+  final Firestore _firestore = Firestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<String> getCurrentUserID() async {
+    FirebaseUser user = await _auth.currentUser();
+    return user.uid;
+  }
+
+  Stream<DocumentSnapshot> fetchUserData() async* {
+    final uid = await getCurrentUserID();
+    Stream<DocumentSnapshot> snap =
+        _firestore.collection("/users").document(uid).snapshots();
+    yield* snap;
+  }
+}
