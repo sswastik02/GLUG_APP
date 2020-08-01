@@ -16,4 +16,24 @@ class FirestoreProvider {
         _firestore.collection("/users").document(uid).snapshots();
     yield* snap;
   }
+
+  void removeEventData(data, event) async {
+    _firestore.runTransaction((transaction) async {
+      DocumentSnapshot freshSnap = await transaction.get(data.reference);
+
+      await transaction.update(freshSnap.reference, {
+        "eventDetail": FieldValue.arrayRemove([event])
+      });
+    });
+  }
+
+  void addEventData(data, event) async {
+    _firestore.runTransaction((transaction) async {
+      DocumentSnapshot freshSnap = await transaction.get(data.reference);
+
+      await transaction.update(freshSnap.reference, {
+        "eventDetail": FieldValue.arrayUnion([event])
+      });
+    });
+  }
 }

@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _signInButton({String type}) {
     return RaisedButton(
-      elevation: 5.0,
+      elevation: 10.0,
       splashColor: Colors.grey,
       onPressed: () {
         if (type == "Google") {
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
           });
-        } else {}
+        } else {} // Facebook Login
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       color: Colors.white,
@@ -90,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ? 'Sign in with Google'
                     : 'Sign in with Facebook',
                 style: TextStyle(
+                  fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,
                   fontFamily: "Montserrat",
