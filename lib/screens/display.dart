@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:glug_app/screens/chatroom.dart';
 // import 'package:glug_app/screens/blog_screen.dart';
 import 'package:glug_app/screens/dashboard.dart';
 // import 'package:glug_app/screens/event_screen.dart';
@@ -17,6 +18,7 @@ class _DisplayState extends State<Display> {
 
   List screens = [
     HomeScreen(),
+    Chatroom(),
     // EventScreen(),
     // BlogScreen(),
     MembersScreen(),
@@ -48,6 +50,13 @@ class _DisplayState extends State<Display> {
             icon: Icon(Icons.home),
             title: Text(
               "Home",
+              style: TextStyle(fontFamily: "Montserrat"),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            title: Text(
+              "Chat",
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),

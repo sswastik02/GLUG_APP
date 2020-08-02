@@ -17,6 +17,14 @@ class FirestoreProvider {
     yield* snap;
   }
 
+  Stream<QuerySnapshot> fetchChatroomData() async* {
+    Stream<QuerySnapshot> snap = _firestore
+        .collection("/chatroom")
+        .orderBy('time', descending: false)
+        .snapshots();
+    yield* snap;
+  }
+
   void removeEventData(data, event) async {
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(data.reference);
@@ -34,6 +42,17 @@ class FirestoreProvider {
       await transaction.update(freshSnap.reference, {
         "eventDetail": FieldValue.arrayUnion([event])
       });
+    });
+  }
+
+  void composeMessage(String textMessage) async {
+    final uid = await getCurrentUserID();
+    DocumentReference userRef = _firestore.collection("/users").document(uid);
+
+    _firestore.collection("/chatroom").add({
+      "message": textMessage,
+      "time": Timestamp.now(),
+      "user": userRef,
     });
   }
 }
