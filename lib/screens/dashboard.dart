@@ -147,7 +147,8 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                   ),
-                  userData["eventDetail"] == null
+                  (userData["eventDetail"] == null ||
+                          userData["eventDetail"].length == 0)
                       ? Text(
                           "No data added yet",
                           style: TextStyle(

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/blog_post_model.dart';
 import 'package:glug_app/screens/webpage.dart';
-import 'package:html/parser.dart';
 
 class Blog extends StatelessWidget {
   static final id = 'blog';
@@ -11,14 +10,6 @@ class Blog extends StatelessWidget {
   final BlogPost post;
 
   Blog({this.post});
-
-  String _parseHtmlString(String htmlString) {
-    var document = parse(htmlString);
-
-    String parsedString = parse(document.body.text).documentElement.text;
-
-    return parsedString;
-  }
 
   String _getDate(String s) {
     DateTime dateTime = DateTime.parse(s).toLocal();
@@ -46,20 +37,14 @@ class Blog extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Container(
-                constraints: BoxConstraints.expand(
-                  height: 300.0,
-                ),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(post.thumbnail_image),
-                    fit: BoxFit.cover,
-                  ),
+            Container(
+              constraints: BoxConstraints.expand(
+                height: 300.0,
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(post.thumbnail_image),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -94,22 +79,6 @@ class Blog extends StatelessWidget {
                 ),
               ],
             ),
-//            SizedBox(
-//              height: 30.0,
-//            ),
-//            Padding(
-//              padding: EdgeInsets.symmetric(
-//                vertical: 10.0,
-//                horizontal: 10.0,
-//              ),
-//              child: Text(
-//                _parseHtmlString(post.content_body),
-//                style: TextStyle(
-//                  color: Colors.grey,
-//                ),
-//                overflow: TextOverflow.visible,
-//              ),
-//            ),
             SizedBox(
               height: 20.0,
             ),

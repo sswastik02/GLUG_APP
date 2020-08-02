@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:glug_app/screens/blog_screen.dart';
+// import 'package:glug_app/screens/blog_screen.dart';
 import 'package:glug_app/screens/dashboard.dart';
-import 'package:glug_app/screens/event_screen.dart';
+// import 'package:glug_app/screens/event_screen.dart';
 import 'package:glug_app/screens/home_screen.dart';
-import 'package:glug_app/screens/linit_screen.dart';
+// import 'package:glug_app/screens/linit_screen.dart';
 import 'package:glug_app/screens/members_screen.dart';
 
 class Display extends StatefulWidget {
@@ -17,10 +17,10 @@ class _DisplayState extends State<Display> {
 
   List screens = [
     HomeScreen(),
-    EventScreen(),
-    BlogScreen(),
+    // EventScreen(),
+    // BlogScreen(),
     MembersScreen(),
-    LinitScreen(),
+    // LinitScreen(),
     Dashboard()
   ];
 
@@ -51,20 +51,20 @@ class _DisplayState extends State<Display> {
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.event),
-            title: Text(
-              "Events",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.blog),
-            title: Text(
-              "Blog",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.event),
+          //   title: Text(
+          //     "Events",
+          //     style: TextStyle(fontFamily: "Montserrat"),
+          //   ),
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: FaIcon(FontAwesomeIcons.blog),
+          //   title: Text(
+          //     "Blog",
+          //     style: TextStyle(fontFamily: "Montserrat"),
+          //   ),
+          // ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.userFriends),
             title: Text(
@@ -72,13 +72,13 @@ class _DisplayState extends State<Display> {
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.book),
-            title: Text(
-              "Linit",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
-          ),
+          // BottomNavigationBarItem(
+          //   icon: FaIcon(FontAwesomeIcons.book),
+          //   title: Text(
+          //     "Linit",
+          //     style: TextStyle(fontFamily: "Montserrat"),
+          //   ),
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             title: Text(

@@ -86,7 +86,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         ),
         centerTitle: true,
       ),
-      body: StreamBuilder<Object>(
+      body: StreamBuilder(
           stream: _provider.fetchUserData(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -127,8 +127,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                         borderSide:
                                             BorderSide(color: Colors.grey),
                                       ),
-                                      hintText: "Event Name",
-                                      labelText: "Enter an Event"),
+                                      hintText: "Event name",
+                                      labelText: "Enter an event"),
                                 ),
                                 SizedBox(
                                   height: 5.0,
@@ -144,7 +144,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                                             BorderSide(color: Colors.grey),
                                       ),
                                       hintText: "Rating",
-                                      labelText: "Enter event rating"),
+                                      labelText:
+                                          "Enter event rating out of 10"),
                                 ),
                               ],
                             ),
@@ -152,17 +153,20 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           IconButton(
                             icon: Icon(Icons.add_circle),
                             onPressed: () {
-                              Map<String, dynamic> event;
+                              if (_controller1.text.toString().length != 0 &&
+                                  _controller2.text.toString().length != 0) {
+                                Map<String, dynamic> event;
 
-                              event = {
-                                "name": _controller1.text.toString(),
-                                "rating":
-                                    double.parse(_controller2.text.toString()),
-                              };
+                                event = {
+                                  "name": _controller1.text.toString(),
+                                  "rating": double.parse(
+                                      _controller2.text.toString()),
+                                };
 
-                              _controller1.clear();
-                              _controller2.clear();
-                              _provider.addEventData(snapshot.data, event);
+                                _controller1.clear();
+                                _controller2.clear();
+                                _provider.addEventData(snapshot.data, event);
+                              }
                             },
                           ),
                         ],
@@ -183,7 +187,16 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                       height: 10.0,
                     ),
                     Expanded(
-                      child: _buildEventList(snapshot.data),
+                      child: (snapshot.data["eventDetail"] != null &&
+                              snapshot.data["eventDetail"].length != 0)
+                          ? _buildEventList(snapshot.data)
+                          : Text(
+                              "No data added yet",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 14.0,
+                              ),
+                            ),
                     ),
                   ],
                 ),

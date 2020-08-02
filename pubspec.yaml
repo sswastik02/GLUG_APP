@@ -30,7 +30,6 @@ dependencies:
   google_sign_in: ^4.5.1
   http: ^0.12.0+4
   dio: ^3.0.9
-  html: ^0.14.0+3
   rxdart: ^0.24.0
   date_format: ^1.0.8
   flutter_html: ^0.11.1
