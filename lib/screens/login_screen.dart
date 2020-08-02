@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 50),
               _signInButton(type: "Google"),
               SizedBox(height: 20.0),
-              _signInButton(type: "Facebook"),
+              // _signInButton(type: "Facebook"),
             ],
           ),
         ),
