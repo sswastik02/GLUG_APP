@@ -52,7 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
-                  image: NetworkImage(item.event_image),
+                  image: item.event_image != null
+                      ? NetworkImage(item.event_image)
+                      : AssetImage("images/glug_logo.jpeg"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -97,7 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
-                  image: NetworkImage(item.thumbnail_image),
+                  image: item.thumbnail_image != null
+                      ? NetworkImage(item.thumbnail_image)
+                      : AssetImage("images/glug_logo.jpeg"),
                   fit: BoxFit.cover,
                 ),
               ),

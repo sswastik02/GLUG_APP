@@ -17,6 +17,8 @@ class Blog extends StatelessWidget {
     return date;
   }
 
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,85 +35,103 @@ class Blog extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              constraints: BoxConstraints.expand(
-                height: 300.0,
+      body: Stack(
+        children: <Widget>[
+          Container(
+            constraints: BoxConstraints.expand(
+              height: MediaQuery.of(context).size.height,
+            ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(post.thumbnail_image),
+                fit: BoxFit.cover,
               ),
+            ),
+          ),
+          DraggableScrollableSheet(
+            initialChildSize: 0.3,
+            minChildSize: 0.3,
+            maxChildSize: 0.75,
+            builder: (context, _scrollController) => Container(
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(post.thumbnail_image),
-                  fit: BoxFit.cover,
-                ),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0)),
               ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.calendar_today),
-                SizedBox(
-                  width: 5.0,
-                ),
-                Text(
-                  _getDate(post.date_to_show),
-                  style: TextStyle(
-                    fontFamily: "Montserrat",
-                  ),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Icon(Icons.edit),
-                SizedBox(
-                  width: 5.0,
-                ),
-                Text(
-                  post.author_name,
-                  style: TextStyle(
-                    fontFamily: "Montserrat",
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Html(
-              data: post.content_body,
-              //Optional parameters:
-              padding: EdgeInsets.symmetric(
-                vertical: 10.0,
-                horizontal: 20.0,
-              ),
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.calendar_today),
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                        Text(
+                          _getDate(post.date_to_show),
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Icon(Icons.edit),
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                        Text(
+                          post.author_name,
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Html(
+                      data: post.content_body,
+                      //Optional parameters:
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20.0,
+                      ),
 
-              defaultTextStyle: TextStyle(
-                fontFamily: "Montserrat",
+                      defaultTextStyle: TextStyle(
+                        fontFamily: "Montserrat",
+                      ),
+                      linkStyle: const TextStyle(
+                        color: Colors.blueAccent,
+                      ),
+                      useRichText: false,
+                      onLinkTap: (url) {
+                        print("Opening $url");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WebPage(
+                                      URL: url,
+                                    )));
+                      },
+                      onImageTap: (src) {
+                        // Display the image in large form.
+                      },
+                    ),
+                  ],
+                ),
               ),
-              linkStyle: const TextStyle(
-                color: Colors.blueAccent,
-              ),
-              useRichText: false,
-              onLinkTap: (url) {
-                print("Opening $url");
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WebPage(
-                              URL: url,
-                            )));
-              },
-              onImageTap: (src) {
-                // Display the image in large form.
-              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
