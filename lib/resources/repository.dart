@@ -2,6 +2,7 @@ import 'package:glug_app/models/blog_response.dart';
 import 'package:glug_app/models/carousel_response.dart';
 import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/models/linit_response.dart';
+import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/models/profile_response.dart';
 import 'package:glug_app/resources/api_provider.dart';
 
@@ -21,4 +22,6 @@ class Repository {
 
   Future<ProfileResponse> fetchAllProfiles() async =>
       _apiProvider.fetchProfileData();
+
+  Future<Notice> fetchAllNotices() async => _apiProvider.fetchNoticeData();
 }

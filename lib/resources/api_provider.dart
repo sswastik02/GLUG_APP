@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:glug_app/models/blog_response.dart';
 import 'package:glug_app/models/carousel_response.dart';
 import 'dart:async';
 import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/models/linit_response.dart';
+import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/models/profile_response.dart';
 
 class ApiProvider {
@@ -13,6 +16,8 @@ class ApiProvider {
   static final String profilesURL = "$baseURL/api/profiles/";
   static final String linitURL = "$baseURL/api/linit/";
   static final String carouselURL = "$baseURL/api/carousel/";
+  static final String noticeURL =
+      "https://admin.nitdgp.ac.in/academics/notices";
 
   final Dio _dio = new Dio();
 
@@ -78,6 +83,17 @@ class ApiProvider {
     } catch (error, stackTrace) {
       print("Exception occured: $error stackTrace: $stackTrace");
       return ProfileResponse.withError("$error");
+    }
+  }
+
+  Future<Notice> fetchNoticeData() async {
+    try {
+      Response response = await _dio.get(noticeURL);
+      print(response.data.toString());
+      return Notice.fromJson(json.decode(response.data));
+    } catch (error, stackTrace) {
+      print("Exception occured: $error stackTrace: $stackTrace");
+      return null;
     }
   }
 }
