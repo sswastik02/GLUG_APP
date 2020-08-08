@@ -90,7 +90,7 @@ class ApiProvider {
     try {
       Response response = await _dio.get(noticeURL);
       print(response.data.toString());
-      return Notice.fromJson(json.decode(response.data));
+      return Notice.fromJson(response.data);
     } catch (error, stackTrace) {
       print("Exception occured: $error stackTrace: $stackTrace");
       return null;

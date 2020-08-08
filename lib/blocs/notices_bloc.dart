@@ -6,7 +6,7 @@ class NoticeBloc {
   final _respository = Repository();
   final _noticesFetcher = BehaviorSubject<Notice>();
 
-  Stream<Notice> get allData => _noticesFetcher.stream;
+  Stream<Notice> get allNoticeData => _noticesFetcher.stream;
 
   fetchAllData() async {
     Notice notice = await _respository.fetchAllNotices();
