@@ -7,7 +7,7 @@ class NoticeProperties {
 
   NoticeProperties({this.title, this.file, this.date});
 
-  factory NoticeProperties.fromJson(Map<String, String> jsonMap) {
+  factory NoticeProperties.fromJson(Map<String, dynamic> jsonMap) {
     return NoticeProperties(
       title: jsonMap['title'],
       file: jsonMap['file'],
@@ -24,13 +24,25 @@ class NoticeCategories {
 
   NoticeCategories({this.general, this.student, this.academic, this.hostel});
 
-  factory NoticeCategories.fromJson(
-      Map<String, List<NoticeProperties>> jsonMap) {
+  factory NoticeCategories.fromJson(Map<String, dynamic> jsonMap) {
+    var generalfromjson = jsonMap['General'];
+    List<NoticeProperties> generalList =
+        new List<NoticeProperties>.from(generalfromjson);
+    var studentfromjson = jsonMap['Student'];
+    List<NoticeProperties> studentList =
+        new List<NoticeProperties>.from(studentfromjson);
+    var academicfromjson = jsonMap['Academic'];
+    List<NoticeProperties> academicList =
+        new List<NoticeProperties>.from(academicfromjson);
+    var hostelfromjson = jsonMap['Hostel'];
+    List<NoticeProperties> hostelList =
+        new List<NoticeProperties>.from(hostelfromjson);
     return NoticeCategories(
-        general: jsonMap['General'],
-        student: jsonMap['Student'],
-        academic: jsonMap['Academic'],
-        hostel: jsonMap['Hostel']);
+      general: generalList,
+      student: studentList,
+      academic: academicList,
+      hostel: hostelList,
+    );
   }
 }
 
@@ -39,9 +51,9 @@ class Notice {
 
   Notice({this.notices});
 
-  factory Notice.fromJson(Map<String, NoticeCategories> jsonMap) {
+  factory Notice.fromJson(Map<String, dynamic> jsonMap) {
     return Notice(
-      notices: jsonMap['notices'],
+      notices: NoticeCategories.fromJson(jsonMap['notices']),
     );
   }
 
