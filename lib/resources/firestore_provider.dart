@@ -20,7 +20,7 @@ class FirestoreProvider {
   Stream<QuerySnapshot> fetchChatroomData() async* {
     Stream<QuerySnapshot> snap = _firestore
         .collection("/chatroom")
-        .orderBy('time', descending: false)
+        .orderBy('time', descending: true)
         .snapshots();
     yield* snap;
   }

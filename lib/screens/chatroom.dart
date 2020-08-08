@@ -32,6 +32,7 @@ class _ChatroomState extends State<Chatroom> {
           builder: (context, docSnapshot) {
             if (docSnapshot.hasData) {
               return ListTile(
+                onTap: () {},
                 leading: CircleAvatar(
                   radius: 20.0,
                   backgroundImage: NetworkImage(docSnapshot.data["photoUrl"]),
@@ -98,6 +99,7 @@ class _ChatroomState extends State<Chatroom> {
             iconSize: 25.0,
             color: Theme.of(context).primaryColor,
             onPressed: () {
+              FocusScope.of(context).unfocus();
               _provider.composeMessage(_controller.text.toString());
               _controller.clear();
             },
@@ -153,8 +155,7 @@ class _ChatroomState extends State<Chatroom> {
               if (snapshot.hasData) {
                 return ListView(
                   reverse: true,
-                  children:
-                      _buildChats(snapshot.data.documents.reversed.toList()),
+                  children: _buildChats(snapshot.data.documents),
                 );
               } else if (snapshot.hasError)
                 return errorWidget(snapshot.error);

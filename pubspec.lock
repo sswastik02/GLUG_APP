@@ -23,7 +23,11 @@ packages:
     source: hosted
     version: "2.2.1"
   characters:
+<<<<<<< HEAD
     dependency: transitive
+=======
+    dependency: "direct main"
+>>>>>>> f35fbc3b9982d071aa6b5ba7382319c3f80f25e3
     description:
       name: characters
       url: "https://pub.dartlang.org"
