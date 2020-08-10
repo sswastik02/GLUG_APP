@@ -53,21 +53,27 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _onPressedGoogleSignInButton() async {
+    String status = await signInWithGoogle();
+
+    if (status == "Success") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) {
+            return Display();
+          },
+        ),
+      );
+    }
+  }
+
   Widget _signInButton({String type}) {
     return RaisedButton(
       elevation: 10.0,
       splashColor: Colors.grey,
       onPressed: () {
         if (type == "Google") {
-          signInWithGoogle().whenComplete(() {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Display();
-                },
-              ),
-            );
-          });
+          _onPressedGoogleSignInButton();
         } else {} // Facebook Login
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

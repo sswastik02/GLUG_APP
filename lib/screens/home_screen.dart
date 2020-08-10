@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildEventList(List<Event> events) {
+    events.removeWhere((event) => event.title == null);
     List<Widget> eventWidgets = events
         .map(
           (item) => GestureDetector(
@@ -84,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildBlogList(List<BlogPost> blogs) {
+    blogs.removeWhere((blog) => blog.title == null);
     List<Widget> blogWidgets = blogs
         .map(
           (item) => GestureDetector(
