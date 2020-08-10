@@ -134,130 +134,195 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundImage: AssetImage("images/glug_logo.jpeg"),
-                  radius: 30.0,
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Text(
-                  "GLUG App",
-                  style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            thickness: 1.0,
-            color: Theme.of(context).primaryColor,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
-              child: Text(
-                "Our Events",
-                style: TextStyle(
-                    fontFamily: "Montserrat",
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic),
-              ),
-            ),
-          ),
-          StreamBuilder(
-              stream: eventsBloc.allEvents,
-              builder: (context, AsyncSnapshot<EventResponse> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.error != null &&
-                      snapshot.data.error.length > 0)
-                    return errorWidget(snapshot.data.error);
-                  return CarouselSlider(
-                    items: _buildEventList(snapshot.data.events),
-                    options: CarouselOptions(
-                      aspectRatio: 2,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 5),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return errorWidget(snapshot.error);
-                } else
-                  return Center(child: CircularProgressIndicator());
-              }),
-          SizedBox(
-            height: 20.0,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
-              child: Text(
-                "Our Blog",
-                style: TextStyle(
-                    fontFamily: "Montserrat",
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic),
-              ),
-            ),
-          ),
-          StreamBuilder(
-              stream: blogPostsBloc.allBlogPosts,
-              builder: (context, AsyncSnapshot<BlogResponse> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.error != null &&
-                      snapshot.data.error.length > 0)
-                    return errorWidget(snapshot.data.error);
-                  return CarouselSlider(
-                    items: _buildBlogList(snapshot.data.blogPosts),
-                    options: CarouselOptions(
-                      aspectRatio: 2,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 5),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  );
-                } else if (snapshot.hasError) {
-                  return errorWidget(snapshot.error);
-                } else
-                  return Center(child: CircularProgressIndicator());
-              }),
-          SizedBox(
-            height: 10.0,
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "HOME"
+        ),
       ),
+      body:SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+           /* Padding(
+              padding:
+              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage("images/glug_logo.jpeg"),
+                    radius: 20.0,
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Text(
+                    "HOME",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              thickness: 1.0,
+              color: Theme.of(context).primaryColor,
+            ),*/
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "OU",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal),
+                      ),
+                      Text(
+                        "R EV",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                            color: Colors.deepOrange
+                        ),
+                      ),
+
+                      Text(
+                        "ENTS",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+
+                        ),
+                      ),
+
+                    ]
+                  )
+              ),
+            ),
+            StreamBuilder(
+                stream: eventsBloc.allEvents,
+                builder: (context, AsyncSnapshot<EventResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0)
+                      return errorWidget(snapshot.data.error);
+                    return CarouselSlider(
+                      items: _buildEventList(snapshot.data.events),
+                      options: CarouselOptions(
+                        aspectRatio: 2,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return errorWidget(snapshot.error);
+                  } else
+                    return Center(child: CircularProgressIndicator());
+                }),
+            SizedBox(
+              height: 20.0,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+                child:  Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "OU",
+                      style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal),
+                    ),
+                    Text(
+                      "R BL",
+                      style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.normal,
+                          color: Colors.deepOrange
+                      ),
+                    ),
+
+                    Text(
+                      "OGS",
+                      style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.normal,
+
+                      ),
+                    ),
+
+                  ]
+              )
+              ),
+            ),
+            StreamBuilder(
+                stream: blogPostsBloc.allBlogPosts,
+                builder: (context, AsyncSnapshot<BlogResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0)
+                      return errorWidget(snapshot.data.error);
+                    return CarouselSlider(
+                      items: _buildBlogList(snapshot.data.blogPosts),
+                      options: CarouselOptions(
+                        aspectRatio: 2,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return errorWidget(snapshot.error);
+                  } else
+                    return Center(child: CircularProgressIndicator());
+                }),
+            SizedBox(
+              height: 10.0,
+            ),
+          ],
+        ),
+      )
+      ,
+
     );
   }
 }

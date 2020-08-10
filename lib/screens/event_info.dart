@@ -87,7 +87,7 @@ class EventInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+     /* appBar: AppBar(
         title: Text(
           event.title,
           style: TextStyle(
@@ -98,7 +98,7 @@ class EventInfo extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-      ),
+      ),*/
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

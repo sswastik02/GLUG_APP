@@ -13,36 +13,100 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          image: new DecorationImage(
+            image: new AssetImage("images/back.jpeg"),
+            fit: BoxFit.fill,
+          ),
+        /*  gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
+             colors: [
               Colors.orangeAccent,
               Colors.redAccent,
             ],
-          ),
+
+          ),*/
         ),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(
+                height: 100.0,
+              ),
+
+              Container(
+                width: (MediaQuery.of(context).size.width),
+                height: 50,
+                color: Colors.black54,
+                child: Center(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "GNU LIN",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),
+                      ),
+                      Text(
+                        "UX US",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepOrange
+                        ),
+                      ),
+                      Text(
+                        "ER'S GR",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),
+                      ),
+                      Text(
+                        "OUP",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepOrange
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height: 100.0,
+              ),
+
               CircleAvatar(
                 radius: 60.0,
                 backgroundImage: AssetImage("images/glug_logo.jpeg"),
               ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                "GLUG App",
+
+              /*Text(
+                "GLUG",
                 style: TextStyle(
                   fontFamily: "Montserrat",
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
-              SizedBox(height: 50),
+              ),*/
+
+
+              SizedBox(height: 100),
               _signInButton(type: "Google"),
               SizedBox(height: 20.0),
               // _signInButton(type: "Facebook"),
@@ -76,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
           _onPressedGoogleSignInButton();
         } else {} // Facebook Login
       },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -89,6 +153,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ? AssetImage("images/google_logo.png")
                     : AssetImage("images/fb_logo.png"),
                 height: 35.0),
+            SizedBox(
+              width: 5.0,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
@@ -97,8 +164,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     : 'Sign in with Facebook',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: Colors.black,
+                  fontSize: 15.0,
+                  color: Colors.black54,
                   fontFamily: "Montserrat",
                 ),
               ),
