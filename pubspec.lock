@@ -98,7 +98,7 @@ packages:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.16.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -119,7 +119,18 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "3.0.9"
+=======
+    version: "3.0.10"
+  fake_async:
+    dependency: transitive
+    description:
+      name: fake_async
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+>>>>>>> edebb4f3c2aa428fe43c1bedaed3ad6ff9946400
   firebase:
     dependency: transitive
     description:
@@ -140,7 +151,7 @@ packages:
       name: firebase_analytics_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.3"
   firebase_analytics_web:
     dependency: transitive
     description:
@@ -196,7 +207,7 @@ packages:
       name: firebase_messaging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.13"
+    version: "6.0.16"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -267,13 +278,14 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0+4"
+    version: "0.12.2"
   http_parser:
     dependency: transitive
     description:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "3.1.3"
   image:
     dependency: transitive
@@ -282,6 +294,9 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
+=======
+    version: "3.1.4"
+>>>>>>> edebb4f3c2aa428fe43c1bedaed3ad6ff9946400
   js:
     dependency: transitive
     description:
@@ -316,6 +331,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.8.0+1"
   petitparser:
     dependency: transitive
@@ -324,6 +340,9 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+=======
+    version: "1.9.0"
+>>>>>>> edebb4f3c2aa428fe43c1bedaed3ad6ff9946400
   platform:
     dependency: transitive
     description:
@@ -344,14 +363,14 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.5"
+    version: "2.1.3"
   rxdart:
     dependency: "direct main"
     description:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.24.0"
+    version: "0.24.1"
   sky_engine:
     dependency: transitive
     description: flutter
