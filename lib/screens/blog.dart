@@ -22,7 +22,7 @@ class Blog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text(
           post.title,
           style: TextStyle(
@@ -34,7 +34,7 @@ class Blog extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-      ),
+      ),*/
       body: Stack(
         children: <Widget>[
           Container(

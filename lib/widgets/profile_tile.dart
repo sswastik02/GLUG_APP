@@ -3,17 +3,19 @@ import 'package:glug_app/models/profile_model.dart';
 import 'package:glug_app/screens/profile_page.dart';
 
 class ProfileTile extends StatelessWidget {
-  final Profile profile;
+  Profile profile;
 
   ProfileTile({this.profile});
+
+
 
   final List<String> yr = ['1st year', '2nd year', '3rd year', 'Final year'];
 
   String _aboutText() {
     String about = "";
     about += profile.yearName <= 4 ? yr[profile.yearName - 1] : "Graduated";
-    about += ", " + profile.degreeName + "\n";
-    about += '~' + profile.bio;
+   /* about += ", " + profile.degreeName + "\n";
+    about += '~' + profile.bio;*/
     return about;
   }
 
@@ -26,9 +28,9 @@ class ProfileTile extends StatelessWidget {
       former = 'Former';
     }
 
-    title += profile.position != null
+   /* title += profile.position != null
         ? '($former ${profile.position} )'
-        : '($former Member )';
+        : '($former Member )';*/
 
     return title;
   }
@@ -60,12 +62,12 @@ class ProfileTile extends StatelessWidget {
         horizontal: 10.0,
         vertical: 20.0,
       ),
-      trailing: Text(
+     /* trailing: Text(
         profile.alias != null ? "@" + profile.alias : "",
         style: TextStyle(
           fontFamily: "Montserrat",
         ),
-      ),
+      ),*/
       onTap: () {
         Navigator.push(
             context,

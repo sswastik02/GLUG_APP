@@ -27,12 +27,17 @@ class _MembersScreenState extends State<MembersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 20.0,
+    return Scaffold(
+      appBar: AppBar(
+
+        title: Text(
+          "Members"
         ),
-        Padding(
+
+      ),
+      body: Column(
+        children: <Widget>[
+          /* Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,30 +57,31 @@ class _MembersScreenState extends State<MembersScreen> {
         Divider(
           thickness: 1.0,
           color: Theme.of(context).primaryColor,
-        ),
-        Expanded(
-          child: StreamBuilder(
-            stream: profilesBloc.allProfiles,
-            builder: (context, AsyncSnapshot<ProfileResponse> snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data.error != null &&
-                    snapshot.data.error.length > 0) {
-                  return errorWidget(snapshot.data.error);
-                }
-                return ListView.builder(
-                  itemCount: snapshot.data.profiles.length,
-                  itemBuilder: (context, index) {
-                    return ProfileTile(profile: snapshot.data.profiles[index]);
-                  },
-                );
-              } else if (snapshot.hasError) {
-                return errorWidget(snapshot.error);
-              } else
-                return Center(child: CircularProgressIndicator());
-            },
-          ),
-        )
-      ],
+        ),*/
+          Expanded(
+            child: StreamBuilder(
+              stream: profilesBloc.allProfiles,
+              builder: (context, AsyncSnapshot<ProfileResponse> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data.error != null &&
+                      snapshot.data.error.length > 0) {
+                    return errorWidget(snapshot.data.error);
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data.profiles.length,
+                    itemBuilder: (context, index) {
+                      return ProfileTile(profile: snapshot.data.profiles[index]);
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return errorWidget(snapshot.error);
+                } else
+                  return Center(child: CircularProgressIndicator());
+              },
+            ),
+          )
+        ],
+      )
     );
   }
 }
