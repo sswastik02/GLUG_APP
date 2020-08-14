@@ -111,66 +111,87 @@ class _ChatroomState extends State<Chatroom> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 20.0,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "CHAT ROOM"
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "NITDGP OS",
-                style: TextStyle(
-                    fontFamily: "Montserrat",
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic),
-              ),
-              Icon(Icons.chat),
-            ],
+        actions:<Widget> [
+          IconButton (
+            icon:Icon (Icons.info),
+            onPressed: () {
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text('Feel free to ask questions on Open Source Technology'),
+                duration: Duration(seconds: 3),
+              ));
+            }),
+
+        ],
+      ),
+
+      body: Column(
+        children: <Widget>[
+         /* SizedBox(
+            height: 20.0,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-          child: Text(
-            '"Feel free to ask questions on Open Source Technology"',
-            style: TextStyle(
-                fontFamily: "Montserrat",
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "NITDGP OS",
+                  style: TextStyle(
+                      fontFamily: "Montserrat",
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic),
+                ),
+                Icon(Icons.chat),
+              ],
+            ),
           ),
-        ),
-        Divider(
-          thickness: 1.0,
-          color: Theme.of(context).primaryColor,
-        ),
-        Expanded(
-          child: StreamBuilder(
-            stream: _provider.fetchChatroomData(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasData) {
-                return ListView(
-                  reverse: true,
-                  children: _buildChats(snapshot.data.documents),
-                );
-              } else if (snapshot.hasError)
-                return errorWidget(snapshot.error);
-              else
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+            child: Text(
+              '"Feel free to ask questions on Open Source Technology"',
+              style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic),
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-          child: _buildChatComposer(),
-        ),
-      ],
+          Divider(
+            thickness: 1.0,
+            color: Theme.of(context).primaryColor,
+          ),*/
+          Expanded(
+            child: StreamBuilder(
+              stream: _provider.fetchChatroomData(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView(
+                    reverse: true,
+                    children: _buildChats(snapshot.data.documents),
+                  );
+                } else if (snapshot.hasError)
+                  return errorWidget(snapshot.error);
+                else
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
+            child: _buildChatComposer(),
+          ),
+        ],
+      ),
+
     );
+
   }
 }

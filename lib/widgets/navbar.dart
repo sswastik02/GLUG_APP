@@ -24,7 +24,7 @@ class Navbar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text("Home"),
+          title: Text("Ho"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.event),

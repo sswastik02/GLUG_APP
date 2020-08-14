@@ -91,9 +91,9 @@ class _DisplayState extends State<Display> {
           //   ),
           // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
+            icon: Icon(Icons.account_box),
             title: Text(
-              "Dashboard",
+              "Me",
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           )
