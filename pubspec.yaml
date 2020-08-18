@@ -39,6 +39,10 @@ dependencies:
   carousel_slider: ^2.2.1
   timeago: ^2.0.26
   characters: ^1.0.0
+  sqflite: any
+  path_provider: ^1.6.11
+  cached_network_image: ^2.2.0+1
+  connectivity: ^0.4.9
 
 dev_dependencies:
   flutter_test:

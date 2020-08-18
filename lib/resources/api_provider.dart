@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:glug_app/models/blog_response.dart';
 import 'package:glug_app/models/carousel_response.dart';

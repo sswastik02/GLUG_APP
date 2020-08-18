@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/event_model.dart';
@@ -87,7 +88,7 @@ class EventInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     /* appBar: AppBar(
+      /* appBar: AppBar(
         title: Text(
           event.title,
           style: TextStyle(
@@ -110,7 +111,7 @@ class EventInfo extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: event.event_image != null
-                      ? NetworkImage(event.event_image)
+                      ? CachedNetworkImageProvider(event.event_image)
                       : AssetImage('images/glug_logo.jpeg'),
                   fit: BoxFit.cover,
                 ),

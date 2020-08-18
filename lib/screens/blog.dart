@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -43,7 +44,7 @@ class Blog extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(post.thumbnail_image),
+                image: CachedNetworkImageProvider(post.thumbnail_image),
                 fit: BoxFit.cover,
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/blocs/blogPosts_bloc.dart';
 import 'package:glug_app/blocs/events_bloc.dart';
@@ -54,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
                   image: item.event_image != null
-                      ? NetworkImage(item.event_image)
+                      ? CachedNetworkImageProvider(
+                          item.event_image,
+                        )
                       : AssetImage("images/glug_logo.jpeg"),
                   fit: BoxFit.cover,
                 ),
@@ -102,7 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
                   image: item.thumbnail_image != null
-                      ? NetworkImage(item.thumbnail_image)
+                      ? CachedNetworkImageProvider(
+                          item.thumbnail_image,
+                        )
                       : AssetImage("images/glug_logo.jpeg"),
                   fit: BoxFit.cover,
                 ),
@@ -136,15 +141,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "HOME"
-        ),
+        title: Text("HOME"),
       ),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-           /* Padding(
+            /* Padding(
               padding:
               const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
               child: Row(
@@ -175,45 +178,39 @@ class _HomeScreenState extends State<HomeScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "OU",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal),
-                      ),
-                      Text(
-                        "R EV",
-                        style: TextStyle(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 15.0),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "OU",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal),
+                        ),
+                        Text(
+                          "R EV",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                              color: Colors.deepOrange),
+                        ),
+                        Text(
+                          "ENTS",
+                          style: TextStyle(
                             fontFamily: "Montserrat",
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.normal,
-                            color: Colors.deepOrange
+                          ),
                         ),
-                      ),
-
-                      Text(
-                        "ENTS",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-
-                        ),
-                      ),
-
-                    ]
-                  )
-              ),
+                      ])),
             ),
             StreamBuilder(
                 stream: eventsBloc.allEvents,
@@ -248,45 +245,39 @@ class _HomeScreenState extends State<HomeScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-                child:  Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "OU",
-                      style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal),
-                    ),
-                    Text(
-                      "R BL",
-                      style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal,
-                          color: Colors.deepOrange
-                      ),
-                    ),
-
-                    Text(
-                      "OGS",
-                      style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.normal,
-
-                      ),
-                    ),
-
-                  ]
-              )
-              ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 15.0),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "OU",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal),
+                        ),
+                        Text(
+                          "R BL",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                              color: Colors.deepOrange),
+                        ),
+                        Text(
+                          "OGS",
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                          ),
+                        ),
+                      ])),
             ),
             StreamBuilder(
                 stream: blogPostsBloc.allBlogPosts,
@@ -320,9 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-      )
-      ,
-
+      ),
     );
   }
 }

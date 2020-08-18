@@ -1,3 +1,5 @@
+import 'package:glug_app/resources/database_provider.dart';
+
 class BlogPost {
   final bool show_bool;
   final int id;
@@ -19,12 +21,25 @@ class BlogPost {
       this.comments);
 
   BlogPost.fromJSON(Map<String, dynamic> jsonMap)
-      : show_bool = jsonMap['show_bool'],
+      : show_bool = (jsonMap['show_bool'] == 1 || jsonMap['show_bool']) == true
+            ? true
+            : false,
         id = jsonMap['id'],
         title = jsonMap['title'],
         author_name = jsonMap['author_name'],
         thumbnail_image = jsonMap['thumbnail_image'],
         content_body = jsonMap['content_body'],
         date_to_show = jsonMap['date_to_show'],
-        comments = jsonMap['comments'];
+        comments = null;
+
+  Map<String, dynamic> toMap() => {
+        DatabaseProvider.BLOG_SHOW: show_bool ? 1 : 0,
+        DatabaseProvider.BLOG_ID: id,
+        DatabaseProvider.BLOG_TITLE: title,
+        DatabaseProvider.BLOG_AUTHOR: author_name,
+        DatabaseProvider.BLOG_IMAGE: thumbnail_image,
+        DatabaseProvider.BLOG_CONTENT: content_body,
+        DatabaseProvider.BLOG_DATE: date_to_show,
+        DatabaseProvider.BLOG_COMMENTS: "",
+      };
 }
