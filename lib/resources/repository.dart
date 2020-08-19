@@ -1,5 +1,6 @@
 import 'package:glug_app/models/blog_response.dart';
 import 'package:glug_app/models/carousel_response.dart';
+import 'package:glug_app/models/event_model.dart';
 import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/models/linit_response.dart';
 import 'package:glug_app/models/notice_model.dart';
@@ -25,6 +26,13 @@ class Repository {
     }
   }
 
+  bool localDBContains(List listItems, itemToBeSearched) {
+    for (var item in listItems) {
+      if (item.id == itemToBeSearched.id) return true;
+    }
+    return false;
+  }
+
   Future<EventResponse> fetchAllEvents() async {
     bool connected = await _isConnected();
 
@@ -34,7 +42,7 @@ class Repository {
       EventResponse apiData = await _apiProvider.fetchEventData();
 
       apiData.events.forEach((event) {
-        if (!localDB.events.contains(event)) {
+        if (!localDBContains(localDB.events, event)) {
           DatabaseProvider.databaseProvider.insertEvent(event);
         }
       });
@@ -53,7 +61,7 @@ class Repository {
       BlogResponse apiData = await _apiProvider.fetchBlogData();
 
       apiData.blogPosts.forEach((blogPost) {
-        if (!localDB.blogPosts.contains(blogPost)) {
+        if (!localDBContains(localDB.blogPosts, blogPost)) {
           DatabaseProvider.databaseProvider.insertBlog(blogPost);
         }
       });
