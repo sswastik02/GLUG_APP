@@ -10,7 +10,10 @@ class NoticeScreen extends StatefulWidget {
 
 class _NoticeScreenState extends State<NoticeScreen> {
   String _dropdownvalue;
+  Notice notice;
+  List<Academic> noticeType;
   void changeNoticeType(String noticeType) {
+    noticeBloc.fetchCalledNotice(noticeType);
     setState(() {
       _dropdownvalue = noticeType;
     });
@@ -18,7 +21,9 @@ class _NoticeScreenState extends State<NoticeScreen> {
 
   @override
   void initState() {
+    _dropdownvalue = "General";
     noticeBloc.fetchAllData();
+    noticeBloc.fetchCalledNotice("General");
     super.initState();
   }
 
@@ -36,20 +41,58 @@ class _NoticeScreenState extends State<NoticeScreen> {
       ),
       body: Column(
         children: [
+          SizedBox(height: 50),
+          Container(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            height: 60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(
+                color: Color(0xFFE5E5E5),
+              ),
+            ),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: DropdownButton(
+                    isExpanded: true,
+                    underline: SizedBox(),
+                    icon: Icon(Icons.arrow_downward),
+                    value: _dropdownvalue,
+                    items: ['General', 'Academic', 'Student', 'Hostel']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      changeNoticeType(newValue);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 50),
           Expanded(
             child: StreamBuilder(
-              stream: noticeBloc.allNoticeData,
-              builder: (context, AsyncSnapshot<Notice> snapshot) {
+              stream: noticeBloc.noticeCategories,
+              builder: (context, AsyncSnapshot<List<Academic>> snapshot) {
                 if (snapshot.hasData) {
-                  Notice notice = snapshot.data;
+                  noticeType = snapshot.data;
+
                   return ListView.builder(
                     padding: EdgeInsets.symmetric(
                       vertical: 0,
                       horizontal: 20,
                     ),
-                    itemCount: notice.notices.academic.length,
+                    itemCount: noticeType.length,
                     itemBuilder: (context, index) {
-                      return NoticeTile(notice: notice.notices.academic[index]);
+                      return NoticeTile(notice: noticeType[index]);
                     },
                   );
                 } else {
