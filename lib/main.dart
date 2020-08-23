@@ -7,7 +7,7 @@ import 'package:glug_app/screens/login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+  //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
   runApp(MainApp());
 }
 
