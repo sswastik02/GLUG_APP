@@ -5,6 +5,7 @@ import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/models/linit_response.dart';
 import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/models/profile_response.dart';
+import 'package:glug_app/models/timeline_response.dart';
 import 'package:glug_app/resources/api_provider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:glug_app/resources/database_provider.dart';
@@ -79,6 +80,10 @@ class Repository {
 
   Future<ProfileResponse> fetchAllProfiles() async =>
       _apiProvider.fetchProfileData();
+
+  Future<TimelineResponse> fetchAllTimelineData() async =>
+      _apiProvider.fetchTimelineData();
+
 
   Future<Notice> fetchAllNotices() async => _apiProvider.fetchNoticeData();
 }

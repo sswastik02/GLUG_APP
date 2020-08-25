@@ -72,6 +72,12 @@ class _DrawerItems extends State<DrawerItems> {
                 },
               ),
               ListTile(
+                leading: Icon(Icons.info_outline), title: Text("About Us"),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
                 leading: Icon(Icons.contacts), title: Text("Contact Us"),
                 onTap: () {
                   Navigator.pop(context);

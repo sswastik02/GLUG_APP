@@ -11,16 +11,18 @@ class NoticeTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(bottom: 40),
+
+      margin: EdgeInsets.only(bottom: 20),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       //alignment: Alignment.center,
-      height: 80,
+     // height: 80,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
             color: Colors.black26,
           )),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(notice.date),
           SizedBox(
@@ -28,7 +30,7 @@ class NoticeTile extends StatelessWidget {
           ),
           GestureDetector(
             child: Container(
-              width: size.width * 0.6,
+              width: size.width * 0.55,
               child: Text(
                 notice.title,
                 overflow: TextOverflow.clip,
