@@ -6,6 +6,7 @@ import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/models/linit_response.dart';
 import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/models/profile_response.dart';
+import 'package:glug_app/models/timeline_response.dart';
 
 class ApiProvider {
   static final String baseURL = "https://api.nitdgplug.org";
@@ -14,6 +15,7 @@ class ApiProvider {
   static final String profilesURL = "$baseURL/api/profiles/";
   static final String linitURL = "$baseURL/api/linit/";
   static final String carouselURL = "$baseURL/api/carousel/";
+  static final String timelineUrl = "$baseURL/api/timeline/";
   static final String noticeURL =
       "https://admin.nitdgp.ac.in/academics/notices";
 
@@ -94,4 +96,18 @@ class ApiProvider {
       return null;
     }
   }
+
+  Future<TimelineResponse> fetchTimelineData() async {
+    print("Entered");
+
+    try {
+      Response response = await _dio.get(timelineUrl);
+      print(response.data.toString());
+      return TimelineResponse.fromJSON(response.data);
+    } catch (error, stackTrace) {
+      print("Exception occured: $error stackTrace: $stackTrace");
+      return TimelineResponse.withError("$error");
+    }
+  }
+
 }

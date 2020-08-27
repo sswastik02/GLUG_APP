@@ -8,6 +8,7 @@ import 'package:glug_app/screens/home_screen.dart';
 // import 'package:glug_app/screens/linit_screen.dart';
 import 'package:glug_app/screens/members_screen.dart';
 import 'package:glug_app/screens/notice_screen.dart';
+import 'package:glug_app/screens/timeline.dart';
 
 class Display extends StatefulWidget {
   @override
@@ -19,11 +20,12 @@ class _DisplayState extends State<Display> {
 
   List screens = [
     HomeScreen(),
+    Timeline(),
     Chatroom(),
     NoticeScreen(),
     // EventScreen(),
     // BlogScreen(),
-    MembersScreen(),
+
     // LinitScreen(),
     Dashboard(),
   ];
@@ -55,6 +57,14 @@ class _DisplayState extends State<Display> {
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),
+
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.clock),
+            title: Text(
+              "Timeline",
+              style: TextStyle(fontFamily: "Montserrat"),
+            ),
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             title: Text(
@@ -76,13 +86,7 @@ class _DisplayState extends State<Display> {
           //     style: TextStyle(fontFamily: "Montserrat"),
           //   ),
           // ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.userFriends),
-            title: Text(
-              "Members",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
-          ),
+
           // BottomNavigationBarItem(
           //   icon: FaIcon(FontAwesomeIcons.book),
           //   title: Text(

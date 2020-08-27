@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/blocs/notices_bloc.dart';
+import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notice_tile.dart';
 
@@ -40,6 +41,9 @@ class _NoticeScreenState extends State<NoticeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Notices'),
+      ),
+      drawer: Drawer(
+        child: DrawerItems(),
       ),
       body: Column(
         children: [

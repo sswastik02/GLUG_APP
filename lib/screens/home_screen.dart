@@ -10,6 +10,8 @@ import 'package:glug_app/models/event_model.dart';
 import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/screens/blog.dart';
 import 'package:glug_app/screens/event_info.dart';
+import 'package:glug_app/widgets/drawer_contents.dart';
+import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -141,8 +143,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("HOME"),
+        title: Text("Home"),
       ),
+
+      drawer: Drawer(
+        child: DrawerItems(),
+      ),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

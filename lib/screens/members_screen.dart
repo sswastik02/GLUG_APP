@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/blocs/profiles_bloc.dart';
 import 'package:glug_app/models/profile_response.dart';
+import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/profile_tile.dart';
 
@@ -28,13 +29,16 @@ class _MembersScreenState extends State<MembersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
 
-        title: Text(
-          "Members"
-        ),
-
+    drawer: Drawer(
+      child: DrawerItems(),
+    ),
+    appBar: AppBar(
+      title: Text(
+        "Our Team"
       ),
+
+    ),
       body: Column(
         children: <Widget>[
           /* Padding(

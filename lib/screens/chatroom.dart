@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
+import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -114,7 +115,7 @@ class _ChatroomState extends State<Chatroom> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "CHAT ROOM"
+          "Chat Room"
         ),
         actions:<Widget> [
           IconButton (
@@ -127,6 +128,10 @@ class _ChatroomState extends State<Chatroom> {
             }),
 
         ],
+      ),
+
+      drawer: Drawer(
+        child: DrawerItems(),
       ),
 
       body: Column(
