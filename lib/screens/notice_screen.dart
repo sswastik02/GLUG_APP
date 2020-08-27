@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/blocs/notices_bloc.dart';
+import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notice_tile.dart';
 
 class NoticeScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class NoticeScreen extends StatefulWidget {
 }
 
 class _NoticeScreenState extends State<NoticeScreen> {
+  List<String> _categories = ['General', 'Academic', 'Student', 'Hostel'];
   String _dropdownvalue;
   Notice notice;
   List<Academic> noticeType;
@@ -62,7 +64,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                     underline: SizedBox(),
                     icon: Icon(Icons.arrow_downward),
                     value: _dropdownvalue,
-                    items: ['General', 'Academic', 'Student', 'Hostel']
+                    items: _categories
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -77,7 +79,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
               ],
             ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 25),
           Expanded(
             child: StreamBuilder(
               stream: noticeBloc.noticeCategories,
@@ -95,6 +97,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
                       return NoticeTile(notice: noticeType[index]);
                     },
                   );
+                } else if (snapshot.hasError) {
+                  return errorWidget(snapshot.error);
                 } else {
                   return Center(child: CircularProgressIndicator());
                 }
