@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
+import 'package:glug_app/screens/dashboard.dart';
 import 'package:glug_app/screens/display.dart';
 import 'package:glug_app/screens/home_screen.dart';
 import 'package:glug_app/screens/members_screen.dart';
@@ -29,7 +30,6 @@ class _DrawerItems extends State<DrawerItems> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -38,54 +38,57 @@ class _DrawerItems extends State<DrawerItems> {
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasData) {
           DocumentSnapshot userData = snapshot.data;
-          return  ListView(
+          return ListView(
             // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
             children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: Text(userData["name"]),
-                accountEmail: Text(userData["email"]),
-                currentAccountPicture: CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: NetworkImage(userData["photoUrl"]),
+              GestureDetector(
+                child: UserAccountsDrawerHeader(
+                  accountName: Text(userData["name"]),
+                  accountEmail: Text(userData["email"]),
+                  currentAccountPicture: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: NetworkImage(userData["photoUrl"]),
+                  ),
                 ),
-              ),
-              ListTile(
-                leading: Icon(Icons.home), title: Text("Home"),
                 onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Display()));
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Dashboard()));
                 },
               ),
               ListTile(
-                leading: Icon(FontAwesomeIcons.userFriends), title: Text("Our team"),
+                leading: Icon(Icons.home),
+                title: Text("Home"),
                 onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MembersScreen()));
-
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Display()));
                 },
               ),
               ListTile(
-                leading: Icon(Icons.info_outline), title: Text("About Us"),
+                leading: Icon(FontAwesomeIcons.userFriends),
+                title: Text("Our team"),
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => MembersScreen()));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.info_outline),
+                title: Text("About Us"),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.contacts), title: Text("Contact Us"),
+                leading: Icon(Icons.contacts),
+                title: Text("Contact Us"),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
             ],
           );
-            } else if (snapshot.hasError)
+        } else if (snapshot.hasError)
           return Center(child: errorWidget("No data found"));
         else
           return Center(child: CircularProgressIndicator());

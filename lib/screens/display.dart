@@ -27,7 +27,7 @@ class _DisplayState extends State<Display> {
     // BlogScreen(),
 
     // LinitScreen(),
-    Dashboard(),
+    // Dashboard(),
   ];
 
   @override
@@ -94,13 +94,13 @@ class _DisplayState extends State<Display> {
           //     style: TextStyle(fontFamily: "Montserrat"),
           //   ),
           // ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_box),
-            title: Text(
-              "Me",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
-          )
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.account_box),
+          //   title: Text(
+          //     "Me",
+          //     style: TextStyle(fontFamily: "Montserrat"),
+          //   ),
+          // )
         ],
         onTap: (index) {
           setState(() {

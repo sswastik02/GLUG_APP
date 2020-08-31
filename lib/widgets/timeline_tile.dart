@@ -7,7 +7,7 @@ import 'package:glug_app/screens/webpage.dart';
 class TimelineTile extends StatelessWidget {
   final Timeline timeline;
 
-  TimelineTile({ this.timeline});
+  TimelineTile({this.timeline});
   final months = [
     'January',
     'February',
@@ -60,7 +60,6 @@ class TimelineTile extends StatelessWidget {
 
     return Row(
       children: <Widget>[
-
         txt1,
         txt2,
         txt3,
@@ -74,12 +73,11 @@ class TimelineTile extends StatelessWidget {
       ],
     );
   }
+
   Widget _title(String title) {
     int length = title.length;
-    int fstcut = (length/4).toInt() ;
-    int sndcut = (length/2).toInt() ;
-
-
+    int fstcut = (length / 4).toInt();
+    int sndcut = (length / 2).toInt();
 
     Widget txt1 = Text(
       title.substring(0, fstcut),
@@ -90,7 +88,7 @@ class TimelineTile extends StatelessWidget {
       ),
     );
     Widget txt2 = Text(
-      title.substring(fstcut,sndcut),
+      title.substring(fstcut, sndcut),
       style: TextStyle(
         fontFamily: "Montserrat",
         color: Colors.deepOrange,
@@ -108,72 +106,59 @@ class TimelineTile extends StatelessWidget {
       ),
     );
 
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        txt1,
-        txt2,
-        txt3
-
-      ],
+      children: <Widget>[txt1, txt2, txt3],
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:EdgeInsets.all(8.0) ,
+      padding: EdgeInsets.all(8.0),
       child: Card(
-        elevation: 8,
-        child: Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            children:<Widget> [
-              /*Text(timeline.eventName,
+          elevation: 8,
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              children: <Widget>[
+                /*Text(timeline.eventName,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),*/
-              _title(timeline.eventName),
+                _title(timeline.eventName),
+                Html(
+                  data: timeline.detail,
+                  //Optional parameters:
+                  padding: EdgeInsets.all(8.0),
 
-              Html(
-                data: timeline.detail,
-                //Optional parameters:
-                padding: EdgeInsets.all(8.0),
-
-                defaultTextStyle: TextStyle(fontFamily: "Montserrat"),
-                linkStyle: const TextStyle(
-                  color: Colors.blueAccent,
+                  defaultTextStyle: TextStyle(fontFamily: "Montserrat"),
+                  linkStyle: const TextStyle(
+                    color: Colors.blueAccent,
+                  ),
+                  useRichText: false,
+                  onLinkTap: (url) {
+                    print("Opening $url");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WebPage(
+                                  URL: url,
+                                )));
+                  },
+                  onImageTap: (src) {
+                    // Display the image in large form.
+                  },
                 ),
-                useRichText: false,
-                onLinkTap: (url) {
-                  print("Opening $url");
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => WebPage(
-                            URL: url,
-                          )));
-                },
-                onImageTap: (src) {
-                  // Display the image in large form.
-                },
-              ),
-
-              SizedBox(height: 10,),
-
-
-              _getDate(timeline.eventTime)
-
-
-            ],
-          ),
-        )
-      ),
-
+                SizedBox(
+                  height: 10,
+                ),
+                _getDate(timeline.eventTime)
+              ],
+            ),
+          )),
     );
   }
 }

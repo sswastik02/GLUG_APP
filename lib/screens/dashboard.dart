@@ -73,9 +73,8 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-        title: Text("Me"),
+        title: Text("Profile"),
       ),
       drawer: Drawer(
         child: DrawerItems(),
@@ -150,21 +149,22 @@ class _DashboardState extends State<Dashboard> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ProfileEditScreen()));
+                                      builder: (context) =>
+                                          ProfileEditScreen()));
                             },
                           ),
                         ],
                       ),
                     ),
                     (userData["eventDetail"] == null ||
-                        userData["eventDetail"].length == 0)
+                            userData["eventDetail"].length == 0)
                         ? Text(
-                      "No data added yet",
-                      style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontSize: 14.0,
-                      ),
-                    )
+                            "No data added yet",
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 14.0,
+                            ),
+                          )
                         : _buildEventsWidget(userData["eventDetail"]),
                     SizedBox(
                       height: 25.0,
@@ -253,6 +253,5 @@ class _DashboardState extends State<Dashboard> {
         },
       ),
     );
-
   }
 }

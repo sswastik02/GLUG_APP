@@ -43,6 +43,7 @@ dependencies:
   path_provider: ^1.6.11
   cached_network_image: ^2.2.0+1
   connectivity: ^0.4.9
+  flutter_pdfview: ^1.0.0+10
 
 dev_dependencies:
   flutter_test:
