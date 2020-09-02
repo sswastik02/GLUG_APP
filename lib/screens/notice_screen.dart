@@ -32,7 +32,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
 
   @override
   void dispose() {
-    noticeBloc.dispose();
+    //noticeBloc.dispose();
     super.dispose();
   }
 
