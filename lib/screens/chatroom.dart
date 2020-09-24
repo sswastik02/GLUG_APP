@@ -28,44 +28,35 @@ class _ChatroomState extends State<Chatroom> {
   _buildChats(List<dynamic> chats) {
     List<Widget> tiles = chats.map((chat) {
       DocumentReference userRef = chat["user"];
-      return StreamBuilder(
-          stream: userRef.snapshots(),
-          builder: (context, docSnapshot) {
-            if (docSnapshot.hasData) {
-              return ListTile(
-                onTap: () {},
-                leading: CircleAvatar(
-                  radius: 20.0,
-                  backgroundImage: NetworkImage(docSnapshot.data["photoUrl"]),
-                ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      docSnapshot.data["name"],
-                      style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      timeago.format(chat["time"].toDate()),
-                      style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0),
-                    ),
-                  ],
-                ),
-                subtitle: Text(
-                  chat["message"],
-                  style: TextStyle(fontFamily: "Montserrat"),
-                ),
-              );
-            } else if (docSnapshot.hasError)
-              return errorWidget(docSnapshot.error);
-            else
-              return SizedBox();
-          });
+      return ListTile(
+        onTap: () {},
+        leading: CircleAvatar(
+          radius: 20.0,
+          //backgroundImage: NetworkImage(docSnapshot.data["photoUrl"]),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+                   "name",
+              style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              timeago.format(chat["time"].toDate()),
+              style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.0),
+            ),
+          ],
+        ),
+        subtitle: Text(
+          chat["message"],
+          style: TextStyle(fontFamily: "Montserrat"),
+        ),
+      );
     }).toList();
 
     return tiles;
@@ -187,7 +178,7 @@ class _ChatroomState extends State<Chatroom> {
                     child: CircularProgressIndicator(),
                   );
               },
-            ),
+            )
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
