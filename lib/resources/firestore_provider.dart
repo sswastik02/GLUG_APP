@@ -47,12 +47,14 @@ class FirestoreProvider {
 
   void composeMessage(String textMessage) async {
     final uid = await getCurrentUserID();
-    DocumentReference userRef = _firestore.collection("/users").document(uid);
+    DocumentSnapshot user =
+        await _firestore.collection("/users").document(uid).get();
 
     _firestore.collection("/chatroom").add({
       "message": textMessage,
       "time": Timestamp.now(),
-      "user": userRef,
+      "sender": user["name"],
+      "photoUrl": user["photoUrl"]
     });
   }
 }
