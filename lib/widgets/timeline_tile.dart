@@ -74,44 +74,6 @@ class TimelineTile extends StatelessWidget {
     );
   }
 
-  Widget _title(String title) {
-    int length = title.length;
-    int fstcut = (length / 4).toInt();
-    int sndcut = (length / 2).toInt();
-
-    Widget txt1 = Text(
-      title.substring(0, fstcut),
-      style: TextStyle(
-        fontFamily: "Montserrat",
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-    Widget txt2 = Text(
-      title.substring(fstcut, sndcut),
-      style: TextStyle(
-        fontFamily: "Montserrat",
-        color: Colors.deepOrange,
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-
-    Widget txt3 = Text(
-      title.substring(sndcut),
-      style: TextStyle(
-        fontFamily: "Montserrat",
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[txt1, txt2, txt3],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -128,7 +90,15 @@ class TimelineTile extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),*/
-                _title(timeline.eventName),
+                Text(
+                    timeline.eventName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Html(
                   data: timeline.detail,
                   //Optional parameters:
