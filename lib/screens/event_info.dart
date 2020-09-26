@@ -4,11 +4,21 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/event_model.dart';
 import 'package:glug_app/screens/webpage.dart';
 import 'package:date_format/date_format.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class EventInfo extends StatelessWidget {
+class EventInfo extends StatefulWidget {
+  Event event;
+  EventInfo({Key key, @required this.event}) : super(key: key);
+
+  @override
+  _MyClassState createState() => _MyClassState(event);
+}
+
+class _MyClassState extends State<EventInfo> {
+
   final Event event;
+  _MyClassState(this.event);
 
-  EventInfo({this.event});
 
   final months = [
     'January',
@@ -80,10 +90,64 @@ class EventInfo extends StatelessWidget {
         Icon(
           Icons.calendar_today,
           color: Colors.deepOrangeAccent,
-        )
+        ),
+        SizedBox(width: 20,)
       ],
     );
   }
+  var icon=Icons.favorite;
+
+  Widget _interestedButton(){
+
+    return
+    FlatButton(
+        padding:  EdgeInsets.fromLTRB(20,10,20,10),
+        color: Colors.blue,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+        ),
+       child:Wrap(direction: Axis.horizontal,
+        spacing: 10,
+
+        children: <Widget>[
+          Text(
+            "Interested",
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    color: Colors.white,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(width: 10,),
+                Icon(
+                  // Icons.favorite_border,
+                  icon,
+                  color: Colors.deepOrangeAccent,
+                ),
+        ],
+      ),
+
+      onPressed:() {
+        setState(() {
+          if(icon==Icons.favorite_border){
+            icon = Icons.favorite;
+          }else{
+            icon = Icons.favorite_border;
+          }
+        });
+      }
+    );
+
+  }
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,24 +180,29 @@ class EventInfo extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Container(
-                margin: EdgeInsets.only(bottom: 20.0, right: 140.0),
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(210, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(50.0),
-                    bottomRight: Radius.circular(50.0),
+              child:
+
+              Wrap(direction: Axis.vertical,
+                spacing: 10,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20.0),
+                    height: 50.0,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(210, 255, 255, 255),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(50.0),
+                        bottomRight: Radius.circular(50.0),
+                      ),
+                    ),
+                    child: _getDate(event.event_timing),
                   ),
-                ),
-                child: _getDate(event.event_timing),
+                ],
+
               ),
             ),
             SizedBox(
-              height: 10.0,
-            ),
-            SizedBox(
-              height: 10.0,
+              height: 20.0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -166,6 +235,7 @@ class EventInfo extends StatelessWidget {
                 ),
               ],
             ),
+
             SizedBox(
               height: 25.0,
             ),
@@ -176,22 +246,28 @@ class EventInfo extends StatelessWidget {
 
               defaultTextStyle: TextStyle(fontFamily: "Montserrat"),
               linkStyle: const TextStyle(
-                color: Colors.blueAccent,
+                color: Colors.blueGrey,
               ),
               useRichText: false,
               onLinkTap: (url) {
                 print("Opening $url");
-                Navigator.push(
+                /*Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => WebPage(
                               URL: url,
-                            )));
+                            )));*/
+               _launchURL(url);
               },
               onImageTap: (src) {
                 // Display the image in large form.
               },
             ),
+
+            SizedBox(
+              height: 25.0,
+            ),
+            _interestedButton(),
           ],
         ),
       ),

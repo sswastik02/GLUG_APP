@@ -5,13 +5,15 @@ import 'package:glug_app/models/timeline_response.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/timeline_tile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Timeline extends StatefulWidget {
   static final id = 'blogscreen';
-
   @override
   _Timeline createState() => _Timeline();
 }
+
+
 
 class _Timeline extends State<Timeline> {
   @override

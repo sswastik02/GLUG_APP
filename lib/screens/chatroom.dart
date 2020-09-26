@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:url_launcher/url_launcher.dart';
 
 class Chatroom extends StatefulWidget {
   @override
@@ -50,10 +52,22 @@ class _ChatroomState extends State<Chatroom> {
             ),
           ],
         ),
-        subtitle: Text(
+        subtitle: Linkify(
+          onOpen: (link) async {
+            if (await canLaunch(link.url)) {
+              await launch(link.url);
+            } else {
+              throw 'Could not launch $link';
+            }
+          },
+          text: chat["message"],
+          style: TextStyle(color: Colors.black54),
+          linkStyle: TextStyle(color: Colors.blue),
+        ),
+        /*Text(
           chat["message"],
           style: TextStyle(fontFamily: "Montserrat"),
-        ),
+        ),*/
       );
     }).toList();
 

@@ -3,9 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/timeline_model.dart';
 import 'package:glug_app/screens/webpage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TimelineTile extends StatelessWidget {
   final Timeline timeline;
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   TimelineTile({this.timeline});
   final months = [
@@ -111,12 +120,7 @@ class TimelineTile extends StatelessWidget {
                   useRichText: false,
                   onLinkTap: (url) {
                     print("Opening $url");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WebPage(
-                                  URL: url,
-                                )));
+                    _launchURL(url);
                   },
                   onImageTap: (src) {
                     // Display the image in large form.

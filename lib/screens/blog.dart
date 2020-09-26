@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/blog_post_model.dart';
 import 'package:glug_app/screens/webpage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Blog extends StatelessWidget {
   static final id = 'blog';
@@ -17,7 +18,13 @@ class Blog extends StatelessWidget {
     var date = formatDate(dateTime, [dd, '/', mm, '/', yyyy]);
     return date;
   }
-
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -116,12 +123,15 @@ class Blog extends StatelessWidget {
                       useRichText: false,
                       onLinkTap: (url) {
                         print("Opening $url");
-                        Navigator.push(
+                        _launchURL(url);
+
+                       /* Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => WebPage(
                                       URL: url,
-                                    )));
+                                    )));*/
+
                       },
                       onImageTap: (src) {
                         // Display the image in large form.
