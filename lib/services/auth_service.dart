@@ -65,8 +65,7 @@ Future<String> signInWithFacebook() async {
   Dio dio = Dio();
 
   try {
-    final FacebookLoginResult result =
-        await _fbLogin.logIn(['email', 'public_profile']);
+    final FacebookLoginResult result = await _fbLogin.logIn(['email']);
 
     switch (result.status) {
       case FacebookLoginStatus.cancelledByUser:
@@ -83,14 +82,13 @@ Future<String> signInWithFacebook() async {
 
         // Using Facebook Graph API
         var graphResponse = await dio.get(
-            'https://graph.facebook.com/v2.12/me?fields=name,email,picture&access_token=${result.accessToken.token}');
+            'https://graph.facebook.com/v2.12/me?fields=name,email,picture.height(200)&access_token=${result.accessToken.token}');
         var profileData = json.decode(graphResponse.data);
         print(profileData.toString());
 
         final AuthResult authResult =
             await _auth.signInWithCredential(credential);
         final FirebaseUser user = authResult.user;
-        print("Logged in successfully ${user.uid}");
 
         assert(!user.isAnonymous);
         assert(await user.getIdToken() != null);
@@ -104,7 +102,7 @@ Future<String> signInWithFacebook() async {
 
         name = profileData["name"];
         email = profileData["email"];
-        photoUrl = profileData["picture"];
+        photoUrl = profileData["picture"]["data"]["url"];
 
         DocumentSnapshot doc =
             await _firestore.collection("/users").document(user.uid).get();
