@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/models/profile_model.dart';
-import 'package:glug_app/screens/webpage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatelessWidget {
   final Profile profile;
@@ -9,6 +9,14 @@ class ProfilePage extends StatelessWidget {
   ProfilePage({this.profile});
 
   final List<String> yr = ['1st year', '2nd year', '3rd year', 'Final year'];
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   String _titleText() {
     String title = "";
@@ -96,7 +104,7 @@ class ProfilePage extends StatelessWidget {
               height: 25.0,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 IconButton(
                   icon: FaIcon(
@@ -106,16 +114,8 @@ class ProfilePage extends StatelessWidget {
                   ),
                   onPressed: () {
                     print("Opening ${profile.facebookLink}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WebPage(
-                                  URL: profile.facebookLink,
-                                )));
+                    _launchURL(profile.facebookLink);
                   },
-                ),
-                SizedBox(
-                  width: 30.0,
                 ),
                 IconButton(
                   icon: FaIcon(
@@ -125,16 +125,8 @@ class ProfilePage extends StatelessWidget {
                   ),
                   onPressed: () {
                     print("Opening ${profile.gitLink}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WebPage(
-                                  URL: profile.gitLink,
-                                )));
+                    _launchURL(profile.gitLink);
                   },
-                ),
-                SizedBox(
-                  width: 30.0,
                 ),
                 IconButton(
                   icon: FaIcon(
@@ -144,16 +136,8 @@ class ProfilePage extends StatelessWidget {
                   ),
                   onPressed: () {
                     print("Opening ${profile.linkedinLink}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WebPage(
-                                  URL: profile.linkedinLink,
-                                )));
+                    _launchURL(profile.linkedinLink);
                   },
-                ),
-                SizedBox(
-                  width: 30.0,
                 ),
                 IconButton(
                   icon: FaIcon(
@@ -163,16 +147,8 @@ class ProfilePage extends StatelessWidget {
                   ),
                   onPressed: () {
                     print("Opening ${profile.redditLink}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WebPage(
-                                  URL: profile.redditLink,
-                                )));
+                    _launchURL(profile.redditLink);
                   },
-                ),
-                SizedBox(
-                  width: 30.0,
                 ),
                 IconButton(
                   icon: Icon(
@@ -182,12 +158,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   onPressed: () {
                     print("Opening ${profile.email}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WebPage(
-                                  URL: profile.email,
-                                )));
+                    _launchURL("mailto:${profile.email}");
                   },
                 ),
               ],

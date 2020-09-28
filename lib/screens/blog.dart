@@ -3,7 +3,6 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/blog_post_model.dart';
-import 'package:glug_app/screens/webpage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Blog extends StatelessWidget {
@@ -18,6 +17,7 @@ class Blog extends StatelessWidget {
     var date = formatDate(dateTime, [dd, '/', mm, '/', yyyy]);
     return date;
   }
+
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -25,24 +25,12 @@ class Blog extends StatelessWidget {
       throw 'Could not launch $url';
     }
   }
-  ScrollController _scrollController = ScrollController();
+
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: Text(
-          post.title,
-          style: TextStyle(
-            fontFamily: "Montserrat",
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        centerTitle: true,
-      ),*/
       body: Stack(
         children: <Widget>[
           Container(
@@ -124,14 +112,6 @@ class Blog extends StatelessWidget {
                       onLinkTap: (url) {
                         print("Opening $url");
                         _launchURL(url);
-
-                       /* Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WebPage(
-                                      URL: url,
-                                    )));*/
-
                       },
                       onImageTap: (src) {
                         // Display the image in large form.

@@ -2,20 +2,11 @@ import 'package:date_format/date_format.dart';
 import 'package:glug_app/models/blog_post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/screens/blog.dart';
-import 'package:html/parser.dart';
 
 class BlogPostTile extends StatelessWidget {
   final BlogPost post;
 
   BlogPostTile({this.post});
-
-  String _parseHtmlString(String htmlString) {
-    var document = parse(htmlString);
-
-    String parsedString = parse(document.body.text).documentElement.text;
-
-    return parsedString;
-  }
 
   String _getDate(String s) {
     DateTime dateTime = DateTime.parse(s).toLocal();

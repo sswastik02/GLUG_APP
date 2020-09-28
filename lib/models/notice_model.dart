@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Notice {
   Notice({
     this.notices,

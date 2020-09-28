@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/screens/chatroom.dart';
-// import 'package:glug_app/screens/blog_screen.dart';
-import 'package:glug_app/screens/dashboard.dart';
-// import 'package:glug_app/screens/event_screen.dart';
 import 'package:glug_app/screens/home_screen.dart';
-// import 'package:glug_app/screens/linit_screen.dart';
-import 'package:glug_app/screens/members_screen.dart';
 import 'package:glug_app/screens/notice_screen.dart';
 import 'package:glug_app/screens/timeline.dart';
 

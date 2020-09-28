@@ -7,7 +7,6 @@ import 'package:glug_app/screens/ContactUs.dart';
 import 'package:glug_app/screens/about_us_screen.dart';
 import 'package:glug_app/screens/dashboard.dart';
 import 'package:glug_app/screens/display.dart';
-import 'package:glug_app/screens/home_screen.dart';
 import 'package:glug_app/screens/members_screen.dart';
 
 import 'error_widget.dart';
@@ -54,59 +53,40 @@ class _DrawerItems extends State<DrawerItems> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Dashboard()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Dashboard()));
                 },
               ),
               ListTile(
                 leading: Icon(Icons.home),
                 title: Text("Home"),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Display()));
-
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Display()));
                 },
               ),
               ListTile(
                 leading: Icon(FontAwesomeIcons.userFriends),
                 title: Text("Our team"),
                 onTap: () {
-
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              MembersScreen()));
-
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MembersScreen()));
                 },
               ),
               ListTile(
                 leading: Icon(Icons.info_outline),
                 title: Text("About Us"),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              AboutUS()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AboutUS()));
                 },
               ),
               ListTile(
                 leading: Icon(Icons.contacts),
                 title: Text("Contact Us"),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ContactUs()));
-
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ContactUs()));
                 },
               ),
             ],

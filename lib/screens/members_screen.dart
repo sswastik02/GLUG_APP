@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/blocs/profiles_bloc.dart';
 import 'package:glug_app/models/profile_response.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
@@ -29,19 +28,15 @@ class _MembersScreenState extends State<MembersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-    drawer: Drawer(
-      child: DrawerItems(),
-    ),
-    appBar: AppBar(
-      title: Text(
-        "Our Team"
-      ),
-
-    ),
-      body: Column(
-        children: <Widget>[
-          /* Padding(
+        drawer: Drawer(
+          child: DrawerItems(),
+        ),
+        appBar: AppBar(
+          title: Text("Our Team"),
+        ),
+        body: Column(
+          children: <Widget>[
+            /* Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,30 +57,30 @@ class _MembersScreenState extends State<MembersScreen> {
           thickness: 1.0,
           color: Theme.of(context).primaryColor,
         ),*/
-          Expanded(
-            child: StreamBuilder(
-              stream: profilesBloc.allProfiles,
-              builder: (context, AsyncSnapshot<ProfileResponse> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.error != null &&
-                      snapshot.data.error.length > 0) {
-                    return errorWidget(snapshot.data.error);
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data.profiles.length,
-                    itemBuilder: (context, index) {
-                      return ProfileTile(profile: snapshot.data.profiles[index]);
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return errorWidget(snapshot.error);
-                } else
-                  return Center(child: CircularProgressIndicator());
-              },
-            ),
-          )
-        ],
-      )
-    );
+            Expanded(
+              child: StreamBuilder(
+                stream: profilesBloc.allProfiles,
+                builder: (context, AsyncSnapshot<ProfileResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0) {
+                      return errorWidget(snapshot.data.error);
+                    }
+                    return ListView.builder(
+                      itemCount: snapshot.data.profiles.length,
+                      itemBuilder: (context, index) {
+                        return ProfileTile(
+                            profile: snapshot.data.profiles[index]);
+                      },
+                    );
+                  } else if (snapshot.hasError) {
+                    return errorWidget(snapshot.error);
+                  } else
+                    return Center(child: CircularProgressIndicator());
+                },
+              ),
+            )
+          ],
+        ));
   }
 }

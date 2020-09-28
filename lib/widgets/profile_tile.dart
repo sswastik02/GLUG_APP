@@ -20,15 +20,6 @@ class ProfileTile extends StatelessWidget {
   String _titleText() {
     String title = "";
     title += '${profile.firstName} ${profile.lastName} ';
-    String former = '';
-
-    if (profile.yearName > 4) {
-      former = 'Former';
-    }
-
-    /* title += profile.position != null
-        ? '($former ${profile.position} )'
-        : '($former Member )';*/
 
     return title;
   }

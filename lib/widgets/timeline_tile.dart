@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/timeline_model.dart';
-import 'package:glug_app/screens/webpage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TimelineTile extends StatelessWidget {
@@ -93,14 +92,8 @@ class TimelineTile extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             child: Column(
               children: <Widget>[
-                /*Text(timeline.eventName,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),*/
                 Text(
-                    timeline.eventName,
+                  timeline.eventName,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "Montserrat",

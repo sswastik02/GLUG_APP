@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/event_model.dart';
-import 'package:glug_app/screens/webpage.dart';
-import 'package:html/parser.dart';
 import 'package:date_format/date_format.dart';
 
 class EventTile extends StatelessWidget {
@@ -24,14 +22,6 @@ class EventTile extends StatelessWidget {
     'November',
     'December'
   ];
-
-  String _parseHtmlString(String htmlString) {
-    var document = parse(htmlString);
-
-    String parsedString = parse(document.body.text).documentElement.text;
-
-    return parsedString;
-  }
 
   String _getTime(String timing) {
     DateTime dateTime = DateTime.parse(timing).toLocal();
@@ -82,13 +72,6 @@ class EventTile extends StatelessWidget {
         txt1,
         txt2,
         txt3,
-//        Text(
-//          _getDate(event.event_timing),
-//          style: TextStyle(
-//            fontSize: 18.0,
-//            fontWeight: FontWeight.bold,
-//          ),
-//        ),
         SizedBox(
           width: 15.0,
         ),
@@ -195,19 +178,6 @@ class EventTile extends StatelessWidget {
             SizedBox(
               height: 25.0,
             ),
-//            Padding(
-//              padding: EdgeInsets.symmetric(
-//                horizontal: 10.0,
-//                vertical: 10.0,
-//              ),
-//              child: Text(
-//                _parseHtmlString(event.description),
-//                overflow: TextOverflow.visible,
-//                style: TextStyle(
-//                  color: Colors.grey,
-//                ),
-//              ),
-//            ),
             Html(
               data: event.description,
               //Optional parameters:
@@ -221,12 +191,6 @@ class EventTile extends StatelessWidget {
               useRichText: false,
               onLinkTap: (url) {
                 print("Opening $url");
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WebPage(
-                              URL: url,
-                            )));
               },
               onImageTap: (src) {
                 // Display the image in large form.

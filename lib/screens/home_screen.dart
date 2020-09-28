@@ -2,15 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/blocs/blogPosts_bloc.dart';
 import 'package:glug_app/blocs/events_bloc.dart';
-// import 'package:glug_app/blocs/home_bloc.dart';
 import 'package:glug_app/models/blog_post_model.dart';
 import 'package:glug_app/models/blog_response.dart';
-// import 'package:glug_app/models/carousel_response.dart';
 import 'package:glug_app/models/event_model.dart';
 import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/screens/blog.dart';
 import 'package:glug_app/screens/event_info.dart';
-import 'package:glug_app/widgets/drawer_contents.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -145,11 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Home"),
       ),
-
       drawer: Drawer(
         child: DrawerItems(),
       ),
-
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

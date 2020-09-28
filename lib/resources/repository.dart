@@ -1,6 +1,5 @@
 import 'package:glug_app/models/blog_response.dart';
 import 'package:glug_app/models/carousel_response.dart';
-import 'package:glug_app/models/event_model.dart';
 import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/models/linit_response.dart';
 import 'package:glug_app/models/notice_model.dart';
@@ -83,7 +82,6 @@ class Repository {
 
   Future<TimelineResponse> fetchAllTimelineData() async =>
       _apiProvider.fetchTimelineData();
-
 
   Future<Notice> fetchAllNotices() async => _apiProvider.fetchNoticeData();
 }

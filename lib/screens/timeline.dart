@@ -5,15 +5,12 @@ import 'package:glug_app/models/timeline_response.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/timeline_tile.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Timeline extends StatefulWidget {
   static final id = 'blogscreen';
   @override
   _Timeline createState() => _Timeline();
 }
-
-
 
 class _Timeline extends State<Timeline> {
   @override
@@ -37,19 +34,17 @@ class _Timeline extends State<Timeline> {
       drawer: Drawer(
         child: DrawerItems(),
       ),
-
       body: StreamBuilder(
         stream: timelineBloc.allTimelineData,
         builder: (context, AsyncSnapshot<TimelineResponse> snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data.error != null &&
-                snapshot.data.error.length > 0) {
+            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
               return errorWidget(snapshot.data.error);
             }
             return ListView.builder(
               itemCount: snapshot.data.timelines.length,
               itemBuilder: (context, index) {
-                return TimelineTile(timeline : snapshot.data.timelines[index]);
+                return TimelineTile(timeline: snapshot.data.timelines[index]);
               },
             );
           } else if (snapshot.hasError) {
@@ -58,9 +53,6 @@ class _Timeline extends State<Timeline> {
             return Center(child: CircularProgressIndicator());
         },
       ),
-
-
-
     );
   }
 }

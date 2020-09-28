@@ -2,12 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/event_model.dart';
-import 'package:glug_app/screens/webpage.dart';
 import 'package:date_format/date_format.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventInfo extends StatefulWidget {
-  Event event;
+  final Event event;
   EventInfo({Key key, @required this.event}) : super(key: key);
 
   @override
@@ -15,10 +14,8 @@ class EventInfo extends StatefulWidget {
 }
 
 class _MyClassState extends State<EventInfo> {
-
   final Event event;
   _MyClassState(this.event);
-
 
   final months = [
     'January',
@@ -91,55 +88,56 @@ class _MyClassState extends State<EventInfo> {
           Icons.calendar_today,
           color: Colors.deepOrangeAccent,
         ),
-        SizedBox(width: 20,)
+        SizedBox(
+          width: 20,
+        )
       ],
     );
   }
-  var icon=Icons.favorite;
 
-  Widget _interestedButton(){
+  var icon = Icons.favorite_border;
 
-    return
-    FlatButton(
-        padding:  EdgeInsets.fromLTRB(20,10,20,10),
-        color: Colors.blue,
+  Widget _interestedButton() {
+    return FlatButton(
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        color: Colors.deepOrangeAccent,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(18.0),
         ),
-       child:Wrap(direction: Axis.horizontal,
-        spacing: 10,
-
-        children: <Widget>[
-          Text(
-            "Interested",
-                  style: TextStyle(
-                    fontFamily: "Montserrat",
-                    color: Colors.white,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(width: 10,),
-                Icon(
-                  // Icons.favorite_border,
-                  icon,
-                  color: Colors.deepOrangeAccent,
-                ),
-        ],
-      ),
-
-      onPressed:() {
-        setState(() {
-          if(icon==Icons.favorite_border){
-            icon = Icons.favorite;
-          }else{
-            icon = Icons.favorite_border;
-          }
+        child: Wrap(
+          direction: Axis.horizontal,
+          spacing: 10,
+          children: <Widget>[
+            Text(
+              "Interested",
+              style: TextStyle(
+                fontFamily: "Montserrat",
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(
+              // Icons.favorite_border,
+              icon,
+              color: Colors.white,
+            ),
+          ],
+        ),
+        onPressed: () {
+          setState(() {
+            if (icon == Icons.favorite_border) {
+              icon = Icons.favorite;
+            } else {
+              icon = Icons.favorite_border;
+            }
+          });
         });
-      }
-    );
-
   }
+
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -148,22 +146,9 @@ class _MyClassState extends State<EventInfo> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /* appBar: AppBar(
-        title: Text(
-          event.title,
-          style: TextStyle(
-            fontFamily: "Montserrat",
-            fontWeight: FontWeight.bold,
-            fontSize: 20.0,
-            color: Colors.white,
-          ),
-        ),
-        centerTitle: true,
-      ),*/
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -180,9 +165,8 @@ class _MyClassState extends State<EventInfo> {
                   fit: BoxFit.cover,
                 ),
               ),
-              child:
-
-              Wrap(direction: Axis.vertical,
+              child: Wrap(
+                direction: Axis.vertical,
                 spacing: 10,
                 children: <Widget>[
                   Container(
@@ -198,7 +182,6 @@ class _MyClassState extends State<EventInfo> {
                     child: _getDate(event.event_timing),
                   ),
                 ],
-
               ),
             ),
             SizedBox(
@@ -235,7 +218,6 @@ class _MyClassState extends State<EventInfo> {
                 ),
               ],
             ),
-
             SizedBox(
               height: 25.0,
             ),
@@ -246,24 +228,17 @@ class _MyClassState extends State<EventInfo> {
 
               defaultTextStyle: TextStyle(fontFamily: "Montserrat"),
               linkStyle: const TextStyle(
-                color: Colors.blueGrey,
+                color: Colors.blue,
               ),
               useRichText: false,
               onLinkTap: (url) {
                 print("Opening $url");
-                /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WebPage(
-                              URL: url,
-                            )));*/
-               _launchURL(url);
+                _launchURL(url);
               },
               onImageTap: (src) {
                 // Display the image in large form.
               },
             ),
-
             SizedBox(
               height: 25.0,
             ),

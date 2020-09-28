@@ -45,7 +45,6 @@ class _FirebaseMessagingDemoAppState extends State<FirebaseMessagingDemoApp> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _messages = List<Message>();
     _getToken();

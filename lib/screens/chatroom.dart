@@ -64,10 +64,6 @@ class _ChatroomState extends State<Chatroom> {
           style: TextStyle(color: Colors.black54),
           linkStyle: TextStyle(color: Colors.blue),
         ),
-        /*Text(
-          chat["message"],
-          style: TextStyle(fontFamily: "Montserrat"),
-        ),*/
       );
     }).toList();
 
@@ -136,41 +132,6 @@ class _ChatroomState extends State<Chatroom> {
       ),
       body: Column(
         children: <Widget>[
-          /* SizedBox(
-            height: 20.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "NITDGP OS",
-                  style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic),
-                ),
-                Icon(Icons.chat),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-            child: Text(
-              '"Feel free to ask questions on Open Source Technology"',
-              style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic),
-            ),
-          ),
-          Divider(
-            thickness: 1.0,
-            color: Theme.of(context).primaryColor,
-          ),*/
           Expanded(
               child: StreamBuilder(
             stream: _provider.fetchChatroomData(),
