@@ -17,15 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
             image: new AssetImage("images/back.jpeg"),
             fit: BoxFit.fill,
           ),
-        /*  gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-             colors: [
-              Colors.orangeAccent,
-              Colors.redAccent,
-            ],
-
-          ),*/
         ),
         child: Center(
           child: Column(
@@ -35,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 100.0,
               ),
-
               Container(
                 width: (MediaQuery.of(context).size.width),
                 height: 50,
@@ -51,8 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white
-                        ),
+                            color: Colors.white),
                       ),
                       Text(
                         "UX US",
@@ -60,8 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.deepOrange
-                        ),
+                            color: Colors.deepOrange),
                       ),
                       Text(
                         "ER'S GR",
@@ -69,8 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white
-                        ),
+                            color: Colors.white),
                       ),
                       Text(
                         "OUP",
@@ -78,38 +65,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.deepOrange
-                        ),
+                            color: Colors.deepOrange),
                       ),
-
                     ],
                   ),
                 ),
               ),
-
               SizedBox(
                 height: 100.0,
               ),
-
               CircleAvatar(
                 radius: 60.0,
                 backgroundImage: AssetImage("images/glug_logo.jpeg"),
               ),
-
-              /*Text(
-                "GLUG",
-                style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),*/
-
-
               SizedBox(height: 100),
               _signInButton(type: "Google"),
               SizedBox(height: 20.0),
-              // _signInButton(type: "Facebook"),
+              _signInButton(type: "Facebook"),
             ],
           ),
         ),
@@ -131,6 +103,20 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _onPressedFbSignInButton() async {
+    String status = await signInWithFacebook();
+
+    if (status == "Success") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) {
+            return Display();
+          },
+        ),
+      );
+    }
+  }
+
   Widget _signInButton({String type}) {
     return RaisedButton(
       elevation: 10.0,
@@ -138,7 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
       onPressed: () {
         if (type == "Google") {
           _onPressedGoogleSignInButton();
-        } else {} // Facebook Login
+        } else if (type == "Facebook") {
+          _onPressedFbSignInButton();
+        } // Facebook Login
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       color: Colors.white,

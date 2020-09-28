@@ -10,6 +10,16 @@ class FirestoreProvider {
     return user.uid;
   }
 
+  Future<String> getAuthProvider() async {
+    FirebaseUser user = await _auth.currentUser();
+    for (UserInfo userInfo in user.providerData) {
+      if (userInfo.providerId == "google.com")
+        return 'Google';
+      else if (userInfo.providerId == "facebook.com") return 'Facebook';
+    }
+    return 'Other';
+  }
+
   Stream<DocumentSnapshot> fetchUserData() async* {
     final uid = await getCurrentUserID();
     Stream<DocumentSnapshot> snap =

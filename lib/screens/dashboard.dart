@@ -54,10 +54,6 @@ class _DashboardState extends State<Dashboard> {
       padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
       child: Container(
         height: 175.0,
-        // decoration: BoxDecoration(
-        //   color: Color(0xFF303C42),
-        //   borderRadius: BorderRadius.circular(15.0),
-        // ),
         child: GridView.count(
           crossAxisCount: 3,
           crossAxisSpacing: 5.0,
@@ -199,12 +195,24 @@ class _DashboardState extends State<Dashboard> {
                         ],
                       ),
                       onPressed: () {
-                        signOutGoogle().whenComplete(() {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) {
-                              return LoginScreen();
-                            }),
-                          );
+                        _provider.getAuthProvider().then((value) {
+                          if (value == "Google") {
+                            signOutGoogle().whenComplete(() {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context) {
+                                  return LoginScreen();
+                                }),
+                              );
+                            });
+                          } else if (value == "Facebook") {
+                            signOutFacebook().whenComplete(() {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context) {
+                                  return LoginScreen();
+                                }),
+                              );
+                            });
+                          }
                         });
                       },
                     ),
