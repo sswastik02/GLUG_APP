@@ -25,6 +25,41 @@ class FirestoreProvider {
     yield* snap;
   }
 
+  Future<bool> isInterested(eventName) async {
+    final uid = await getCurrentUserID();
+    DocumentSnapshot snap =
+        await _firestore.collection("/users").document(uid).get();
+    List<dynamic> interestedEvents = snap.data["interested"];
+    if (interestedEvents != null && interestedEvents.contains(eventName))
+      return true;
+    else
+      return false;
+  }
+
+  void addInterested(eventName) async {
+    final uid = await getCurrentUserID();
+    DocumentReference ref = _firestore.collection("/users").document(uid);
+    _firestore.runTransaction((transaction) async {
+      DocumentSnapshot freshSnap = await transaction.get(ref);
+
+      await transaction.update(freshSnap.reference, {
+        "interested": FieldValue.arrayUnion([eventName])
+      });
+    });
+  }
+
+  void removeInterested(eventName) async {
+    final uid = await getCurrentUserID();
+    DocumentReference ref = _firestore.collection("/users").document(uid);
+    _firestore.runTransaction((transaction) async {
+      DocumentSnapshot freshSnap = await transaction.get(ref);
+
+      await transaction.update(freshSnap.reference, {
+        "interested": FieldValue.arrayRemove([eventName])
+      });
+    });
+  }
+
   void removeEventData(data, event) async {
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(data.reference);

@@ -52,7 +52,6 @@ class _DisplayState extends State<Display> {
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),
-
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.clock),
             title: Text(
@@ -74,28 +73,6 @@ class _DisplayState extends State<Display> {
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),
-          // BottomNavigationBarItem(
-          //   icon: FaIcon(FontAwesomeIcons.blog),
-          //   title: Text(
-          //     "Blog",
-          //     style: TextStyle(fontFamily: "Montserrat"),
-          //   ),
-          // ),
-
-          // BottomNavigationBarItem(
-          //   icon: FaIcon(FontAwesomeIcons.book),
-          //   title: Text(
-          //     "Linit",
-          //     style: TextStyle(fontFamily: "Montserrat"),
-          //   ),
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.account_box),
-          //   title: Text(
-          //     "Me",
-          //     style: TextStyle(fontFamily: "Montserrat"),
-          //   ),
-          // )
         ],
         onTap: (index) {
           setState(() {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/event_model.dart';
 import 'package:date_format/date_format.dart';
+import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventInfo extends StatefulWidget {
@@ -15,6 +16,9 @@ class EventInfo extends StatefulWidget {
 
 class _MyClassState extends State<EventInfo> {
   final Event event;
+  FirestoreProvider _provider;
+  bool _isInterested = false;
+
   _MyClassState(this.event);
 
   final months = [
@@ -31,6 +35,23 @@ class _MyClassState extends State<EventInfo> {
     'November',
     'December'
   ];
+
+  @override
+  void initState() {
+    _provider = new FirestoreProvider();
+    initInterested();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _provider = null;
+    super.dispose();
+  }
+
+  void initInterested() async {
+    _isInterested = await _provider.isInterested(event.title);
+  }
 
   String _getTime(String timing) {
     DateTime dateTime = DateTime.parse(timing).toLocal();
@@ -95,25 +116,23 @@ class _MyClassState extends State<EventInfo> {
     );
   }
 
-  var icon = Icons.favorite_border;
-
   Widget _interestedButton() {
     return FlatButton(
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
         color: Colors.deepOrangeAccent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18.0),
         ),
         child: Wrap(
           direction: Axis.horizontal,
-          spacing: 10,
+          spacing: 0,
           children: <Widget>[
             Text(
               "Interested",
               style: TextStyle(
                 fontFamily: "Montserrat",
                 color: Colors.white,
-                fontSize: 18.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -122,18 +141,20 @@ class _MyClassState extends State<EventInfo> {
             ),
             Icon(
               // Icons.favorite_border,
-              icon,
+              _isInterested ? Icons.favorite : Icons.favorite_border,
+              size: 20.0,
               color: Colors.white,
             ),
           ],
         ),
         onPressed: () {
           setState(() {
-            if (icon == Icons.favorite_border) {
-              icon = Icons.favorite;
+            if (!_isInterested) {
+              _provider.addInterested(event.title.toString());
             } else {
-              icon = Icons.favorite_border;
+              _provider.removeInterested(event.title.toString());
             }
+            _isInterested = !_isInterested;
           });
         });
   }
@@ -216,6 +237,10 @@ class _MyClassState extends State<EventInfo> {
                     fontFamily: "Montserrat",
                   ),
                 ),
+                SizedBox(
+                  width: 15.0,
+                ),
+                _interestedButton(),
               ],
             ),
             SizedBox(
@@ -242,7 +267,6 @@ class _MyClassState extends State<EventInfo> {
             SizedBox(
               height: 25.0,
             ),
-            _interestedButton(),
           ],
         ),
       ),

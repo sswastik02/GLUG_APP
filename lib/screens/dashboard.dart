@@ -169,40 +169,6 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(
                       height: 25.0,
                     ),
-                    // RaisedButton(
-                    //   elevation: 5.0,
-                    //   splashColor: Colors.orangeAccent,
-                    //   shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(40.0)),
-                    //   color: Theme.of(context).primaryColor,
-                    //   child: Row(
-                    //     mainAxisSize: MainAxisSize.min,
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: <Widget>[
-                    //       Icon(
-                    //         Icons.edit,
-                    //         color: Colors.white,
-                    //         size: 25.0,
-                    //       ),
-                    //       Padding(
-                    //         padding: const EdgeInsets.only(left: 10.0),
-                    //         child: Text(
-                    //           "Edit Profile",
-                    //           style: TextStyle(
-                    //             fontFamily: "Montserrat",
-                    //             fontSize: 18.0,
-                    //             fontWeight: FontWeight.bold,
-                    //             color: Colors.white,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   onPressed: () {},
-                    // ),
-                    // SizedBox(
-                    //   height: 25.0,
-                    // ),
                     RaisedButton(
                       elevation: 5.0,
                       splashColor: Colors.redAccent,
