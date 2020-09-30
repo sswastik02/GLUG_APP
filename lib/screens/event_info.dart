@@ -50,7 +50,10 @@ class _MyClassState extends State<EventInfo> {
   }
 
   void initInterested() async {
-    _isInterested = await _provider.isInterested(event.title);
+    var ins = await _provider.isInterested(event.title);
+    setState(() {
+      _isInterested=ins;
+    });
   }
 
   String _getTime(String timing) {
@@ -237,14 +240,16 @@ class _MyClassState extends State<EventInfo> {
                     fontFamily: "Montserrat",
                   ),
                 ),
-                SizedBox(
-                  width: 15.0,
-                ),
-                _interestedButton(),
+
+
               ],
             ),
             SizedBox(
-              height: 25.0,
+              height: 15.0,
+            ),
+            _interestedButton(),
+            SizedBox(
+              height: 7.0,
             ),
             Html(
               data: event.description,
