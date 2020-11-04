@@ -6,31 +6,33 @@ import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/screens/pdf_view_screen.dart';
 import 'package:path_provider/path_provider.dart';
 
-class NoticeTile extends StatelessWidget {
+class NoticeTile extends StatefulWidget {
   final Academic notice;
 
   const NoticeTile({Key key, @required this.notice}) : super(key: key);
 
-  // Future<void> downloadPDF() async {
-  //   Dio dio = Dio();
+  @override
+  _NoticeTileState createState() => _NoticeTileState();
+}
 
-  //   try {
-  //     var dir = await getExternalStorageDirectory();
-  //     // var dir = "/storage/emulated/0/Download";
-  //     // print("${dir.path}");
-  //     var fullSavePath = dir.path + "/${notice.title.toString()}.pdf";
-  //     await dio.download(notice.file.toString(), fullSavePath,
-  //         onReceiveProgress: (rec, total) =>
-  //             print((rec / total * 100).toStringAsFixed(0) + "%"));
-  //   } catch (error, stackTrace) {
-  //     print("Exception occured: $error stackTrace: $stackTrace");
-  //   }
-  // }
+class _NoticeTileState extends State<NoticeTile> {
+  bool _noticeStarred = false;
+  Color _iconColor;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_noticeStarred == false) {
+      _iconColor = Colors.black45;
+    } else {
+      _iconColor = Colors.orangeAccent;
+    }
+  }
 
   Future<File> _getFileFromUrl() async {
     Dio dio = Dio();
     try {
-      String url = notice.file.toString();
+      String url = widget.notice.file.toString();
       String fileName =
           url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
       print(fileName);
@@ -66,15 +68,33 @@ class NoticeTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(notice.date),
+          IconButton(
+            icon: Icon(
+              Icons.star_border,
+              color: _iconColor,
+            ),
+            onPressed: () {
+              _noticeStarred = !_noticeStarred;
+              if (_noticeStarred) {
+                setState(() {
+                  _iconColor = Colors.orangeAccent;
+                });
+              } else {
+                setState(() {
+                  _iconColor = Colors.black45;
+                });
+              }
+            },
+          ),
+          Text(widget.notice.date),
           SizedBox(
             width: 20,
           ),
           GestureDetector(
             child: Container(
-              width: size.width * 0.55,
+              width: size.width * 0.50,
               child: Text(
-                notice.title,
+                widget.notice.title,
                 overflow: TextOverflow.clip,
               ),
             ),
@@ -86,7 +106,7 @@ class NoticeTile extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => PDFViewScreen(
                           file: pdfFile,
-                          name: notice.title.toString(),
+                          name: widget.notice.title.toString(),
                         ),
                       ),
                     )
