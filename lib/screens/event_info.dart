@@ -39,7 +39,7 @@ class _MyClassState extends State<EventInfo> {
   @override
   void initState() {
     _provider = new FirestoreProvider();
-    initInterested();
+    _initInterested();
     super.initState();
   }
 
@@ -49,10 +49,10 @@ class _MyClassState extends State<EventInfo> {
     super.dispose();
   }
 
-  void initInterested() async {
+  void _initInterested() async {
     var ins = await _provider.isInterested(event.title);
     setState(() {
-      _isInterested=ins;
+      _isInterested = ins;
     });
   }
 
@@ -240,8 +240,6 @@ class _MyClassState extends State<EventInfo> {
                     fontFamily: "Montserrat",
                   ),
                 ),
-
-
               ],
             ),
             SizedBox(

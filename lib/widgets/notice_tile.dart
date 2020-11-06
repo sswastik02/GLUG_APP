@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/models/notice_model.dart';
+import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/pdf_view_screen.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -16,17 +17,29 @@ class NoticeTile extends StatefulWidget {
 }
 
 class _NoticeTileState extends State<NoticeTile> {
+  FirestoreProvider _provider;
   bool _noticeStarred = false;
-  Color _iconColor;
 
   @override
   void initState() {
     super.initState();
-    if (_noticeStarred == false) {
-      _iconColor = Colors.black45;
-    } else {
-      _iconColor = Colors.orangeAccent;
-    }
+    _provider = new FirestoreProvider();
+    _initStarred();
+  }
+
+  void _initStarred() async {
+    var res = await _provider.isStarredNotice(widget.notice.title);
+    print(res.toString());
+
+    setState(() {
+      _noticeStarred = res;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _provider = null;
   }
 
   Future<File> _getFileFromUrl() async {
@@ -70,20 +83,26 @@ class _NoticeTileState extends State<NoticeTile> {
         children: <Widget>[
           IconButton(
             icon: Icon(
-              Icons.star_border,
-              color: _iconColor,
+              _noticeStarred ? Icons.star : Icons.star_border,
+              color: _noticeStarred ? Colors.deepOrangeAccent : Colors.black45,
             ),
             onPressed: () {
-              _noticeStarred = !_noticeStarred;
-              if (_noticeStarred) {
-                setState(() {
-                  _iconColor = Colors.orangeAccent;
-                });
-              } else {
-                setState(() {
-                  _iconColor = Colors.black45;
-                });
-              }
+              setState(() {
+                if (!_noticeStarred) {
+                  _provider.addStarredNotice({
+                    "title": widget.notice.title,
+                    "date": widget.notice.date,
+                    "file": widget.notice.file
+                  });
+                } else {
+                  _provider.removeStarredNotice({
+                    "title": widget.notice.title,
+                    "date": widget.notice.date,
+                    "file": widget.notice.file
+                  });
+                }
+                _noticeStarred = !_noticeStarred;
+              });
             },
           ),
           Text(widget.notice.date),

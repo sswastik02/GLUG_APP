@@ -35,6 +35,45 @@ class FirestoreProvider {
     yield* snap;
   }
 
+  void addStarredNotice(noticeData) async {
+    final uid = await getCurrentUserID();
+    DocumentReference ref = _firestore.collection("/users").document(uid);
+    _firestore.runTransaction((transaction) async {
+      DocumentSnapshot freshSnap = await transaction.get(ref);
+      await transaction.update(freshSnap.reference, {
+        "starred_notices": FieldValue.arrayUnion([noticeData])
+      });
+    });
+  }
+
+  void removeStarredNotice(noticeData) async {
+    final uid = await getCurrentUserID();
+    DocumentReference ref = _firestore.collection("/users").document(uid);
+    _firestore.runTransaction((transaction) async {
+      DocumentSnapshot freshSnap = await transaction.get(ref);
+
+      await transaction.update(freshSnap.reference, {
+        "starred_notices": FieldValue.arrayRemove([noticeData])
+      });
+    });
+  }
+
+  Future<bool> isStarredNotice(title) async {
+    print(title);
+    final uid = await getCurrentUserID();
+    DocumentSnapshot snap =
+        await _firestore.collection("/users").document(uid).get();
+
+    List<dynamic> starredNotices = snap.data["starred_notices"];
+    if (starredNotices != null) {
+      starredNotices.forEach((notice) {
+        print("${notice.toString()} title: $title");
+        if (notice["title"].toString() == title.toString()) return true;
+      });
+    }
+    return false;
+  }
+
   Future<bool> isInterested(eventName) async {
     final uid = await getCurrentUserID();
     DocumentSnapshot snap =
