@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/screens/chatroom.dart';
+import 'package:glug_app/screens/game_chooser_screen.dart';
 import 'package:glug_app/screens/home_screen.dart';
 import 'package:glug_app/screens/notice_screen.dart';
 import 'package:glug_app/screens/timeline.dart';
@@ -18,6 +19,7 @@ class _DisplayState extends State<Display> {
     Timeline(),
     Chatroom(),
     NoticeScreen(),
+    GameScreen()
     // EventScreen(),
     // BlogScreen(),
 
@@ -70,6 +72,13 @@ class _DisplayState extends State<Display> {
             icon: Icon(Icons.announcement),
             title: Text(
               "Notices",
+              style: TextStyle(fontFamily: "Montserrat"),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.games),
+            title: Text(
+              "Games",
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),
