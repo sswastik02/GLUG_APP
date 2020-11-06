@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glug_app/games/hangman/game_stage.dart';
 
 class GameCard extends StatelessWidget {
   final String game;
@@ -7,14 +8,24 @@ class GameCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Container(
-      height: 150,
-      width: 150,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        image: DecorationImage(
-          image: AssetImage('images/$game.png'),
-          fit: BoxFit.fitHeight,
+    return GestureDetector(
+      onTap: () {
+        if (game == "hangman") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => VerticalGameStage()),
+          );
+        }
+      },
+      child: Container(
+        height: 150,
+        width: 150,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          image: DecorationImage(
+            image: AssetImage('images/$game.png'),
+            fit: BoxFit.fitHeight,
+          ),
         ),
       ),
     );
