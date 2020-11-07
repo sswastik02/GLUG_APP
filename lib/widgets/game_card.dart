@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glug_app/games/flappybird/app/flappybird.dart';
 import 'package:glug_app/games/hangman/game_stage.dart';
 
 class GameCard extends StatelessWidget {
@@ -14,6 +15,11 @@ class GameCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => VerticalGameStage()),
+          );
+        } else if (game == "flappybird") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FlappyBird()),
           );
         }
       },
