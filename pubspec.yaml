@@ -14,7 +14,7 @@ description: The official app for the GNU LInux Users&#x27; Group NITDGP
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -86,6 +86,9 @@ flutter:
         - asset: fonts/Montserrat-Bold.ttf
         - asset: fonts/Montserrat-BoldItalic.ttf
           style: italic
+    - family: FlappyBird
+      fonts:
+        - asset: fonts/Flappy-Bird.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
