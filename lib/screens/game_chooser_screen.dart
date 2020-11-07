@@ -19,8 +19,8 @@ class GameScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GameCard(game: "hangman"),
-                GameCard(game: "flappybird"),
+                GameCard(game: "hangman", title: "Hangman"),
+                GameCard(game: "flappybird", title: "Flappy Bird"),
               ],
             ),
           ),

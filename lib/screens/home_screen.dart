@@ -38,6 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _buildEventList(List<Event> events) {
     events.removeWhere((event) => event.title == null);
+    events.removeWhere((event) => DateTime.parse(event.event_timing)
+        .toLocal()
+        .isBefore(DateTime(DateTime.now().year - 1, 1, 1).toLocal()));
     List<Widget> eventWidgets = events
         .map(
           (item) => GestureDetector(
@@ -149,34 +152,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            /* Padding(
-              padding:
-              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: AssetImage("images/glug_logo.jpeg"),
-                    radius: 20.0,
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Text(
-                    "HOME",
-                    style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic),
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              thickness: 1.0,
-              color: Theme.of(context).primaryColor,
-            ),*/
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
