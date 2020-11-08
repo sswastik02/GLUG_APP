@@ -125,6 +125,17 @@ Future<String> signInWithFacebook() async {
   }
 }
 
+Future<String> signInGuest() async {
+  try {
+    AuthResult authResult = await _auth.signInAnonymously();
+    FirebaseUser user = authResult.user;
+    print("${user.uid}");
+    return 'Success';
+  } catch (error) {
+    return 'Failure';
+  }
+}
+
 Future<void> signOutGoogle() async {
   await _googleSignIn.signOut();
   await _auth.signOut();
@@ -136,5 +147,10 @@ Future<void> signOutFacebook() async {
   await _fbLogin.logOut();
   await _auth.signOut();
 
+  print("User Sign Out");
+}
+
+Future<void> signOutGuest() async {
+  await _auth.signOut();
   print("User Sign Out");
 }

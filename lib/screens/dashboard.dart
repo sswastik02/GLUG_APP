@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/login_screen.dart';
@@ -14,10 +15,12 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   FirestoreProvider _provider;
+  String _userID;
 
   @override
   void initState() {
     _provider = FirestoreProvider();
+    _getUserID();
     super.initState();
   }
 
@@ -25,6 +28,10 @@ class _DashboardState extends State<Dashboard> {
   void dispose() {
     _provider = null;
     super.dispose();
+  }
+
+  void _getUserID() async {
+    _userID = await _provider.getCurrentUserID();
   }
 
   _buildEventsWidget(List<dynamic> events) {
@@ -96,7 +103,9 @@ class _DashboardState extends State<Dashboard> {
                               vertical: 10.0, horizontal: 20.0),
                           child: CircleAvatar(
                             radius: 40.0,
-                            backgroundImage: NetworkImage(userData["photoUrl"]),
+                            backgroundImage: userData.exists
+                                ? NetworkImage(userData["photoUrl"])
+                                : AssetImage("images/glug_logo.jpeg"),
                           ),
                         ),
                         Column(
@@ -104,7 +113,9 @@ class _DashboardState extends State<Dashboard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              userData["name"],
+                              userData.exists
+                                  ? userData["name"]
+                                  : "Guest $_userID".substring(0, 15) + "...",
                               style: TextStyle(
                                 fontFamily: "Montserrat",
                                 fontSize: 20.0,
@@ -112,7 +123,7 @@ class _DashboardState extends State<Dashboard> {
                               ),
                             ),
                             Text(
-                              userData["email"],
+                              userData.exists ? userData["email"] : "",
                               style: TextStyle(
                                 fontFamily: "Montserrat",
                                 fontSize: 14.0,
@@ -125,43 +136,48 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(
                       height: 25.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            "Events Participated in",
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          IconButton(
-                            iconSize: 20.0,
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProfileEditScreen()));
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    (userData["eventDetail"] == null ||
-                            userData["eventDetail"].length == 0)
-                        ? Text(
-                            "No data added yet",
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 14.0,
+                    userData.exists
+                        ? Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  "Events Participated in",
+                                  style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                IconButton(
+                                  iconSize: 20.0,
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfileEditScreen()));
+                                  },
+                                ),
+                              ],
                             ),
                           )
-                        : _buildEventsWidget(userData["eventDetail"]),
+                        : SizedBox(),
+                    userData.exists
+                        ? (userData["eventDetail"] == null ||
+                                userData["eventDetail"].length == 0)
+                            ? Text(
+                                "No data added yet",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 14.0,
+                                ),
+                              )
+                            : _buildEventsWidget(userData["eventDetail"])
+                        : SizedBox(),
                     SizedBox(
                       height: 25.0,
                     ),
@@ -206,6 +222,14 @@ class _DashboardState extends State<Dashboard> {
                             });
                           } else if (value == "Facebook") {
                             signOutFacebook().whenComplete(() {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context) {
+                                  return LoginScreen();
+                                }),
+                              );
+                            });
+                          } else {
+                            signOutGuest().whenComplete(() {
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(builder: (context) {
                                   return LoginScreen();

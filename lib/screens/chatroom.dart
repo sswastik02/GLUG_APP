@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
+import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/message_tile.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
+
+import 'login_screen.dart';
 
 class Chatroom extends StatefulWidget {
   @override
@@ -19,7 +22,7 @@ class Chatroom extends StatefulWidget {
 
 class _ChatroomState extends State<Chatroom> {
   FirestoreProvider _provider;
-  var userEmail="";
+  var userEmail = "";
 
   @override
   void initState() {
@@ -32,6 +35,7 @@ class _ChatroomState extends State<Chatroom> {
     var ins = await _provider.getCurrentUserEmail();
     setState(() {
       userEmail = ins;
+      print(userEmail);
     });
   }
 
@@ -43,7 +47,6 @@ class _ChatroomState extends State<Chatroom> {
 
   _buildChats(List<dynamic> chats) {
     List<Widget> tiles = chats.map((chat) {
-
       /*return ListTile(
         onTap: () {},
         leading: CircleAvatar(
@@ -82,11 +85,15 @@ class _ChatroomState extends State<Chatroom> {
       );*/
 
       bool isSentByMe;
-      if(chat["email"]==userEmail){isSentByMe=true;}else{isSentByMe=false;}
+      if (chat["email"] == userEmail) {
+        isSentByMe = true;
+      } else {
+        isSentByMe = false;
+      }
       return MessageTile(
         message: chat["message"],
-        sender:  chat["sender"],
-        sentByMe: isSentByMe ,
+        sender: chat["sender"],
+        sentByMe: isSentByMe,
       );
     }).toList();
 
@@ -134,7 +141,7 @@ class _ChatroomState extends State<Chatroom> {
   }
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Chat Room"),
@@ -174,7 +181,42 @@ class _ChatroomState extends State<Chatroom> {
           )),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-            child: _buildChatComposer(),
+            child: userEmail != null && userEmail.length != 0
+                ? _buildChatComposer()
+                : Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Sign in with a social account to chat",
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            signOutGuest().whenComplete(() {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context) {
+                                  return LoginScreen();
+                                }),
+                              );
+                            });
+                          },
+                          child: Text(
+                            "Sign out",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0)),
+                          color: Colors.deepOrangeAccent,
+                        )
+                      ],
+                    ),
+                  ),
           ),
         ],
       ),
