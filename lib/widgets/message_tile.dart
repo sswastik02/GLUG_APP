@@ -6,9 +6,10 @@ class MessageTile extends StatelessWidget {
 
   final String message;
   final String sender;
+  final String timeAGo;
   final bool sentByMe;
 
-  MessageTile({this.message, this.sender, this.sentByMe});
+  MessageTile({this.message, this.sender, this.sentByMe,this.timeAGo});
 
 
   @override
@@ -22,26 +23,26 @@ class MessageTile extends StatelessWidget {
       alignment: sentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin: sentByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
-        padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
+        padding: EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),
         decoration: BoxDecoration(
           borderRadius: sentByMe ? BorderRadius.only(
-              topLeft: Radius.circular(23),
-              topRight: Radius.circular(23),
-              bottomLeft: Radius.circular(23)
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10)
           )
               :
           BorderRadius.only(
-              topLeft: Radius.circular(23),
-              topRight: Radius.circular(23),
-              bottomRight: Radius.circular(23)
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomRight: Radius.circular(10)
           ),
-          color: sentByMe ? Colors.blueAccent : Colors.grey[700],
+          color: sentByMe ? /*Color.fromRGBO(227, 125, 52, .9)*/ Colors.deepOrangeAccent: Color.fromRGBO(196, 105, 41,.9) ,//179, 86, 52
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(sender, textAlign: TextAlign.start, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Colors.black, letterSpacing: -0.5)),
-            SizedBox(height: 7.0),
+            sentByMe? SizedBox():Text(sender, textAlign: TextAlign.right, style: TextStyle(fontWeight:FontWeight.bold,fontSize: 13.0, color: Colors.black, letterSpacing: -0.5)) ,
+            SizedBox(height: sentByMe? 0:3.0),
             Linkify(
               onOpen: (link) async {
                 if (await canLaunch(link.url)) {
@@ -54,6 +55,8 @@ class MessageTile extends StatelessWidget {
               style: TextStyle(fontSize: 15.0, color: Colors.white),
               linkStyle: TextStyle(color: Colors.blue),
             ),
+            SizedBox(height: 2),
+            Text(timeAGo, textAlign: TextAlign.right, style: TextStyle(fontSize: 10.0, color: Colors.black, letterSpacing: -0.5)),
           ],
         ),
       ),

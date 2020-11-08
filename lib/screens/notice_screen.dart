@@ -45,19 +45,21 @@ class _NoticeScreenState extends State<NoticeScreen> {
       drawer: Drawer(
         child: DrawerItems(),
       ),
-      body: Column(
+      body: Container(
+        color: Colors.white10,
+      child : Column(
         children: [
-          SizedBox(height: 50),
+          SizedBox(height: 20),
           Container(
             padding: EdgeInsets.only(left: 20, right: 20),
             margin: EdgeInsets.symmetric(horizontal: 20),
-            height: 60,
+            height: 50,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(25),
               border: Border.all(
-                color: Color(0xFFE5E5E5),
+                color: Colors.deepOrangeAccent//Color(0xFFE5E5E5),
               ),
             ),
             child: Row(
@@ -83,6 +85,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
               ],
             ),
           ),
+
           SizedBox(height: 25),
           Expanded(
             child: StreamBuilder(
@@ -94,11 +97,11 @@ class _NoticeScreenState extends State<NoticeScreen> {
                   return ListView.builder(
                     padding: EdgeInsets.symmetric(
                       vertical: 0,
-                      horizontal: 20,
+                      horizontal: 8,
                     ),
                     itemCount: noticeType.length,
                     itemBuilder: (context, index) {
-                      return NoticeTile(notice: noticeType[index]);
+                      return NoticeTile(notice: noticeType[index],c : noticeType.length-index);
                     },
                   );
                 } else if (snapshot.hasError) {
@@ -111,7 +114,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
           ),
         ],
       ),
-    );
+    ));
   }
 }
 

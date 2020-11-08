@@ -87,6 +87,7 @@ class _ChatroomState extends State<Chatroom> {
         message: chat["message"],
         sender:  chat["sender"],
         sentByMe: isSentByMe ,
+        timeAGo: timeago.format(chat["time"].toDate())
       );
     }).toList();
 
