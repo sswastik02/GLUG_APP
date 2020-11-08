@@ -1,9 +1,14 @@
+//import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
+import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
+import 'package:glug_app/widgets/message_tile.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,11 +19,20 @@ class Chatroom extends StatefulWidget {
 
 class _ChatroomState extends State<Chatroom> {
   FirestoreProvider _provider;
+  var userEmail="";
 
   @override
   void initState() {
     _provider = FirestoreProvider();
+    _initEmail();
     super.initState();
+  }
+
+  void _initEmail() async {
+    var ins = await _provider.getCurrentUserEmail();
+    setState(() {
+      userEmail = ins;
+    });
   }
 
   @override
@@ -29,7 +43,8 @@ class _ChatroomState extends State<Chatroom> {
 
   _buildChats(List<dynamic> chats) {
     List<Widget> tiles = chats.map((chat) {
-      return ListTile(
+
+      /*return ListTile(
         onTap: () {},
         leading: CircleAvatar(
           radius: 20.0,
@@ -64,6 +79,14 @@ class _ChatroomState extends State<Chatroom> {
           style: TextStyle(color: Colors.black54),
           linkStyle: TextStyle(color: Colors.blue),
         ),
+      );*/
+
+      bool isSentByMe;
+      if(chat["email"]==userEmail){isSentByMe=true;}else{isSentByMe=false;}
+      return MessageTile(
+        message: chat["message"],
+        sender:  chat["sender"],
+        sentByMe: isSentByMe ,
       );
     }).toList();
 
@@ -111,7 +134,7 @@ class _ChatroomState extends State<Chatroom> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
         title: Text("Chat Room"),

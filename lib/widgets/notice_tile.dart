@@ -28,7 +28,7 @@ class _NoticeTileState extends State<NoticeTile> {
   }
 
   void _initStarred() async {
-    var res = await _provider.isStarredNotice(widget.notice.title);
+    bool res = await _provider.isStarredNotice(widget.notice.title);
     print(res.toString());
 
     setState(() {
@@ -87,8 +87,12 @@ class _NoticeTileState extends State<NoticeTile> {
               color: _noticeStarred ? Colors.deepOrangeAccent : Colors.black45,
             ),
             onPressed: () {
+
+
               setState(() {
                 if (!_noticeStarred) {
+
+                  print(_noticeStarred);
                   _provider.addStarredNotice({
                     "title": widget.notice.title,
                     "date": widget.notice.date,
@@ -101,7 +105,7 @@ class _NoticeTileState extends State<NoticeTile> {
                     "file": widget.notice.file
                   });
                 }
-                _noticeStarred = !_noticeStarred;
+              //  _noticeStarred = !_noticeStarred;
               });
             },
           ),

@@ -9,6 +9,10 @@ class FirestoreProvider {
     FirebaseUser user = await _auth.currentUser();
     return user.uid;
   }
+  Future<String> getCurrentUserEmail() async {
+    FirebaseUser user = await _auth.currentUser();
+    return user.email.toString();
+  }
 
   Future<String> getAuthProvider() async {
     FirebaseUser user = await _auth.currentUser();
@@ -130,15 +134,18 @@ class FirestoreProvider {
   }
 
   void composeMessage(String textMessage) async {
-    final uid = await getCurrentUserID();
+    /*final uid = await getCurrentUserID();
     DocumentSnapshot user =
-        await _firestore.collection("/users").document(uid).get();
+        await _firestore.collection("/users").document(uid).get();*/
+    FirebaseUser usera = await _auth.currentUser();
 
     _firestore.collection("/chatroom").add({
       "message": textMessage,
       "time": Timestamp.now(),
-      "sender": user["name"],
-      "photoUrl": user["photoUrl"]
+      "sender": usera.displayName,//user["name"],
+      "photoUrl": usera.photoUrl,
+      "email": usera.email
+
     });
   }
 }
