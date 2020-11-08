@@ -92,8 +92,14 @@ class _ChatroomState extends State<Chatroom> {
       }
       return MessageTile(
         message: chat["message"],
+<<<<<<< HEAD
         sender: chat["sender"],
         sentByMe: isSentByMe,
+=======
+        sender:  chat["sender"],
+        sentByMe: isSentByMe ,
+        timeAGo: timeago.format(chat["time"].toDate())
+>>>>>>> 11341f2bff2563680cc16549314f3b73bd76c26b
       );
     }).toList();
 

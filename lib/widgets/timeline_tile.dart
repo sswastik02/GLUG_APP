@@ -41,7 +41,7 @@ class TimelineTile extends StatelessWidget {
       m.substring(0, 3),
       style: TextStyle(
         fontFamily: "Montserrat",
-        fontSize: 16.0,
+        fontSize: 15.0,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -50,7 +50,7 @@ class TimelineTile extends StatelessWidget {
       style: TextStyle(
         fontFamily: "Montserrat",
         color: Colors.deepOrange,
-        fontSize: 16.0,
+        fontSize: 15.0,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -61,7 +61,7 @@ class TimelineTile extends StatelessWidget {
       style: TextStyle(
         fontFamily: "Montserrat",
         color: Colors.deepOrangeAccent,
-        fontSize: 16.0,
+        fontSize: 15.0,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -77,6 +77,7 @@ class TimelineTile extends StatelessWidget {
         Icon(
           Icons.calendar_today,
           color: Colors.deepOrangeAccent,
+          size: 15,
         )
       ],
     );
