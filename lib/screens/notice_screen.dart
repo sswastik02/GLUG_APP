@@ -1,6 +1,10 @@
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/blocs/notices_bloc.dart';
+import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notice_tile.dart';
@@ -15,6 +19,12 @@ class _NoticeScreenState extends State<NoticeScreen> {
   String _dropdownvalue;
   Notice notice;
   List<Academic> noticeType;
+  FirestoreProvider _provider;
+  List<String> _startedLista;
+  //var _startedList;
+  StreamController _streamController;
+  Stream _stream;
+
   void changeNoticeType(String noticeType) {
     noticeBloc.fetchCalledNotice(noticeType);
     setState(() {
@@ -27,6 +37,11 @@ class _NoticeScreenState extends State<NoticeScreen> {
     _dropdownvalue = "General";
     noticeBloc.fetchAllData();
     noticeBloc.fetchCalledNotice("General");
+    _streamController = StreamController();
+    _startedLista = new List();
+    _stream = _streamController.stream;
+    _provider = FirestoreProvider();
+    _getStaredList();
     super.initState();
   }
 
@@ -35,6 +50,12 @@ class _NoticeScreenState extends State<NoticeScreen> {
     //noticeBloc.dispose();
     super.dispose();
   }
+
+  void _getStaredList() async {
+    _startedLista = await _provider.fetchStaredNotice();
+    _streamController.sink.add(_startedLista);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -89,27 +110,51 @@ class _NoticeScreenState extends State<NoticeScreen> {
           SizedBox(height: 25),
           Expanded(
             child: StreamBuilder(
-              stream: noticeBloc.noticeCategories,
-              builder: (context, AsyncSnapshot<List<Academic>> snapshot) {
-                if (snapshot.hasData) {
-                  noticeType = snapshot.data;
-
-                  return ListView.builder(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 0,
-                      horizontal: 8,
-                    ),
-                    itemCount: noticeType.length,
-                    itemBuilder: (context, index) {
-                      return NoticeTile(notice: noticeType[index],c : noticeType.length-index);
-                    },
+              stream: _stream, //noticeBloc.noticeCategories,
+              builder: (context, AsyncSnapshot<dynamic> snapshot1) {
+                if (snapshot1.hasData) {
+                  return StreamBuilder(
+                      stream: noticeBloc.noticeCategories,
+                      builder: (context, AsyncSnapshot<List<Academic>> snapshot) {
+                        if (snapshot.hasData) {
+                          noticeType = snapshot.data;
+                          return ListView.builder(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 0,
+                              horizontal: 8,
+                            ),
+                            itemCount: noticeType.length,
+                            itemBuilder: (context, index) {
+                              bool _isStared = false;
+                              List<dynamic> _startedList = snapshot1.data;
+                              print("list $_startedList");
+                              for (int i = 0; i < _startedList.length; i++) {
+                                print(_startedList[i]);
+                                if (noticeType[index].title == _startedList[i]) {
+                                  _isStared = true;
+                                  break;
+                                }
+                              }
+                              var a = snapshot1.data;
+                              print("data $a");
+                              return NoticeTile(notice: noticeType[index],
+                                  c: noticeType.length - index,
+                                  noticeStarred: _isStared);
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return errorWidget(snapshot.error);
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      }
                   );
-                } else if (snapshot.hasError) {
-                  return errorWidget(snapshot.error);
-                } else {
+                }else if (snapshot1.hasError) {
+                  return errorWidget(snapshot1.error);
+                  } else {
                   return Center(child: CircularProgressIndicator());
+                  }
                 }
-              },
             ),
           ),
         ],

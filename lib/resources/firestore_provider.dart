@@ -71,11 +71,33 @@ class FirestoreProvider {
     List<dynamic> starredNotices = snap.data["starred_notices"];
     if (starredNotices != null) {
       starredNotices.forEach((notice) {
-        print("${notice.toString()} title: $title");
-        if (notice["title"].toString() == title.toString()) return true;
+        //print("${notice.toString()} title: $title");
+        var t= notice["title"].toString();
+        print("$title and $t");
+        if (t.trim() == title.toString().trim()) {
+          return true;
+        }
       });
     }
     return false;
+  }
+
+  Future<List<String>> fetchStaredNotice() async {
+    final uid = await getCurrentUserID();
+    DocumentSnapshot snap =
+    await _firestore.collection("/users").document(uid).get();
+    List<String> noticeTitles = new List();
+    List<dynamic> starredNotices = snap.data["starred_notices"];
+    if (starredNotices != null) {
+      starredNotices.forEach((notice) {
+        //print("${notice.toString()} title: $title");
+        var t= notice["title"].toString();
+        noticeTitles.add(t);
+
+      });
+      return noticeTitles;
+    }
+    return null;
   }
 
   Future<bool> isInterested(eventName) async {

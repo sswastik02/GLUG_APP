@@ -10,8 +10,9 @@ import 'package:path_provider/path_provider.dart';
 class NoticeTile extends StatefulWidget {
   final Academic notice;
   final int c;
+  final bool noticeStarred;
 
-  const NoticeTile({Key key, @required this.notice,this.c}) : super(key: key);
+  const NoticeTile({Key key, @required this.notice,this.c, this.noticeStarred}) : super(key: key);
 
   @override
   _NoticeTileState createState() => _NoticeTileState();
@@ -21,22 +22,24 @@ class NoticeTile extends StatefulWidget {
 class _NoticeTileState extends State<NoticeTile> {
 
   FirestoreProvider _provider;
-  bool _noticeStarred = false;
+  bool _isStared;
+
 
   @override
   void initState() {
     super.initState();
     _provider = new FirestoreProvider();
-    _initStarred();
+    _isStared = widget.noticeStarred;
+   // _initStarred();
   }
 
-  void _initStarred() async {
+  /*void _initStarred() async {
     bool res = await _provider.isStarredNotice(widget.notice.title);
     print(res.toString());
     setState(() {
       _noticeStarred = res;
     });
-  }
+  }*/
 
   @override
   void dispose() {
@@ -157,13 +160,13 @@ class _NoticeTileState extends State<NoticeTile> {
 
                     IconButton(
                       icon: Icon(
-                        _noticeStarred ? Icons.star : Icons.star_border,
-                        color: _noticeStarred ? Colors.deepOrangeAccent : Colors.black45,
+                        _isStared ? Icons.star : Icons.star_border,
+                        color: _isStared ? Colors.deepOrangeAccent : Colors.black45,
                       ),
                       onPressed: () {
                         setState(() {
-                          if (!_noticeStarred) {
-                            print(_noticeStarred);
+                          if (!_isStared) {
+                            print(_isStared);
                             _provider.addStarredNotice({
                               "title": widget.notice.title,
                               "date": widget.notice.date,
@@ -176,7 +179,7 @@ class _NoticeTileState extends State<NoticeTile> {
                               "file": widget.notice.file
                             });
                           }
-                          //  _noticeStarred = !_noticeStarred;
+                          _isStared = !_isStared;
                         });
                       },
                     ),
