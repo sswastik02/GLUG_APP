@@ -9,6 +9,7 @@ class FlappyBird extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Flappy Bird",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         backgroundColor: Palette.sky,
         fontFamily: "FlappyBird",

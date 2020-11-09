@@ -9,9 +9,15 @@ class FirestoreProvider {
     FirebaseUser user = await _auth.currentUser();
     return user.uid;
   }
+
   Future<String> getCurrentUserEmail() async {
-    FirebaseUser user = await _auth.currentUser();
-    return user.email.toString();
+    final uid = await getCurrentUserID();
+    DocumentSnapshot snap =
+        await _firestore.collection("/users").document(uid).get();
+    if (snap.exists)
+      return snap["email"];
+    else
+      return "";
   }
 
   Future<String> getAuthProvider() async {
@@ -164,10 +170,9 @@ class FirestoreProvider {
     _firestore.collection("/chatroom").add({
       "message": textMessage,
       "time": Timestamp.now(),
-      "sender": usera.displayName,//user["name"],
+      "sender": usera.displayName, //user["name"],
       "photoUrl": usera.photoUrl,
       "email": usera.email
-
     });
   }
 }

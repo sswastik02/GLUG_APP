@@ -78,7 +78,45 @@ class _LoginScreenState extends State<LoginScreen> {
                 radius: 60.0,
                 backgroundImage: AssetImage("images/glug_logo.jpeg"),
               ),
-              SizedBox(height: 100),
+              SizedBox(height: 70),
+              RaisedButton(
+                elevation: 10.0,
+                splashColor: Colors.grey,
+                onPressed: () {
+                  _onPressedGuestSignInButton();
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      // Image(
+                      //     image:
+                      //     height: 35.0),
+                      // SizedBox(
+                      //   width: 5.0,
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Sign in as Guest',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                            color: Colors.black54,
+                            fontFamily: "Montserrat",
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.0),
               _signInButton(type: "Google"),
               SizedBox(height: 20.0),
               _signInButton(type: "Facebook"),
@@ -87,6 +125,20 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _onPressedGuestSignInButton() async {
+    String status = await signInGuest();
+
+    if (status == "Success") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) {
+            return Display();
+          },
+        ),
+      );
+    }
   }
 
   void _onPressedGoogleSignInButton() async {
