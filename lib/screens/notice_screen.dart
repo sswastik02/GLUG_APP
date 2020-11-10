@@ -27,15 +27,18 @@ class _NoticeScreenState extends State<NoticeScreen> {
 
   void changeNoticeType(String noticeType) {
     noticeBloc.fetchCalledNotice(noticeType);
+    _streamController.add(null);
+    _getStaredList();
     setState(() {
       _dropdownvalue = noticeType;
+
     });
   }
 
   @override
   void initState() {
     _dropdownvalue = "General";
-    noticeBloc.fetchAllData();
+   // noticeBloc.fetchAllData();
     noticeBloc.fetchCalledNotice("General");
     _streamController = StreamController();
     _startedLista = new List();
@@ -53,7 +56,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
 
   void _getStaredList() async {
     _startedLista = await _provider.fetchStaredNotice();
-    _streamController.sink.add(_startedLista);
+    _streamController.add(_startedLista);
   }
 
 
@@ -123,6 +126,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                               vertical: 0,
                               horizontal: 8,
                             ),
+
                             itemCount: noticeType.length,
                             itemBuilder: (context, index) {
                               bool _isStared = false;
@@ -141,6 +145,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                   c: noticeType.length - index,
                                   noticeStarred: _isStared);
                             },
+
                           );
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);

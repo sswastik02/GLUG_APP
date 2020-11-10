@@ -10,12 +10,13 @@ class NoticeBloc {
   Stream<Notice> get allNoticeData => _noticesFetcher.stream;
   Stream<List<Academic>> get noticeCategories => _noticeCategoryFetcher.stream;
 
-  fetchAllData() async {
+  /*fetchAllData() async {
     Notice notice = await _respository.fetchAllNotices();
     if (!_noticesFetcher.isClosed) _noticesFetcher.sink.add(notice);
-  }
+  }*/
 
   fetchCalledNotice(String noticeCategory) async {
+    _noticeCategoryFetcher.sink.add(null);
     Notice notice = await _respository.fetchAllNotices();
     if (noticeCategory == "General") {
       List<Academic> calledNotice = notice.notices.general;
