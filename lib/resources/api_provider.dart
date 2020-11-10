@@ -11,6 +11,7 @@ import 'package:glug_app/models/timeline_response.dart';
 class ApiProvider {
   static final String baseURL = "https://api.nitdgplug.org";
   static final String eventsURL = "$baseURL/api/events/";
+  static final String upcomingEventsURL = "$baseURL/api/upcoming-events/";
   static final String blogPostsURL = "$baseURL/blog/posts/";
   static final String profilesURL = "$baseURL/api/profiles/";
   static final String linitURL = "$baseURL/api/linit/";
@@ -26,6 +27,19 @@ class ApiProvider {
 
     try {
       Response response = await _dio.get(eventsURL);
+      print(response.data.toString());
+      return EventResponse.fromJSON(response.data);
+    } catch (error, stackTrace) {
+      print("Exception occured: $error stackTrace: $stackTrace");
+      return EventResponse.withError("$error");
+    }
+  }
+
+  Future<EventResponse> fetchUpcomingEventData() async {
+    print("Entered");
+
+    try {
+      Response response = await _dio.get(upcomingEventsURL);
       print(response.data.toString());
       return EventResponse.fromJSON(response.data);
     } catch (error, stackTrace) {
@@ -109,5 +123,4 @@ class ApiProvider {
       return TimelineResponse.withError("$error");
     }
   }
-
 }

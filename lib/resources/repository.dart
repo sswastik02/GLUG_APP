@@ -52,6 +52,25 @@ class Repository {
     }
   }
 
+  Future<EventResponse> fetchAllUpcomingEvents() async {
+    bool connected = await _isConnected();
+
+    if (connected) {
+      EventResponse localDB =
+          await DatabaseProvider.databaseProvider.fetchUpcomingEventData();
+      EventResponse apiData = await _apiProvider.fetchUpcomingEventData();
+
+      apiData.events.forEach((event) {
+        if (!localDBContains(localDB.events, event)) {
+          DatabaseProvider.databaseProvider.insertUpcomingEvent(event);
+        }
+      });
+      return _apiProvider.fetchUpcomingEventData();
+    } else {
+      return DatabaseProvider.databaseProvider.fetchUpcomingEventData();
+    }
+  }
+
   Future<BlogResponse> fetchAllBlogPosts() async {
     bool connected = await _isConnected();
 

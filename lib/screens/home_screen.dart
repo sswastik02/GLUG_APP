@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/blocs/blogPosts_bloc.dart';
 import 'package:glug_app/blocs/events_bloc.dart';
+import 'package:glug_app/blocs/upcoming_events_bloc.dart';
 import 'package:glug_app/models/blog_post_model.dart';
 import 'package:glug_app/models/blog_response.dart';
 import 'package:glug_app/models/event_model.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // homeBloc.fetchAllData();
     eventsBloc.fetchAllEvents();
+    upcomingEventsBloc.fetchAllUpcomingEvents();
     blogPostsBloc.fetchAllBlogPosts();
     super.initState();
   }
@@ -32,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     // homeBloc.dispose();
     eventsBloc.dispose();
+    upcomingEventsBloc.dispose();
     blogPostsBloc.dispose();
     super.dispose();
   }
@@ -170,6 +173,73 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontStyle: FontStyle.normal),
                         ),
                         Text(
+                          "R UPCOMING EV",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                              color: Colors.deepOrange),
+                        ),
+                        Text(
+                          "ENTS",
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.normal,
+                          ),
+                        ),
+                      ])),
+            ),
+            StreamBuilder(
+                stream: upcomingEventsBloc.allUpcomingEvents,
+                builder: (context, AsyncSnapshot<EventResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.error != null &&
+                        snapshot.data.error.length > 0)
+                      return errorWidget(snapshot.data.error);
+                    return CarouselSlider(
+                      items: _buildEventList(snapshot.data.events),
+                      options: CarouselOptions(
+                        aspectRatio: 2.5,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return errorWidget(snapshot.error);
+                  } else
+                    return Center(child: CircularProgressIndicator());
+                }),
+            SizedBox(
+              height: 20.0,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 15.0),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "OU",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal),
+                        ),
+                        Text(
                           "R EV",
                           style: TextStyle(
                               fontFamily: "Montserrat",
@@ -199,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return CarouselSlider(
                       items: _buildEventList(snapshot.data.events),
                       options: CarouselOptions(
-                        aspectRatio: 2,
+                        aspectRatio: 2.5,
                         initialPage: 0,
                         enableInfiniteScroll: true,
                         reverse: false,
@@ -266,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return CarouselSlider(
                       items: _buildBlogList(snapshot.data.blogPosts),
                       options: CarouselOptions(
-                        aspectRatio: 2,
+                        aspectRatio: 2.5,
                         initialPage: 0,
                         enableInfiniteScroll: true,
                         reverse: false,

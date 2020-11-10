@@ -8,6 +8,7 @@ import 'package:path/path.dart';
 
 class DatabaseProvider {
   static const String EVENTS_TABLE = "events";
+  static const String UPCOMING_EVENTS_TABLE = "upcoming_events";
   static const String EVENT_SHOW = "show_bool";
   static const String EVENT_ID = "id";
   static const String EVENT_IDENTIFIER = "identifier";
@@ -70,6 +71,24 @@ class DatabaseProvider {
           ")",
         );
 
+        print("Creating Upcoming Events Table");
+
+        await db.execute(
+          "CREATE TABLE $UPCOMING_EVENTS_TABLE ("
+          "$EVENT_ID INTEGER PRIMARY KEY,"
+          "$EVENT_SHOW BIT,"
+          "$EVENT_IDENTIFIER TEXT,"
+          "$EVENT_TITLE TEXT,"
+          "$EVENT_DESCRIPTION TEXT,"
+          "$EVENT_VENUE TEXT,"
+          "$EVENT_URL TEXT,"
+          "$EVENT_TIMING TEXT,"
+          "$EVENT_FB_LINK TEXT,"
+          "$EVENT_IMAGE TEXT,"
+          "$EVENT_STATUS TEXT"
+          ")",
+        );
+
         print("Creating Blogs Table");
 
         await db.execute(
@@ -101,6 +120,19 @@ class DatabaseProvider {
     }
   }
 
+  Future<EventResponse> fetchUpcomingEventData() async {
+    print("Entered");
+    try {
+      final db = await database;
+      var res = await db.query(UPCOMING_EVENTS_TABLE);
+      print(res.toString());
+      return EventResponse.fromJSON(res);
+    } catch (error, stackTrace) {
+      print("Exception occured: $error stackTrace: $stackTrace");
+      return EventResponse.withError("$error");
+    }
+  }
+
   Future<BlogResponse> fetchBlogData() async {
     print("Entered");
     try {
@@ -118,6 +150,18 @@ class DatabaseProvider {
     try {
       final db = await database;
       var res = db.insert(EVENTS_TABLE, event.toMap());
+      print(res.toString());
+      return res;
+    } catch (error, stackTrace) {
+      print("Exception occured: $error stackTrace: $stackTrace");
+      return error;
+    }
+  }
+
+  Future insertUpcomingEvent(Event event) async {
+    try {
+      final db = await database;
+      var res = db.insert(UPCOMING_EVENTS_TABLE, event.toMap());
       print(res.toString());
       return res;
     } catch (error, stackTrace) {
