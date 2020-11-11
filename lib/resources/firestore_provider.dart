@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:glug_app/resources/api_provider.dart';
 
 class FirestoreProvider {
   final Firestore _firestore = Firestore.instance;
@@ -78,7 +79,7 @@ class FirestoreProvider {
     if (starredNotices != null) {
       starredNotices.forEach((notice) {
         //print("${notice.toString()} title: $title");
-        var t= notice["title"].toString();
+        var t = notice["title"].toString();
         print("$title and $t");
         if (t.trim() == title.toString().trim()) {
           return true;
@@ -91,15 +92,14 @@ class FirestoreProvider {
   Future<List<String>> fetchStaredNotice() async {
     final uid = await getCurrentUserID();
     DocumentSnapshot snap =
-    await _firestore.collection("/users").document(uid).get();
+        await _firestore.collection("/users").document(uid).get();
     List<String> noticeTitles = new List();
     List<dynamic> starredNotices = snap.data["starred_notices"];
     if (starredNotices != null) {
       starredNotices.forEach((notice) {
         //print("${notice.toString()} title: $title");
-        var t= notice["title"].toString();
+        var t = notice["title"].toString();
         noticeTitles.add(t);
-
       });
       return noticeTitles;
     }
@@ -165,10 +165,17 @@ class FirestoreProvider {
     /*final uid = await getCurrentUserID();
     DocumentSnapshot user =
         await _firestore.collection("/users").document(uid).get();*/
+
+    ApiProvider api = ApiProvider();
+
+    String filteredText = await api.filterText(textMessage);
+
+    if (filteredText == null) return;
+
     FirebaseUser usera = await _auth.currentUser();
 
     _firestore.collection("/chatroom").add({
-      "message": textMessage,
+      "message": filteredText,
       "time": Timestamp.now(),
       "sender": usera.displayName, //user["name"],
       "photoUrl": usera.photoUrl,

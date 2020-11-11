@@ -20,7 +20,22 @@ class ApiProvider {
   static final String noticeURL =
       "https://admin.nitdgp.ac.in/academics/notices";
 
+  static final String purgoMalumURL =
+      "https://www.purgomalum.com/service/json?text";
+
   final Dio _dio = new Dio();
+
+  Future<String> filterText(String text) async {
+    try {
+      Response response = await _dio.get("$purgoMalumURL=$text");
+      print(response.data);
+      Map<String, dynamic> json = response.data;
+      return json['result'];
+    } catch (error, stackTrace) {
+      print("Exception occured: $error stackTrace: $stackTrace");
+      return null;
+    }
+  }
 
   Future<EventResponse> fetchEventData() async {
     print("Entered");

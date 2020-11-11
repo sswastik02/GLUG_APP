@@ -91,11 +91,10 @@ class _ChatroomState extends State<Chatroom> {
         isSentByMe = false;
       }
       return MessageTile(
-        message: chat["message"],
-        sender: chat["sender"],
-        sentByMe: isSentByMe,
-        timeAGo: timeago.format(chat["time"].toDate())
-      );
+          message: chat["message"],
+          sender: chat["sender"],
+          sentByMe: isSentByMe,
+          timeAGo: timeago.format(chat["time"].toDate()));
     }).toList();
 
     return tiles;
