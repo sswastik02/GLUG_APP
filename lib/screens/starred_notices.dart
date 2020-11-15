@@ -63,6 +63,7 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                     builder: (context, AsyncSnapshot<dynamic> snapshot) {
                       if (snapshot.hasData) {
                         notices = snapshot.data;
+                        notices=notices.reversed.toList();
                         return ListView.builder(
                           padding: EdgeInsets.symmetric(
                             vertical: 0,
