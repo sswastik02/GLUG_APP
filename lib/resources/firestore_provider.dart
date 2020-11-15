@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/resources/api_provider.dart';
 
 class FirestoreProvider {
@@ -89,7 +90,7 @@ class FirestoreProvider {
     return false;
   }
 
-  Future<List<String>> fetchStaredNotice() async {
+  Future<List<String>> fetchStaredNoticeTitle() async {
     final uid = await getCurrentUserID();
     DocumentSnapshot snap =
         await _firestore.collection("/users").document(uid).get();
@@ -102,6 +103,24 @@ class FirestoreProvider {
         noticeTitles.add(t);
       });
       return noticeTitles;
+    }
+    return null;
+  }
+
+  Future<List<Academic>> fetchStaredNotice() async {
+    final uid = await getCurrentUserID();
+    DocumentSnapshot snap =
+    await _firestore.collection("/users").document(uid).get();
+    List<Academic> notices = new List();
+    List<dynamic> starredNotices = snap.data["starred_notices"];
+    if (starredNotices != null) {
+      starredNotices.forEach((notice) {
+
+        Academic academic = Academic(title: notice["title"].toString(),date: notice["date"],file: notice["file"]);
+        notices.add(academic);
+
+      });
+      return notices;
     }
     return null;
   }

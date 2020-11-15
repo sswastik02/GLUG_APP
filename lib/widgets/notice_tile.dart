@@ -6,11 +6,13 @@ import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/pdf_view_screen.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class NoticeTile extends StatefulWidget {
   final Academic notice;
   final int c;
   final bool noticeStarred;
+
 
   const NoticeTile({Key key, @required this.notice,this.c, this.noticeStarred}) : super(key: key);
 
@@ -25,11 +27,13 @@ class _NoticeTileState extends State<NoticeTile> {
   bool _isStared;
 
 
+  ProgressDialog pr;
   @override
   void initState() {
     super.initState();
     _provider = new FirestoreProvider();
     _isStared = widget.noticeStarred;
+    pr = ProgressDialog(context);
    // _initStarred();
   }
 
@@ -48,6 +52,7 @@ class _NoticeTileState extends State<NoticeTile> {
   }
 
   Future<File> _getFileFromUrl() async {
+
     Dio dio = Dio();
     try {
       String url = widget.notice.file.toString();
@@ -186,36 +191,67 @@ class _NoticeTileState extends State<NoticeTile> {
 
                   ],
                 ),
-                SizedBox(
-                  height: 0,
+                
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Text(
+                    widget.notice.title,
+                    overflow: TextOverflow.clip,
+                  ) ,
+                    
                 ),
-                GestureDetector(
-                  child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child:Text(
-                        widget.notice.title,
-                        overflow: TextOverflow.clip,
-                      ) ,
-                  ),
-                  onTap: () async {
-                    File pdfFile = await _getFileFromUrl();
-                    pdfFile != null
-                        ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PDFViewScreen(
-                          file: pdfFile,
-                          name: widget.notice.title.toString(),
-                        ),
-                      ),
-                    )
-                        : print("PDF file does not exist!");
-                  },
-                ),
+                
+                
                 SizedBox(
                   height: 10,
                 ),
-                _getDate(date),
+
+                Row(
+                  children: [
+                    _getDate(date),
+                    SizedBox(width: 15,),
+                    MaterialButton(
+                        height: 30.0,
+                        minWidth: 70.0,
+                        padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                        color: Colors.deepOrangeAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          spacing: 0,
+                          children: <Widget>[
+                            Text(
+                              "View",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                color: Colors.white,
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onPressed: () async {
+                          pr.show();
+                          File pdfFile = await _getFileFromUrl();
+                          pr.hide();
+                          pdfFile != null
+                              ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PDFViewScreen(
+                                file: pdfFile,
+                                name: widget.notice.title.toString(),
+                              ),
+                            ),
+                          )
+                              : print("PDF file does not exist!");
+                        })
+
+                  ],
+                )
+
               ],
             ),
           )
@@ -226,79 +262,6 @@ class _NoticeTileState extends State<NoticeTile> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return _tile(widget.c, widget.notice.title, widget.notice.date); /*Container(
-      margin: EdgeInsets.only(bottom: 20),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      alignment: Alignment.center,
-      constraints: BoxConstraints(
-        minHeight: 70.0,
-      ),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(
-            color: Theme.of(context).primaryColor,
-          )),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(
-              _noticeStarred ? Icons.star : Icons.star_border,
-              color: _noticeStarred ? Colors.deepOrangeAccent : Colors.black45,
-            ),
-            onPressed: () {
-
-
-              setState(() {
-                if (!_noticeStarred) {
-
-                  print(_noticeStarred);
-                  _provider.addStarredNotice({
-                    "title": widget.notice.title,
-                    "date": widget.notice.date,
-                    "file": widget.notice.file
-                  });
-                } else {
-                  _provider.removeStarredNotice({
-                    "title": widget.notice.title,
-                    "date": widget.notice.date,
-                    "file": widget.notice.file
-                  });
-                }
-              //  _noticeStarred = !_noticeStarred;
-              });
-            },
-          ),
-          Text(widget.notice.date),
-          SizedBox(
-            width: 20,
-          ),
-          GestureDetector(
-            child: Container(
-              width: size.width * 0.50,
-              child: Text(
-                widget.notice.title,
-                overflow: TextOverflow.clip,
-              ),
-            ),
-            onTap: () async {
-              File pdfFile = await _getFileFromUrl();
-              pdfFile != null
-                  ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PDFViewScreen(
-                          file: pdfFile,
-                          name: widget.notice.title.toString(),
-                        ),
-                      ),
-                    )
-                  : print("PDF file does not exist!");
-            },
-          ),
-        ],
-      ),
-    );*/
+    return _tile(widget.c, widget.notice.title, widget.notice.date);
   }
 }
