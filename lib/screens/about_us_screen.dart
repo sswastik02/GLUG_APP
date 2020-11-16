@@ -48,7 +48,13 @@ class AboutUS extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-        title: Text("About Us")
+        title: Text("About Us"),
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+          ),
         ),
       drawer: Drawer(
         child: DrawerItems(),

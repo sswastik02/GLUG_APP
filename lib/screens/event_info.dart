@@ -194,6 +194,19 @@ class _MyClassState extends State<EventInfo> {
                 spacing: 10,
                 children: <Widget>[
                   Container(
+                    margin: EdgeInsets.only(bottom: 90.0),
+                    height: 50.0,
+                    child: IconButton(
+                      icon:Icon(Icons.arrow_back,) ,
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                      },
+
+                    ),
+                  ),
+
+                  Container(
                     margin: EdgeInsets.only(bottom: 20.0),
                     height: 50.0,
                     decoration: BoxDecoration(

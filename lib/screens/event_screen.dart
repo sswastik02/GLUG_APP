@@ -36,6 +36,7 @@ class _EventScreenState extends State<EventScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+
         SizedBox(
           height: 20.0,
         ),

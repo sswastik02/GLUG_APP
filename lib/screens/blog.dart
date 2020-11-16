@@ -34,6 +34,7 @@ class Blog extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           Container(
+
             constraints: BoxConstraints.expand(
               height: MediaQuery.of(context).size.height,
             ),
@@ -43,6 +44,24 @@ class Blog extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            child:Container(
+
+              margin: EdgeInsets.only(top: 40),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:<Widget> [
+                  new IconButton(
+                    icon: new Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            )
+
           ),
           DraggableScrollableSheet(
             initialChildSize: 0.3,

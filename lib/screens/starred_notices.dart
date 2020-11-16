@@ -49,9 +49,12 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Starred Notices'),
-        ),
-        drawer: Drawer(
-          child: DrawerItems(),
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+          ),
         ),
         body: Container(
           color: Colors.white10,
