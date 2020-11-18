@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/ContactUs.dart';
 import 'package:glug_app/screens/about_us_screen.dart';
+import 'package:glug_app/screens/attendance_tracker_screen.dart';
 import 'package:glug_app/screens/dashboard.dart';
 import 'package:glug_app/screens/display.dart';
 import 'package:glug_app/screens/members_screen.dart';
@@ -111,6 +111,16 @@ class _DrawerItems extends State<DrawerItems> {
           onTap: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => ContactUs()));
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.track_changes),
+          title: Text("Attendance Tracker"),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AttendanceTrackerScreen()));
           },
         ),
       ],

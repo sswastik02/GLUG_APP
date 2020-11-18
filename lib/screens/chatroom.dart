@@ -22,20 +22,29 @@ class Chatroom extends StatefulWidget {
 
 class _ChatroomState extends State<Chatroom> {
   FirestoreProvider _provider;
-  var userEmail = "";
+  var _userEmail = "";
+  var _isAdmin = false;
 
   @override
   void initState() {
     _provider = FirestoreProvider();
     _initEmail();
+    _initAdmin();
     super.initState();
   }
 
   void _initEmail() async {
     var ins = await _provider.getCurrentUserEmail();
     setState(() {
-      userEmail = ins;
-      print(userEmail);
+      _userEmail = ins;
+      print(_userEmail);
+    });
+  }
+
+  void _initAdmin() async {
+    var res = await _provider.isAdmin();
+    setState(() {
+      _isAdmin = res;
     });
   }
 
@@ -47,54 +56,58 @@ class _ChatroomState extends State<Chatroom> {
 
   _buildChats(List<dynamic> chats) {
     List<Widget> tiles = chats.map((chat) {
-      /*return ListTile(
-        onTap: () {},
-        leading: CircleAvatar(
-          radius: 20.0,
-          backgroundImage: NetworkImage(chat["photoUrl"]),
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              chat["sender"],
-              style: TextStyle(
-                  fontFamily: "Montserrat", fontWeight: FontWeight.bold),
-            ),
-            Text(
-              timeago.format(chat["time"].toDate()),
-              style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14.0),
-            ),
-          ],
-        ),
-        subtitle: Linkify(
-          onOpen: (link) async {
-            if (await canLaunch(link.url)) {
-              await launch(link.url);
-            } else {
-              throw 'Could not launch $link';
-            }
-          },
-          text: chat["message"],
-          style: TextStyle(color: Colors.black54),
-          linkStyle: TextStyle(color: Colors.blue),
-        ),
-      );*/
-
       bool isSentByMe;
-      if (chat["email"] == userEmail) {
+      if (chat["email"] == _userEmail) {
         isSentByMe = true;
       } else {
         isSentByMe = false;
       }
-      return MessageTile(
-          message: chat["message"],
-          sender: chat["sender"],
-          sentByMe: isSentByMe,
-          timeAGo: timeago.format(chat["time"].toDate()));
+      return GestureDetector(
+        onLongPress: () {
+          if (_isAdmin) {
+            showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text(
+                      "Options",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    content: Text("What would you like to do?"),
+                    actions: [
+                      FlatButton(
+                        color: Colors.deepOrangeAccent,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "CANCEL",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      FlatButton(
+                        color: Colors.deepOrangeAccent,
+                        onPressed: () {
+                          _provider.deleteMessage(chat.documentID);
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "DELETE",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  );
+                });
+          }
+        },
+        child: MessageTile(
+            message: chat["message"],
+            sender: chat["sender"],
+            sentByMe: isSentByMe,
+            timeAGo: timeago.format(chat["time"].toDate())),
+      );
     }).toList();
 
     return tiles;
@@ -181,7 +194,7 @@ class _ChatroomState extends State<Chatroom> {
           )),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-            child: userEmail != null && userEmail.length != 0
+            child: _userEmail != null && _userEmail.length != 0
                 ? _buildChatComposer()
                 : Padding(
                     padding: const EdgeInsets.all(5.0),

@@ -110,15 +110,16 @@ class FirestoreProvider {
   Future<List<Academic>> fetchStaredNotice() async {
     final uid = await getCurrentUserID();
     DocumentSnapshot snap =
-    await _firestore.collection("/users").document(uid).get();
+        await _firestore.collection("/users").document(uid).get();
     List<Academic> notices = new List();
     List<dynamic> starredNotices = snap.data["starred_notices"];
     if (starredNotices != null) {
       starredNotices.forEach((notice) {
-
-        Academic academic = Academic(title: notice["title"].toString(),date: notice["date"],file: notice["file"]);
+        Academic academic = Academic(
+            title: notice["title"].toString(),
+            date: notice["date"],
+            file: notice["file"]);
         notices.add(academic);
-
       });
       return notices;
     }
@@ -180,10 +181,20 @@ class FirestoreProvider {
     });
   }
 
+  Future<bool> isAdmin() async {
+    final uid = await getCurrentUserID();
+    DocumentSnapshot snap =
+        await _firestore.collection("/users").document(uid).get();
+
+    if (snap.exists && snap["isAdmin"] != null) return snap["isAdmin"];
+
+    return false;
+  }
+
   void composeMessage(String textMessage) async {
-    /*final uid = await getCurrentUserID();
+    final uid = await getCurrentUserID();
     DocumentSnapshot user =
-        await _firestore.collection("/users").document(uid).get();*/
+        await _firestore.collection("/users").document(uid).get();
 
     ApiProvider api = ApiProvider();
 
@@ -191,14 +202,18 @@ class FirestoreProvider {
 
     if (filteredText == null) return;
 
-    FirebaseUser usera = await _auth.currentUser();
+    // FirebaseUser usera = await _auth.currentUser();
 
     _firestore.collection("/chatroom").add({
       "message": filteredText,
       "time": Timestamp.now(),
-      "sender": usera.displayName, //user["name"],
-      "photoUrl": usera.photoUrl,
-      "email": usera.email
+      "sender": user["name"],
+      "photoUrl": user["photoUrl"],
+      "email": user["email"]
     });
+  }
+
+  void deleteMessage(String docID) async {
+    await _firestore.collection("/chatroom").document(docID).delete();
   }
 }

@@ -29,6 +29,7 @@ class MainApp extends StatelessWidget {
       title: "GLUG App",
       theme: ThemeData(
         primaryColor: Colors.deepOrangeAccent,
+        fontFamily: 'Montserrat',
       ),
       home: _getScreen(),
     );
