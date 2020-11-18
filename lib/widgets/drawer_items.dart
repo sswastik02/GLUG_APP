@@ -113,16 +113,16 @@ class _DrawerItems extends State<DrawerItems> {
                 context, MaterialPageRoute(builder: (context) => ContactUs()));
           },
         ),
-        ListTile(
-          leading: Icon(Icons.track_changes),
-          title: Text("Attendance Tracker"),
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AttendanceTrackerScreen()));
-          },
-        ),
+        // ListTile(
+        //   leading: Icon(Icons.track_changes),
+        //   title: Text("Attendance Tracker"),
+        //   onTap: () {
+        //     Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => AttendanceTrackerScreen()));
+        //   },
+        // ),
       ],
     );
   }
