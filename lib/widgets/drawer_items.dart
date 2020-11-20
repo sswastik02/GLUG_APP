@@ -77,7 +77,7 @@ class _DrawerItems extends State<DrawerItems> {
             },
           ),
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => Dashboard()));
           },
         ),
@@ -85,7 +85,7 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(Icons.home),
           title: Text("Home"),
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => Display()));
           },
         ),
@@ -93,7 +93,7 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(FontAwesomeIcons.userFriends),
           title: Text("Our team"),
           onTap: () {
-            Navigator.push(context,
+            Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => MembersScreen()));
           },
         ),
@@ -101,7 +101,7 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(Icons.info_outline),
           title: Text("About Us"),
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => AboutUS()));
           },
         ),
@@ -109,20 +109,20 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(Icons.contacts),
           title: Text("Contact Us"),
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => ContactUs()));
           },
         ),
-        // ListTile(
-        //   leading: Icon(Icons.track_changes),
-        //   title: Text("Attendance Tracker"),
-        //   onTap: () {
-        //     Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //             builder: (context) => AttendanceTrackerScreen()));
-        //   },
-        // ),
+        ListTile(
+          leading: Icon(Icons.track_changes),
+          title: Text("Attendance Tracker"),
+          onTap: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AttendanceTrackerScreen()));
+          },
+        ),
       ],
     );
   }

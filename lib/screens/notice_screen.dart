@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -32,14 +31,13 @@ class _NoticeScreenState extends State<NoticeScreen> {
     _getStaredList();
     setState(() {
       _dropdownvalue = noticeType;
-
     });
   }
 
   @override
   void initState() {
     _dropdownvalue = "General";
-   // noticeBloc.fetchAllData();
+    // noticeBloc.fetchAllData();
     noticeBloc.fetchCalledNotice("General");
     _streamController = StreamController();
     _startedLista = new List();
@@ -60,123 +58,122 @@ class _NoticeScreenState extends State<NoticeScreen> {
     _streamController.add(_startedLista);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Notices'),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.star),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => StarredNoticeScreen()));
-              }
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: DrawerItems(),
-      ),
-      body: Container(
-        color: Colors.white10,
-      child : Column(
-        children: [
-          SizedBox(height: 20),
-          Container(
-            padding: EdgeInsets.only(left: 20, right: 20),
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            height: 50,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(
-                color: Colors.deepOrangeAccent//Color(0xFFE5E5E5),
-              ),
-            ),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: DropdownButton(
-                    isExpanded: true,
-                    underline: SizedBox(),
-                    icon: Icon(Icons.arrow_downward),
-                    value: _dropdownvalue,
-                    items: _categories
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      changeNoticeType(newValue);
-                    },
-                  ),
+        appBar: AppBar(
+          title: Text('Notices'),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.star),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StarredNoticeScreen()));
+                }),
+          ],
+        ),
+        drawer: Drawer(
+          child: DrawerItems(),
+        ),
+        body: Container(
+          color: Colors.white10,
+          child: Column(
+            children: [
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(
+                      color: Colors.deepOrangeAccent //Color(0xFFE5E5E5),
+                      ),
                 ),
-              ],
-            ),
-          ),
-
-          SizedBox(height: 25),
-          Expanded(
-            child: StreamBuilder(
-              stream: _stream, //noticeBloc.noticeCategories,
-              builder: (context, AsyncSnapshot<dynamic> snapshot1) {
-                if (snapshot1.hasData) {
-                  return StreamBuilder(
-                      stream: noticeBloc.noticeCategories,
-                      builder: (context, AsyncSnapshot<List<Academic>> snapshot) {
-                        if (snapshot.hasData) {
-                          noticeType = snapshot.data;
-                          return ListView.builder(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 0,
-                              horizontal: 8,
-                            ),
-
-                            itemCount: noticeType.length,
-                            itemBuilder: (context, index) {
-                              bool _isStared = false;
-                              List<dynamic> _startedList = snapshot1.data;
-                              print("list $_startedList");
-                              for (int i = 0; i < _startedList.length; i++) {
-                                print(_startedList[i]);
-                                if (noticeType[index].title == _startedList[i]) {
-                                  _isStared = true;
-                                  break;
-                                }
-                              }
-                              var a = snapshot1.data;
-                              print("data $a");
-                              return NoticeTile(notice: noticeType[index],
-                                  c: noticeType.length - index,
-                                  noticeStarred: _isStared);
-                            },
-
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: DropdownButton(
+                        isExpanded: true,
+                        underline: SizedBox(),
+                        icon: Icon(Icons.arrow_downward),
+                        value: _dropdownvalue,
+                        items: _categories
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
                           );
-                        } else if (snapshot.hasError) {
-                          return errorWidget(snapshot.error);
-                        } else {
-                          return Center(child: CircularProgressIndicator());
-                        }
+                        }).toList(),
+                        onChanged: (newValue) {
+                          changeNoticeType(newValue);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 25),
+              Expanded(
+                child: StreamBuilder(
+                    stream: _stream, //noticeBloc.noticeCategories,
+                    builder: (context, AsyncSnapshot<dynamic> snapshot1) {
+                      if (snapshot1.hasData) {
+                        return StreamBuilder(
+                            stream: noticeBloc.noticeCategories,
+                            builder: (context,
+                                AsyncSnapshot<List<Academic>> snapshot) {
+                              if (snapshot.hasData) {
+                                noticeType = snapshot.data;
+                                return ListView.builder(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 0,
+                                    horizontal: 8,
+                                  ),
+                                  itemCount: noticeType.length,
+                                  itemBuilder: (context, index) {
+                                    bool _isStared = false;
+                                    List<dynamic> _startedList = snapshot1.data;
+                                    print("list $_startedList");
+                                    for (int i = 0;
+                                        i < _startedList.length;
+                                        i++) {
+                                      print(_startedList[i]);
+                                      if (noticeType[index].title ==
+                                          _startedList[i]) {
+                                        _isStared = true;
+                                        break;
+                                      }
+                                    }
+                                    var a = snapshot1.data;
+                                    print("data $a");
+                                    return NoticeTile(
+                                        notice: noticeType[index],
+                                        c: noticeType.length - index,
+                                        noticeStarred: _isStared);
+                                  },
+                                );
+                              } else if (snapshot.hasError) {
+                                return errorWidget(snapshot.error);
+                              } else {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            });
+                      } else if (snapshot1.hasError) {
+                        return errorWidget(snapshot1.error);
+                      } else {
+                        return Center(child: CircularProgressIndicator());
                       }
-                  );
-                }else if (snapshot1.hasError) {
-                  return errorWidget(snapshot1.error);
-                  } else {
-                  return Center(child: CircularProgressIndicator());
-                  }
-                }
-            ),
+                    }),
+              ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }
 

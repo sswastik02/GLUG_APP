@@ -13,19 +13,16 @@ class NoticeTile extends StatefulWidget {
   final int c;
   final bool noticeStarred;
 
-
-  const NoticeTile({Key key, @required this.notice,this.c, this.noticeStarred}) : super(key: key);
+  const NoticeTile({Key key, @required this.notice, this.c, this.noticeStarred})
+      : super(key: key);
 
   @override
   _NoticeTileState createState() => _NoticeTileState();
-
 }
 
 class _NoticeTileState extends State<NoticeTile> {
-
   FirestoreProvider _provider;
   bool _isStared;
-
 
   ProgressDialog pr;
   @override
@@ -34,7 +31,7 @@ class _NoticeTileState extends State<NoticeTile> {
     _provider = new FirestoreProvider();
     _isStared = widget.noticeStarred;
     pr = ProgressDialog(context);
-   // _initStarred();
+    // _initStarred();
   }
 
   /*void _initStarred() async {
@@ -52,7 +49,6 @@ class _NoticeTileState extends State<NoticeTile> {
   }
 
   Future<File> _getFileFromUrl() async {
-
     Dio dio = Dio();
     try {
       String url = widget.notice.file.toString();
@@ -140,8 +136,7 @@ class _NoticeTileState extends State<NoticeTile> {
     );
   }
 
-
-  Widget _tile(int index,String title,String date){
+  Widget _tile(int index, String title, String date) {
     return Container(
       padding: EdgeInsets.all(8.0),
       child: Card(
@@ -162,11 +157,12 @@ class _NoticeTileState extends State<NoticeTile> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     IconButton(
                       icon: Icon(
                         _isStared ? Icons.star : Icons.star_border,
-                        color: _isStared ? Colors.deepOrangeAccent : Colors.black45,
+                        color: _isStared
+                            ? Colors.deepOrangeAccent
+                            : Colors.black45,
                       ),
                       onPressed: () {
                         setState(() {
@@ -188,28 +184,24 @@ class _NoticeTileState extends State<NoticeTile> {
                         });
                       },
                     ),
-
                   ],
                 ),
-                
                 Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Text(
                     widget.notice.title,
                     overflow: TextOverflow.clip,
-                  ) ,
-                    
+                  ),
                 ),
-                
-                
                 SizedBox(
                   height: 10,
                 ),
-
                 Row(
                   children: [
                     _getDate(date),
-                    SizedBox(width: 15,),
+                    SizedBox(
+                      width: 15,
+                    ),
                     MaterialButton(
                         height: 30.0,
                         minWidth: 70.0,
@@ -238,27 +230,23 @@ class _NoticeTileState extends State<NoticeTile> {
                           pr.hide();
                           pdfFile != null
                               ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PDFViewScreen(
-                                file: pdfFile,
-                                name: widget.notice.title.toString(),
-                              ),
-                            ),
-                          )
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PDFViewScreen(
+                                      file: pdfFile,
+                                      name: widget.notice.title.toString(),
+                                    ),
+                                  ),
+                                )
                               : print("PDF file does not exist!");
                         })
-
                   ],
                 )
-
               ],
             ),
-          )
-      ),
+          )),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

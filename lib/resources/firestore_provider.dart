@@ -47,6 +47,18 @@ class FirestoreProvider {
     yield* snap;
   }
 
+  Stream<QuerySnapshot> fetchSubjectData() async* {
+    final uid = await getCurrentUserID();
+
+    Stream<QuerySnapshot> snap = _firestore
+        .collection("/users")
+        .document(uid)
+        .collection("subjects")
+        .snapshots();
+
+    yield* snap;
+  }
+
   void addStarredNotice(noticeData) async {
     final uid = await getCurrentUserID();
     DocumentReference ref = _firestore.collection("/users").document(uid);
@@ -177,6 +189,47 @@ class FirestoreProvider {
 
       await transaction.update(freshSnap.reference, {
         "eventDetail": FieldValue.arrayUnion([event])
+      });
+    });
+  }
+
+  void addNewSubject(data) async {
+    final uid = await getCurrentUserID();
+    _firestore
+        .collection("/users")
+        .document(uid)
+        .collection("subjects")
+        .add(data);
+  }
+
+  void deleteSubject(String docID) async {
+    final uid = await getCurrentUserID();
+
+    await _firestore
+        .collection("/users")
+        .document(uid)
+        .collection("subjects")
+        .document(docID)
+        .delete();
+  }
+
+  void addAttended(data) async {
+    _firestore.runTransaction((transaction) async {
+      DocumentSnapshot freshSnap = await transaction.get(data.reference);
+
+      await transaction.update(freshSnap.reference, {
+        "attended": freshSnap["attended"] + 1,
+        "total": freshSnap["total"] + 1,
+      });
+    });
+  }
+
+  void addNotAttended(data) async {
+    _firestore.runTransaction((transaction) async {
+      DocumentSnapshot freshSnap = await transaction.get(data.reference);
+
+      await transaction.update(freshSnap.reference, {
+        "total": freshSnap["total"] + 1,
       });
     });
   }
