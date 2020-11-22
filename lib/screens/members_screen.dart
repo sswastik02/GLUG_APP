@@ -33,12 +33,12 @@ class _MembersScreenState extends State<MembersScreen> {
         ),
         appBar: AppBar(
           title: Text("Our Team"),
-          leading: new IconButton(
-            icon: new Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
-          ),
+          // leading: new IconButton(
+          //   icon: new Icon(Icons.arrow_back),
+          //   onPressed: () {
+          //     Navigator.of(context).pop(true);
+          //   },
+          // ),
         ),
         body: Column(
           children: <Widget>[

@@ -81,13 +81,14 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Contact Us"),
-          leading: new IconButton(
-            icon: new Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
-          ),
+        appBar: AppBar(
+          title: Text("Contact Us"),
+          // leading: new IconButton(
+          //   icon: new Icon(Icons.arrow_back),
+          //   onPressed: () {
+          //     Navigator.of(context).pop(true);
+          //   },
+          // ),
         ),
         drawer: Drawer(
           child: DrawerItems(),
