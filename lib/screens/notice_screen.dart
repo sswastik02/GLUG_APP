@@ -28,6 +28,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
   var _userEmail = "";
   var _isAdmin = false;
 
+
   void changeNoticeType(String noticeType) {
     noticeBloc.fetchCalledNotice(noticeType);
     _streamController.add(null);
