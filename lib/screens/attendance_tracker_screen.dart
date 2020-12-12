@@ -54,6 +54,9 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
     );
   }
 
+
+
+
   _buildTiles(List<dynamic> subjects) {
     List<Widget> data;
     data = subjects.map((sub) {
@@ -62,10 +65,11 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+          padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 3.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
+
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,13 +92,13 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 10.0),
-                height: 30.0,
+                height: 10.0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
                       icon: Icon(Icons.remove_circle),
-                      iconSize: 18.0,
+                      iconSize: 20.0,
                       onPressed: () {
                         _provider.addNotAttended(sub);
                       },
@@ -209,7 +213,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                           children: [
                             Center(
                               child: Container(
-                                height: progDim,
+                                height: progDim+20,
                                 width: progDim,
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(

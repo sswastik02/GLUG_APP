@@ -25,12 +25,31 @@ class _NoticeScreenState extends State<NoticeScreen> {
   StreamController _streamController;
   Stream _stream;
 
+  var _userEmail = "";
+  var _isAdmin = false;
+
   void changeNoticeType(String noticeType) {
     noticeBloc.fetchCalledNotice(noticeType);
     _streamController.add(null);
     _getStaredList();
     setState(() {
       _dropdownvalue = noticeType;
+    });
+
+  }
+
+  void _initEmail() async {
+    var ins = await _provider.getCurrentUserEmail();
+    setState(() {
+      _userEmail = ins;
+      print(_userEmail);
+    });
+  }
+
+  void _initAdmin() async {
+    var res = await _provider.isAdmin();
+    setState(() {
+      _isAdmin = res;
     });
   }
 
@@ -43,6 +62,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
     _startedLista = new List();
     _stream = _streamController.stream;
     _provider = FirestoreProvider();
+    _initEmail();
+    _initAdmin();
     _getStaredList();
     super.initState();
   }
@@ -64,6 +85,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
         appBar: AppBar(
           title: Text('Notices'),
           actions: [
+
+            _isAdmin ?
             IconButton(
                 icon: Icon(Icons.star),
                 onPressed: () {
@@ -71,7 +94,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => StarredNoticeScreen()));
-                }),
+                }) : SizedBox()
           ],
         ),
         drawer: Drawer(
@@ -122,7 +145,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                 child: StreamBuilder(
                     stream: _stream, //noticeBloc.noticeCategories,
                     builder: (context, AsyncSnapshot<dynamic> snapshot1) {
-                      if (snapshot1.hasData) {
+                      if (snapshot1.hasData || !_isAdmin) {
                         return StreamBuilder(
                             stream: noticeBloc.noticeCategories,
                             builder: (context,
@@ -137,24 +160,27 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                   itemCount: noticeType.length,
                                   itemBuilder: (context, index) {
                                     bool _isStared = false;
-                                    List<dynamic> _startedList = snapshot1.data;
-                                    print("list $_startedList");
-                                    for (int i = 0;
-                                        i < _startedList.length;
-                                        i++) {
-                                      print(_startedList[i]);
-                                      if (noticeType[index].title ==
-                                          _startedList[i]) {
-                                        _isStared = true;
-                                        break;
+                                    if(_isAdmin) {
+                                      List<dynamic> _startedList = snapshot1
+                                          .data;
+                                      print("list $_startedList");
+                                      for (int i = 0; i <
+                                          _startedList.length; i++) {
+                                        print(_startedList[i]);
+                                        if (noticeType[index].title ==
+                                            _startedList[i]) {
+                                          _isStared = true;
+                                          break;
+                                        }
                                       }
+                                      var a = snapshot1.data;
+                                      print("data $a");
                                     }
-                                    var a = snapshot1.data;
-                                    print("data $a");
                                     return NoticeTile(
                                         notice: noticeType[index],
                                         c: noticeType.length - index,
-                                        noticeStarred: _isStared);
+                                        noticeStarred: _isStared,
+                                        isAdmin: _isAdmin,);
                                   },
                                 );
                               } else if (snapshot.hasError) {
@@ -163,7 +189,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                 return Center(
                                     child: CircularProgressIndicator());
                               }
-                            });
+                            }
+                            );
                       } else if (snapshot1.hasError) {
                         return errorWidget(snapshot1.error);
                       } else {

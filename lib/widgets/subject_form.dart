@@ -38,49 +38,69 @@ class _SubjectFormState extends State<SubjectForm> {
             "Subject",
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
-          Row(
+
+          SizedBox(
+            width: 180.0,
+            child: TextFormField(
+              controller: _ctrl1,
+              decoration: InputDecoration(hintText: "Subject name"),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+          ),
+
+          SizedBox(
+            width: 180.0,
+            child: TextFormField(
+              controller: _ctrl2,
+              decoration: InputDecoration(hintText: "Total Classes"),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter a valid number';
+                }
+                return null;
+              },
+                keyboardType: TextInputType.number
+            ),
+          ),
+
+          SizedBox(
+            width: 180.0,
+            child: TextFormField(
+              controller: _ctrl3,
+              decoration: InputDecoration(hintText: "Classes Attended"),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter a valid number';
+                }
+                return null;
+              },
+                keyboardType: TextInputType.number
+            ),
+          ),
+
+
+         /* Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Subject Name:",
+                "Subj",
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
-                width: 150.0,
-                child: TextFormField(
-                  controller: _ctrl1,
-                  decoration: InputDecoration(),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                ),
-              ),
+
             ],
           ),
           SizedBox(height: 15.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Total Classes:",
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                width: 80.0,
-                child: TextFormField(
-                  controller: _ctrl2,
-                  decoration: InputDecoration(),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter a valid number';
-                    }
-                    return null;
-                  },
-                ),
-              ),
+
+
+
             ],
           ),
           SizedBox(height: 15.0),
@@ -91,21 +111,9 @@ class _SubjectFormState extends State<SubjectForm> {
                 "Classes Attended:",
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
-                width: 80.0,
-                child: TextFormField(
-                  controller: _ctrl3,
-                  decoration: InputDecoration(),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter a valid number';
-                    }
-                    return null;
-                  },
-                ),
-              ),
+
             ],
-          ),
+          ),*/
           SizedBox(height: 15.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

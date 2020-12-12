@@ -11,9 +11,9 @@ import 'package:progress_dialog/progress_dialog.dart';
 class NoticeTile extends StatefulWidget {
   final Academic notice;
   final int c;
-  final bool noticeStarred;
+  final bool noticeStarred,isAdmin;
 
-  const NoticeTile({Key key, @required this.notice, this.c, this.noticeStarred})
+  const NoticeTile({Key key, @required this.notice, this.c, this.noticeStarred,this.isAdmin})
       : super(key: key);
 
   @override
@@ -23,6 +23,7 @@ class NoticeTile extends StatefulWidget {
 class _NoticeTileState extends State<NoticeTile> {
   FirestoreProvider _provider;
   bool _isStared;
+  bool _isAdmin;
 
   ProgressDialog pr;
   @override
@@ -30,6 +31,7 @@ class _NoticeTileState extends State<NoticeTile> {
     super.initState();
     _provider = new FirestoreProvider();
     _isStared = widget.noticeStarred;
+    _isAdmin= widget.isAdmin;
     pr = ProgressDialog(context);
     // _initStarred();
   }
@@ -157,6 +159,8 @@ class _NoticeTileState extends State<NoticeTile> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+
+                    _isAdmin ?
                     IconButton(
                       icon: Icon(
                         _isStared ? Icons.star : Icons.star_border,
@@ -183,9 +187,10 @@ class _NoticeTileState extends State<NoticeTile> {
                           _isStared = !_isStared;
                         });
                       },
-                    ),
+                    ) : SizedBox(),
                   ],
                 ),
+                SizedBox(height: 10,),
                 Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Text(
