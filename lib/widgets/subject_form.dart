@@ -43,7 +43,8 @@ class _SubjectFormState extends State<SubjectForm> {
             width: 180.0,
             child: TextFormField(
               controller: _ctrl1,
-              decoration: InputDecoration(hintText: "Subject name"),
+              decoration: InputDecoration(hintText: "Subject name",
+              hintStyle: TextStyle(fontSize: 13)),
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
@@ -57,7 +58,8 @@ class _SubjectFormState extends State<SubjectForm> {
             width: 180.0,
             child: TextFormField(
               controller: _ctrl2,
-              decoration: InputDecoration(hintText: "Total Classes"),
+              decoration: InputDecoration(hintText: "Initial Total Classes",
+                  hintStyle: TextStyle(fontSize: 13)),
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter a valid number';
@@ -72,7 +74,8 @@ class _SubjectFormState extends State<SubjectForm> {
             width: 180.0,
             child: TextFormField(
               controller: _ctrl3,
-              decoration: InputDecoration(hintText: "Classes Attended"),
+              decoration: InputDecoration(hintText: "Initial presents",
+                  hintStyle: TextStyle(fontSize: 13)),
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter a valid number';

@@ -77,7 +77,7 @@ class _DrawerItems extends State<DrawerItems> {
             },
           ),
           onTap: () {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Dashboard()));
           },
         ),
@@ -85,7 +85,7 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(Icons.home),
           title: Text("Home"),
           onTap: () {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Display()));
           },
         ),
@@ -93,7 +93,7 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(FontAwesomeIcons.userFriends),
           title: Text("Our team"),
           onTap: () {
-            Navigator.pushReplacement(context,
+            Navigator.push(context,
                 MaterialPageRoute(builder: (context) => MembersScreen()));
           },
         ),
@@ -101,7 +101,7 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(Icons.info_outline),
           title: Text("About Us"),
           onTap: () {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context, MaterialPageRoute(builder: (context) => AboutUS()));
           },
         ),
@@ -109,7 +109,7 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(Icons.contacts),
           title: Text("Contact Us"),
           onTap: () {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context, MaterialPageRoute(builder: (context) => ContactUs()));
           },
         ),
@@ -117,7 +117,7 @@ class _DrawerItems extends State<DrawerItems> {
           leading: Icon(Icons.track_changes),
           title: Text("Attendance Tracker"),
           onTap: () {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => AttendanceTrackerScreen()));

@@ -60,12 +60,15 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
   _buildTiles(List<dynamic> subjects) {
     List<Widget> data;
     data = subjects.map((sub) {
-      return Card(
+      return Container(
+        padding: EdgeInsets.all(10),
+          child: Card(
+            elevation: 15,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 3.0, vertical: 3.0),
+          padding: EdgeInsets.all(10),
           child: Column(
            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,8 +82,9 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                         ? sub["name"]
                         : sub["name"].toString().substring(0, 12) + "...",
                     style:
-                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
+
                   IconButton(
                     icon: Icon(Icons.delete),
                     iconSize: 20.0,
@@ -90,31 +94,28 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                   ),
                 ],
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 10.0),
-                height: 10.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.remove_circle),
-                      iconSize: 20.0,
-                      onPressed: () {
-                        _provider.addNotAttended(sub);
-                      },
-                      color: Colors.red,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.add_circle),
-                      iconSize: 20.0,
-                      onPressed: () {
-                        _provider.addAttended(sub);
-                      },
-                      color: Colors.green,
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.remove_circle),
+                    iconSize: 20.0,
+                    onPressed: () {
+                      _provider.addNotAttended(sub);
+                    },
+                    color: Colors.red,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.add_circle),
+                    iconSize: 20.0,
+                    onPressed: () {
+                      _provider.addAttended(sub);
+                    },
+                    color: Colors.green,
+                  ),
+                ],
               ),
+
               Text(
                 "Total Classes: ${sub["total"]}",
                 style: TextStyle(fontSize: 12.0),
@@ -123,6 +124,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                 "Classes Attended: ${sub["attended"]}",
                 style: TextStyle(fontSize: 12.0),
               ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -145,10 +147,15 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
             ],
           ),
         ),
+      )
       );
     }).toList();
 
-    return Padding(
+    return ListView(
+      children: data,
+    );
+
+   /* return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
       child: GridView.count(
         crossAxisCount: 2,
@@ -158,7 +165,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
         // shrinkWrap: true,
         children: data,
       ),
-    );
+    );*/
   }
 
   @override
@@ -250,9 +257,11 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: 30.0,
+                    height: 20.0,
                   ),
-                  Expanded(child: _buildTiles(snapshot.data.documents)),
+                  
+                  Expanded(child: _buildTiles(snapshot.data.documents),)
+                  
                 ],
               );
             } else if (snapshot.hasError) {
