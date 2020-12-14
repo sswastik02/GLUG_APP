@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:glug_app/resources/database_provider.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
+import 'package:glug_app/blocs/attendance_bloc.dart';
 
 class SubjectForm extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class _SubjectFormState extends State<SubjectForm> {
   final _formKey = GlobalKey<FormState>();
   FirestoreProvider _provider;
   TextEditingController _ctrl1, _ctrl2, _ctrl3;
+  DatabaseProvider _databaseProvider;
 
   @override
   void initState() {
@@ -18,6 +21,7 @@ class _SubjectFormState extends State<SubjectForm> {
     _ctrl1 = TextEditingController();
     _ctrl2 = TextEditingController();
     _ctrl3 = TextEditingController();
+    _databaseProvider= DatabaseProvider.databaseProvider;
   }
 
   @override
@@ -138,11 +142,10 @@ class _SubjectFormState extends State<SubjectForm> {
                 color: Colors.deepOrangeAccent,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    _provider.addNewSubject({
-                      "name": _ctrl1.text.toString(),
-                      "total": int.parse(_ctrl2.text.toString()),
-                      "attended": int.parse(_ctrl3.text.toString()),
-                    });
+
+                    _databaseProvider.addNewSubject( _ctrl1.text.toString(), int.parse(_ctrl2.text.toString()), int.parse(_ctrl3.text.toString()), 0, 0);
+
+
                     Navigator.of(context).pop();
                   }
                 },

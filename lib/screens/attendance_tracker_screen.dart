@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/subject_form.dart';
+import 'package:glug_app/resources/database_provider.dart';
+import 'dart:async';
+import 'package:glug_app/blocs/attendance_bloc.dart';
 
 class AttendanceTrackerScreen extends StatefulWidget {
   @override
@@ -12,18 +14,33 @@ class AttendanceTrackerScreen extends StatefulWidget {
 }
 
 class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
-  FirestoreProvider _provider;
+  StreamController _streamController;
+  Stream _stream;
+  List<Map> list;
+  DatabaseProvider _databaseProvider;
+
 
   @override
   void initState() {
     super.initState();
-    _provider = FirestoreProvider();
+    //_provider = FirestoreProvider();
+    _databaseProvider = DatabaseProvider.databaseProvider;
+    _streamController= StreamController();
+    _stream = _streamController.stream;
+    attendanceBloc.fetchAllData();
+    getData();
+
+
+  }
+
+  getData() async{
+    list = await _databaseProvider.getAttendanceData();
+    _streamController.add(list);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _provider = null;
   }
 
   _addSubjectDialog(context) {
@@ -89,7 +106,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                     icon: Icon(Icons.delete),
                     iconSize: 20.0,
                     onPressed: () {
-                      _provider.deleteSubject(sub.documentID);
+                      _databaseProvider.deleteSubject(sub["id"]);
                     },
                   ),
                 ],
@@ -101,7 +118,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                     icon: Icon(Icons.remove_circle),
                     iconSize: 20.0,
                     onPressed: () {
-                      _provider.addNotAttended(sub);
+                      _databaseProvider.addNotAttedanded(sub["id"],sub["total"]);
                     },
                     color: Colors.red,
                   ),
@@ -109,7 +126,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                     icon: Icon(Icons.add_circle),
                     iconSize: 20.0,
                     onPressed: () {
-                      _provider.addAttended(sub);
+                      _databaseProvider.addAttedance(sub["id"],sub["total"],sub["attended"]);
                     },
                     color: Colors.green,
                   ),
@@ -188,10 +205,10 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
         child: DrawerItems(),
       ),
       body: StreamBuilder(
-          stream: _provider.fetchSubjectData(),
+          stream: attendanceBloc.allAttendanceData,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<dynamic> subs = snapshot.data.documents;
+              List<dynamic> subs = snapshot.data;
 
               var attended = 0;
               var total = 0;
@@ -260,7 +277,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                     height: 20.0,
                   ),
                   
-                  Expanded(child: _buildTiles(snapshot.data.documents),)
+                 Expanded(child: _buildTiles(snapshot.data),)
                   
                 ],
               );
