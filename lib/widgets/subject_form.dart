@@ -4,11 +4,20 @@ import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/blocs/attendance_bloc.dart';
 
 class SubjectForm extends StatefulWidget {
+
+  final Map map;
+  SubjectForm({this.map});
+
   @override
-  _SubjectFormState createState() => _SubjectFormState();
+  _SubjectFormState createState() => _SubjectFormState(map : map);
 }
 
 class _SubjectFormState extends State<SubjectForm> {
+
+  final Map map;
+  _SubjectFormState({this.map});
+
+  bool isEdit=false;
   final _formKey = GlobalKey<FormState>();
   FirestoreProvider _provider;
   TextEditingController _ctrl1, _ctrl2, _ctrl3;
@@ -22,6 +31,12 @@ class _SubjectFormState extends State<SubjectForm> {
     _ctrl2 = TextEditingController();
     _ctrl3 = TextEditingController();
     _databaseProvider= DatabaseProvider.databaseProvider;
+    if(map!=null){
+      _ctrl1.text= map["name"];
+      _ctrl2.text= map["total"].toString();
+      _ctrl3.text= map["attended"].toString();
+      isEdit=true;
+    }
   }
 
   @override
@@ -39,7 +54,7 @@ class _SubjectFormState extends State<SubjectForm> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            "Subject",
+            "Fill Details",
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
 
@@ -90,40 +105,9 @@ class _SubjectFormState extends State<SubjectForm> {
             ),
           ),
 
-
-         /* Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Subj",
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-              ),
-
-            ],
-          ),
           SizedBox(height: 15.0),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-
-
-
-            ],
-          ),
-          SizedBox(height: 15.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Classes Attended:",
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-              ),
-
-            ],
-          ),*/
-          SizedBox(height: 15.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               FlatButton(
                 color: Colors.deepOrangeAccent,
@@ -143,14 +127,18 @@ class _SubjectFormState extends State<SubjectForm> {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
 
-                    _databaseProvider.addNewSubject( _ctrl1.text.toString(), int.parse(_ctrl2.text.toString()), int.parse(_ctrl3.text.toString()), 0, 0);
+                    if(isEdit){
+                      _databaseProvider.updateSubject(map["id"],  _ctrl1.text.toString(), int.parse(_ctrl3.text.toString()), int.parse(_ctrl2.text.toString()));
+                    }else{
+                      _databaseProvider.addNewSubject( _ctrl1.text.toString(), int.parse(_ctrl2.text.toString()), int.parse(_ctrl3.text.toString()), 0, 0);
+                    }
 
 
                     Navigator.of(context).pop();
                   }
                 },
                 child: Text(
-                  'Add',
+                  isEdit?'Edit': 'Add',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
