@@ -256,12 +256,48 @@ class DatabaseProvider {
 
   }
 
-  deleteSubject(int id) async{
+  deleteSubject(Map map) async{
+    int id = map["id"];
     final db = await database;
     await db
         .rawDelete('DELETE FROM $ATTENDANCE_TABLE WHERE id = ?', ['$id']);
     attendanceBloc.fetchAllData();
   }
+
+  addHoliday(Map map) async{
+    int id = map["id"];
+    int holiday=map["holiday"];
+    final db = await database;
+    int t = holiday+1;
+    await db.rawUpdate(
+        'UPDATE $ATTENDANCE_TABLE SET holiday = ? WHERE id = ?',
+        [ '$t','$id']);
+    attendanceBloc.fetchAllData();
+
+  }
+
+  addCanceled(Map map) async{
+    int id = map["id"];
+    int canceled = map["canceled"];
+    final db = await database;
+    int t = canceled+1;
+    await db.rawUpdate(
+        'UPDATE $ATTENDANCE_TABLE SET canceled = ? WHERE id = ?',
+        [ '$t','$id']);
+    attendanceBloc.fetchAllData();
+
+  }
+
+  updateSubject(int id, String name, int a,int t) async{
+    final db = await database;
+    await db.rawUpdate(
+        'UPDATE $ATTENDANCE_TABLE SET name = ?, total = ?, attended = ? WHERE id = ?',
+        [ '$name','$t', '$a', '$id']);
+    print(name);
+    attendanceBloc.fetchAllData();
+
+  }
+
 
 
 }

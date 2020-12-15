@@ -43,7 +43,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
     super.dispose();
   }
 
-  _addSubjectDialog(context) {
+  _addSubjectDialog(context,map) {
     showDialog(
       context: context,
       builder: (context) {
@@ -64,12 +64,62 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                     color: Colors.black, offset: Offset(0, 5), blurRadius: 10),
               ],
             ),
-            child: SubjectForm(),
+            child: SubjectForm(map: map),
           ),
         );
       },
     );
   }
+
+  void _optionsModalBottomSheet(context,Map map){
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc){
+          return Container(
+            child: new Wrap(
+              children: <Widget>[
+                new ListTile(
+                  leading: new Icon(Icons.umbrella),
+                  title: new Text('Mark Holiday'),
+                  onTap: () => {
+                    _databaseProvider.addHoliday(map),
+                    Navigator.of(context).pop()
+                  },
+                ),
+                new ListTile(
+                  leading: new Icon(Icons.cancel),
+                  title: new Text('Mark Class canceled'),
+                  onTap: () => {
+                    _databaseProvider.addCanceled(map),
+                  Navigator.of(context).pop()
+                  },
+                ),
+                new ListTile(
+                    leading: new Icon(Icons.delete),
+                    title: new Text('Delete Subject'),
+                    onTap: () => {
+                      _databaseProvider.deleteSubject(map),
+                      Navigator.of(context).pop()
+                    }
+                ),
+                new ListTile(
+                  leading: new Icon(Icons.create),
+                  title: new Text('Edit Attendance details'),
+                  onTap: () => {
+                    Navigator.of(context).pop(),
+                    _addSubjectDialog(context, map),
+
+                  },
+
+                ),
+              ],
+            ),
+          );
+        }
+    );
+  }
+
+
 
 
 
@@ -82,16 +132,15 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
           child: Card(
             elevation: 15,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: Column(
-           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
-
             children: [
               Row(
+
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -103,67 +152,109 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                   ),
 
                   IconButton(
-                    icon: Icon(Icons.delete),
-                    iconSize: 20.0,
+                    icon: Icon(Icons.more_horiz),
+                    //iconSize: 20.0,
                     onPressed: () {
-                      _databaseProvider.deleteSubject(sub["id"]);
+                      _optionsModalBottomSheet(context,sub);
                     },
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.remove_circle),
-                    iconSize: 20.0,
-                    onPressed: () {
-                      _databaseProvider.addNotAttedanded(sub["id"],sub["total"]);
-                    },
-                    color: Colors.red,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.add_circle),
-                    iconSize: 20.0,
-                    onPressed: () {
-                      _databaseProvider.addAttedance(sub["id"],sub["total"],sub["attended"]);
-                    },
-                    color: Colors.green,
+
                   ),
                 ],
               ),
 
-              Text(
-                "Total Classes: ${sub["total"]}",
-                style: TextStyle(fontSize: 12.0),
-              ),
-              Text(
-                "Classes Attended: ${sub["attended"]}",
-                style: TextStyle(fontSize: 12.0),
-              ),
-              SizedBox(height: 15,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    child: LinearProgressIndicator(
-                      value: sub["total"] != 0
-                          ? sub["attended"] / sub["total"]
-                          : 0,
-                      backgroundColor: Colors.red,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+
+                  Column(
+                    mainAxisAlignment : MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Attendance : ${sub['attended']} / ${sub['total']}",
+                        style:
+                        TextStyle(fontSize: 16.0, ),
+                      ),
+
+                      SizedBox(height: 8,),
+
+                      Text(
+                        "Total Holidays : ${sub["holiday"]}",
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+
+                      SizedBox(height: 4,),
+
+                      Text(
+                        "Classes Canceled: ${sub["canceled"]}",
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+
+                      ],
                     ),
-                  ),
-                  Text(
-                    "${sub["total"] != 0 ? (sub["attended"] / sub["total"] * 100).round() : 0}%",
-                    style: TextStyle(fontSize: 14.0),
-                  ),
-                ],
-              ),
-            ],
+
+                    Column(
+                      children: [
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.remove_circle),
+                              iconSize: 20.0,
+                              onPressed: () {
+                                _databaseProvider.addNotAttedanded(sub["id"],sub["total"]);
+                              },
+                              color: Colors.red,
+                              constraints: BoxConstraints(
+                                  maxHeight: 30
+                              ),
+
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.add_circle),
+                              iconSize: 20.0,
+                              onPressed: () {
+                                _databaseProvider.addAttedance(sub["id"],sub["total"],sub["attended"]);
+                              },
+                              color: Colors.green,
+                              constraints: BoxConstraints(
+                                  maxHeight: 30
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(height: 8,),
+
+
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: LinearProgressIndicator(
+                            value: sub["total"] != 0
+                                ? sub["attended"] / sub["total"]
+                                : 0,
+                            backgroundColor: Colors.red,
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                          ),
+                        ),
+
+                        SizedBox(height: 4,),
+
+
+                        Text(
+                          "${sub["total"] != 0 ? (sub["attended"] / sub["total"] * 100).round() : 0}%",
+                          style: TextStyle(fontSize: 14.0),
+                        ),
+
+                      ],
+                    ),
+          ]
           ),
+
+          ]
         ),
+      )
       )
       );
     }).toList();
@@ -172,17 +263,6 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
       children: data,
     );
 
-   /* return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-      child: GridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 5.0,
-        mainAxisSpacing: 5.0,
-        childAspectRatio: 1.2,
-        // shrinkWrap: true,
-        children: data,
-      ),
-    );*/
   }
 
   @override
@@ -196,7 +276,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              _addSubjectDialog(context);
+              _addSubjectDialog(context,null);
             },
           ),
         ],
