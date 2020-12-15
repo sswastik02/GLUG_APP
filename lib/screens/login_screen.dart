@@ -79,47 +79,42 @@ class _LoginScreenState extends State<LoginScreen> {
                 backgroundImage: AssetImage("images/glug_logo.jpeg"),
               ),
               SizedBox(height: 70),
-              RaisedButton(
-                elevation: 10.0,
-                splashColor: Colors.grey,
-                onPressed: () {
-                  _onPressedGuestSignInButton();
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Image(
-                      //     image:
-                      //     height: 35.0),
-                      // SizedBox(
-                      //   width: 5.0,
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Text(
-                          'Sign in as Guest',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0,
-                            color: Colors.black54,
-                            fontFamily: "Montserrat",
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 20.0),
+              // RaisedButton(
+              //   elevation: 10.0,
+              //   splashColor: Colors.grey,
+              //   onPressed: () {
+              //     _onPressedGuestSignInButton();
+              //   },
+              //   shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(30)),
+              //   color: Colors.white,
+              //   child: Padding(
+              //     padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              //     child: Row(
+              //       mainAxisSize: MainAxisSize.min,
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: <Widget>[
+
+              //         Padding(
+              //           padding: const EdgeInsets.only(left: 10),
+              //           child: Text(
+              //             'Sign in as Guest',
+              //             style: TextStyle(
+              //               fontWeight: FontWeight.bold,
+              //               fontSize: 15.0,
+              //               color: Colors.black54,
+              //               fontFamily: "Montserrat",
+              //             ),
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 20.0),
               _signInButton(type: "Google"),
-              SizedBox(height: 20.0),
-              _signInButton(type: "Facebook"),
+              // SizedBox(height: 20.0),
+              // _signInButton(type: "Facebook"),
             ],
           ),
         ),
@@ -127,47 +122,47 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _onPressedGuestSignInButton() async {
-    String status = await signInGuest();
+  // void _onPressedGuestSignInButton() async {
+  //   String status = await signInGuest();
 
-    if (status == "Success") {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) {
-            return Display();
-          },
-        ),
-      );
-    }
-  }
+  //   if (status == "Success") {
+  //     Navigator.of(context).pushReplacement(
+  //       MaterialPageRoute(
+  //         builder: (context) {
+  //           return Display();
+  //         },
+  //       ),
+  //     );
+  //   }
+  // }
 
   void _onPressedGoogleSignInButton() async {
-    String status = await signInWithGoogle();
-
-    if (status == "Success") {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) {
-            return Display();
-          },
-        ),
-      );
-    }
+    signInWithGoogle().then((result) {
+      if (result != null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) {
+              return Display();
+            },
+          ),
+        );
+      }
+    });
   }
 
-  void _onPressedFbSignInButton() async {
-    String status = await signInWithFacebook();
+  // void _onPressedFbSignInButton() async {
+  //   String status = await signInWithFacebook();
 
-    if (status == "Success") {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) {
-            return Display();
-          },
-        ),
-      );
-    }
-  }
+  //   if (status == "Success") {
+  //     Navigator.of(context).pushReplacement(
+  //       MaterialPageRoute(
+  //         builder: (context) {
+  //           return Display();
+  //         },
+  //       ),
+  //     );
+  //   }
+  // }
 
   Widget _signInButton({String type}) {
     return RaisedButton(
@@ -177,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (type == "Google") {
           _onPressedGoogleSignInButton();
         } else if (type == "Facebook") {
-          _onPressedFbSignInButton();
+          // _onPressedFbSignInButton();
         } // Facebook Login
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

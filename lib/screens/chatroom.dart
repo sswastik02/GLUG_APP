@@ -194,42 +194,7 @@ class _ChatroomState extends State<Chatroom> {
           )),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-            child: _userEmail != null && _userEmail.length != 0
-                ? _buildChatComposer()
-                : Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "Sign in with a social account to chat",
-                          style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            signOutGuest().whenComplete(() {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) {
-                                  return LoginScreen();
-                                }),
-                              );
-                            });
-                          },
-                          child: Text(
-                            "Sign out",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0)),
-                          color: Colors.deepOrangeAccent,
-                        )
-                      ],
-                    ),
-                  ),
+            child: _buildChatComposer(),
           ),
         ],
       ),

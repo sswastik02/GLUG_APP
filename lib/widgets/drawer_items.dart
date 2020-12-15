@@ -54,24 +54,20 @@ class _DrawerItems extends State<DrawerItems> {
                 print(userData);
                 return UserAccountsDrawerHeader(
                   accountName: Text(
-                    userData.exists
-                        ? userData["name"]
-                        : "Guest $_userID".substring(0, 15) + "...",
+                    userData["name"],
                     style: TextStyle(fontFamily: "Montserrat"),
                   ),
                   accountEmail: Text(
-                    userData.exists ? userData["email"] : "",
+                    userData["email"],
                     style: TextStyle(fontFamily: "Montserrat"),
                   ),
                   currentAccountPicture: CircleAvatar(
                     radius: 30.0,
-                    backgroundImage: userData.exists
-                        ? NetworkImage(userData["photoUrl"])
-                        : AssetImage("images/glug_logo.jpeg"),
+                    backgroundImage: NetworkImage(userData["photoURL"]),
                   ),
                 );
               } else if (snapshot.hasError)
-                return Center(child: errorWidget("No data found"));
+                return Center(child: errorWidget("Error loading data"));
               else
                 return Center(child: CircularProgressIndicator());
             },

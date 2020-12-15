@@ -4,18 +4,18 @@ import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/resources/api_provider.dart';
 
 class FirestoreProvider {
-  final Firestore _firestore = Firestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<String> getCurrentUserID() async {
-    FirebaseUser user = await _auth.currentUser();
+    User user = _auth.currentUser;
+    print(user.uid);
     return user.uid;
   }
 
   Future<String> getCurrentUserEmail() async {
     final uid = await getCurrentUserID();
-    DocumentSnapshot snap =
-        await _firestore.collection("/users").document(uid).get();
+    DocumentSnapshot snap = await _firestore.collection("users").doc(uid).get();
     if (snap.exists)
       return snap["email"];
     else
@@ -23,7 +23,7 @@ class FirestoreProvider {
   }
 
   Future<String> getAuthProvider() async {
-    FirebaseUser user = await _auth.currentUser();
+    User user = _auth.currentUser;
     for (UserInfo userInfo in user.providerData) {
       if (userInfo.providerId == "google.com")
         return 'Google';
@@ -35,13 +35,13 @@ class FirestoreProvider {
   Stream<DocumentSnapshot> fetchUserData() async* {
     final uid = await getCurrentUserID();
     Stream<DocumentSnapshot> snap =
-        _firestore.collection("/users").document(uid).snapshots();
+        _firestore.collection("users").doc(uid).snapshots();
     yield* snap;
   }
 
   Stream<QuerySnapshot> fetchChatroomData() async* {
     Stream<QuerySnapshot> snap = _firestore
-        .collection("/chatroom")
+        .collection("chatroom")
         .orderBy('time', descending: true)
         .snapshots();
     yield* snap;
@@ -52,7 +52,7 @@ class FirestoreProvider {
 
     Stream<QuerySnapshot> snap = _firestore
         .collection("/users")
-        .document(uid)
+        .doc(uid)
         .collection("subjects")
         .snapshots();
 
@@ -61,10 +61,10 @@ class FirestoreProvider {
 
   void addStarredNotice(noticeData) async {
     final uid = await getCurrentUserID();
-    DocumentReference ref = _firestore.collection("/users").document(uid);
+    DocumentReference ref = _firestore.collection("/users").doc(uid);
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(ref);
-      await transaction.update(freshSnap.reference, {
+      transaction.update(freshSnap.reference, {
         "starred_notices": FieldValue.arrayUnion([noticeData])
       });
     });
@@ -72,11 +72,11 @@ class FirestoreProvider {
 
   void removeStarredNotice(noticeData) async {
     final uid = await getCurrentUserID();
-    DocumentReference ref = _firestore.collection("/users").document(uid);
+    DocumentReference ref = _firestore.collection("users").doc(uid);
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(ref);
 
-      await transaction.update(freshSnap.reference, {
+      transaction.update(freshSnap.reference, {
         "starred_notices": FieldValue.arrayRemove([noticeData])
       });
     });
@@ -85,10 +85,9 @@ class FirestoreProvider {
   Future<bool> isStarredNotice(title) async {
     print(title);
     final uid = await getCurrentUserID();
-    DocumentSnapshot snap =
-        await _firestore.collection("/users").document(uid).get();
+    DocumentSnapshot snap = await _firestore.collection("users").doc(uid).get();
 
-    List<dynamic> starredNotices = snap.data["starred_notices"];
+    List<dynamic> starredNotices = snap.data()["starred_notices"];
     if (starredNotices != null) {
       starredNotices.forEach((notice) {
         //print("${notice.toString()} title: $title");
@@ -104,10 +103,9 @@ class FirestoreProvider {
 
   Future<List<String>> fetchStaredNoticeTitle() async {
     final uid = await getCurrentUserID();
-    DocumentSnapshot snap =
-        await _firestore.collection("/users").document(uid).get();
+    DocumentSnapshot snap = await _firestore.collection("users").doc(uid).get();
     List<String> noticeTitles = new List();
-    List<dynamic> starredNotices = snap.data["starred_notices"];
+    List<dynamic> starredNotices = snap.data()["starred_notices"];
     if (starredNotices != null) {
       starredNotices.forEach((notice) {
         //print("${notice.toString()} title: $title");
@@ -121,10 +119,9 @@ class FirestoreProvider {
 
   Future<List<Academic>> fetchStaredNotice() async {
     final uid = await getCurrentUserID();
-    DocumentSnapshot snap =
-        await _firestore.collection("/users").document(uid).get();
+    DocumentSnapshot snap = await _firestore.collection("users").doc(uid).get();
     List<Academic> notices = new List();
-    List<dynamic> starredNotices = snap.data["starred_notices"];
+    List<dynamic> starredNotices = snap.data()["starred_notices"];
     if (starredNotices != null) {
       starredNotices.forEach((notice) {
         Academic academic = Academic(
@@ -140,9 +137,8 @@ class FirestoreProvider {
 
   Future<bool> isInterested(eventName) async {
     final uid = await getCurrentUserID();
-    DocumentSnapshot snap =
-        await _firestore.collection("/users").document(uid).get();
-    List<dynamic> interestedEvents = snap.data["interested"];
+    DocumentSnapshot snap = await _firestore.collection("users").doc(uid).get();
+    List<dynamic> interestedEvents = snap.data()["interested"];
     if (interestedEvents != null && interestedEvents.contains(eventName))
       return true;
     else
@@ -151,11 +147,11 @@ class FirestoreProvider {
 
   void addInterested(eventName) async {
     final uid = await getCurrentUserID();
-    DocumentReference ref = _firestore.collection("/users").document(uid);
+    DocumentReference ref = _firestore.collection("users").doc(uid);
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(ref);
 
-      await transaction.update(freshSnap.reference, {
+      transaction.update(freshSnap.reference, {
         "interested": FieldValue.arrayUnion([eventName])
       });
     });
@@ -163,11 +159,11 @@ class FirestoreProvider {
 
   void removeInterested(eventName) async {
     final uid = await getCurrentUserID();
-    DocumentReference ref = _firestore.collection("/users").document(uid);
+    DocumentReference ref = _firestore.collection("users").doc(uid);
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(ref);
 
-      await transaction.update(freshSnap.reference, {
+      transaction.update(freshSnap.reference, {
         "interested": FieldValue.arrayRemove([eventName])
       });
     });
@@ -177,7 +173,7 @@ class FirestoreProvider {
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(data.reference);
 
-      await transaction.update(freshSnap.reference, {
+      transaction.update(freshSnap.reference, {
         "eventDetail": FieldValue.arrayRemove([event])
       });
     });
@@ -187,7 +183,7 @@ class FirestoreProvider {
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(data.reference);
 
-      await transaction.update(freshSnap.reference, {
+      transaction.update(freshSnap.reference, {
         "eventDetail": FieldValue.arrayUnion([event])
       });
     });
@@ -195,21 +191,17 @@ class FirestoreProvider {
 
   void addNewSubject(data) async {
     final uid = await getCurrentUserID();
-    _firestore
-        .collection("/users")
-        .document(uid)
-        .collection("subjects")
-        .add(data);
+    _firestore.collection("users").doc(uid).collection("subjects").add(data);
   }
 
   void deleteSubject(String docID) async {
     final uid = await getCurrentUserID();
 
     await _firestore
-        .collection("/users")
-        .document(uid)
+        .collection("users")
+        .doc(uid)
         .collection("subjects")
-        .document(docID)
+        .doc(docID)
         .delete();
   }
 
@@ -217,7 +209,7 @@ class FirestoreProvider {
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(data.reference);
 
-      await transaction.update(freshSnap.reference, {
+      transaction.update(freshSnap.reference, {
         "attended": freshSnap["attended"] + 1,
         "total": freshSnap["total"] + 1,
       });
@@ -228,7 +220,7 @@ class FirestoreProvider {
     _firestore.runTransaction((transaction) async {
       DocumentSnapshot freshSnap = await transaction.get(data.reference);
 
-      await transaction.update(freshSnap.reference, {
+      transaction.update(freshSnap.reference, {
         "total": freshSnap["total"] + 1,
       });
     });
@@ -236,18 +228,17 @@ class FirestoreProvider {
 
   Future<bool> isAdmin() async {
     final uid = await getCurrentUserID();
-    DocumentSnapshot snap =
-        await _firestore.collection("/users").document(uid).get();
+    DocumentSnapshot snap = await _firestore.collection("users").doc(uid).get();
 
-    if (snap.exists && snap["isAdmin"] != null) return snap["isAdmin"];
+    if (snap.exists && snap.data()["isAdmin"] != null)
+      return snap.data()["isAdmin"];
 
     return false;
   }
 
   void composeMessage(String textMessage) async {
     final uid = await getCurrentUserID();
-    DocumentSnapshot user =
-        await _firestore.collection("/users").document(uid).get();
+    DocumentSnapshot user = await _firestore.collection("users").doc(uid).get();
 
     ApiProvider api = ApiProvider();
 
@@ -255,9 +246,7 @@ class FirestoreProvider {
 
     if (filteredText == null) return;
 
-    // FirebaseUser usera = await _auth.currentUser();
-
-    _firestore.collection("/chatroom").add({
+    _firestore.collection("chatroom").add({
       "message": filteredText,
       "time": Timestamp.now(),
       "sender": user["name"],
@@ -267,6 +256,6 @@ class FirestoreProvider {
   }
 
   void deleteMessage(String docID) async {
-    await _firestore.collection("/chatroom").document(docID).delete();
+    await _firestore.collection("chatroom").doc(docID).delete();
   }
 }

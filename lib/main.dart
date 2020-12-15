@@ -1,17 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/screens/display.dart';
 // import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/login_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MainApp());
 }
 
 Widget _getScreen() {
-  return StreamBuilder<FirebaseUser>(
-    stream: FirebaseAuth.instance.onAuthStateChanged,
+  return StreamBuilder<User>(
+    stream: FirebaseAuth.instance.authStateChanges(),
     builder: (BuildContext context, snapshot) {
       if (snapshot.hasData)
         return Display();
