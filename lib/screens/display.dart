@@ -16,10 +16,10 @@ class _DisplayState extends State<Display> {
 
   List screens = [
     HomeScreen(),
-    Timeline(),
+    // Timeline(),
     Chatroom(),
     NoticeScreen(),
-    GameScreen()
+    // GameScreen()
     // EventScreen(),
     // BlogScreen(),
 
@@ -54,13 +54,13 @@ class _DisplayState extends State<Display> {
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.clock),
-            title: Text(
-              "Timeline",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
-          ),
+          // BottomNavigationBarItem(
+          //   icon: FaIcon(FontAwesomeIcons.clock),
+          //   title: Text(
+          //     "Timeline",
+          //     style: TextStyle(fontFamily: "Montserrat"),
+          //   ),
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             title: Text(
@@ -75,13 +75,13 @@ class _DisplayState extends State<Display> {
               style: TextStyle(fontFamily: "Montserrat"),
             ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.games),
-            title: Text(
-              "Games",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.games),
+          //   title: Text(
+          //     "Games",
+          //     style: TextStyle(fontFamily: "Montserrat"),
+          //   ),
+          // ),
         ],
         onTap: (index) {
           setState(() {
