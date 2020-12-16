@@ -26,7 +26,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
   Stream _stream;
 
   var _userEmail = "";
-  var _isAdmin = false;
+  var _isAdmin = true;
 
 
   void changeNoticeType(String noticeType) {
@@ -47,12 +47,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
     });
   }
 
-  void _initAdmin() async {
-    var res = await _provider.isAdmin();
-    setState(() {
-      _isAdmin = res;
-    });
-  }
+
 
   @override
   void initState() {
@@ -64,7 +59,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
     _stream = _streamController.stream;
     _provider = FirestoreProvider();
     _initEmail();
-    _initAdmin();
     _getStaredList();
     super.initState();
   }
@@ -181,7 +175,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                         notice: noticeType[index],
                                         c: noticeType.length - index,
                                         noticeStarred: _isStared,
-                                        isAdmin: _isAdmin,);
+                                    );
                                   },
                                 );
                               } else if (snapshot.hasError) {
