@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:glug_app/screens/display.dart';
 import 'package:glug_app/services/auth_service.dart';
 
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,42 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 backgroundImage: AssetImage("images/glug_logo.jpeg"),
               ),
               SizedBox(height: 70),
-              // RaisedButton(
-              //   elevation: 10.0,
-              //   splashColor: Colors.grey,
-              //   onPressed: () {
-              //     _onPressedGuestSignInButton();
-              //   },
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(30)),
-              //   color: Colors.white,
-              //   child: Padding(
-              //     padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              //     child: Row(
-              //       mainAxisSize: MainAxisSize.min,
-              //       mainAxisAlignment: MainAxisAlignment.center,
-              //       children: <Widget>[
-
-              //         Padding(
-              //           padding: const EdgeInsets.only(left: 10),
-              //           child: Text(
-              //             'Sign in as Guest',
-              //             style: TextStyle(
-              //               fontWeight: FontWeight.bold,
-              //               fontSize: 15.0,
-              //               color: Colors.black54,
-              //               fontFamily: "Montserrat",
-              //             ),
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 20.0),
-              _signInButton(type: "Google"),
-              // SizedBox(height: 20.0),
-              // _signInButton(type: "Facebook"),
+              _signInButton(type: "Google", context: context),
             ],
           ),
         ),
@@ -122,58 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // void _onPressedGuestSignInButton() async {
-  //   String status = await signInGuest();
-
-  //   if (status == "Success") {
-  //     Navigator.of(context).pushReplacement(
-  //       MaterialPageRoute(
-  //         builder: (context) {
-  //           return Display();
-  //         },
-  //       ),
-  //     );
-  //   }
-  // }
-
-  void _onPressedGoogleSignInButton() async {
-    signInWithGoogle().then((result) {
-      if (result != null) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) {
-              return Display();
-            },
-          ),
-        );
-      }
-    });
-  }
-
-  // void _onPressedFbSignInButton() async {
-  //   String status = await signInWithFacebook();
-
-  //   if (status == "Success") {
-  //     Navigator.of(context).pushReplacement(
-  //       MaterialPageRoute(
-  //         builder: (context) {
-  //           return Display();
-  //         },
-  //       ),
-  //     );
-  //   }
-  // }
-
-  Widget _signInButton({String type}) {
+  Widget _signInButton({String type, BuildContext context}) {
     return RaisedButton(
       elevation: 10.0,
       splashColor: Colors.grey,
       onPressed: () {
         if (type == "Google") {
-          _onPressedGoogleSignInButton();
-        } else if (type == "Facebook") {
-          // _onPressedFbSignInButton();
-        } // Facebook Login
+          AuthService.signInWithGoogle();
+        }
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       color: Colors.white,

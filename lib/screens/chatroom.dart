@@ -1,19 +1,10 @@
-//import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
-import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
-import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/message_tile.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:url_launcher/url_launcher.dart';
-
-import 'login_screen.dart';
 
 class Chatroom extends StatefulWidget {
   @override
@@ -182,7 +173,7 @@ class _ChatroomState extends State<Chatroom> {
               if (snapshot.hasData) {
                 return ListView(
                   reverse: true,
-                  children: _buildChats(snapshot.data.documents),
+                  children: _buildChats(snapshot.data.docs),
                 );
               } else if (snapshot.hasError)
                 return errorWidget(snapshot.error);

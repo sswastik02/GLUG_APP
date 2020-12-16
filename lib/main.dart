@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:glug_app/screens/display.dart';
 // import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/login_screen.dart';
+import 'package:glug_app/services/auth_service.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MainApp());
@@ -13,7 +14,7 @@ void main() async {
 
 Widget _getScreen() {
   return StreamBuilder<User>(
-    stream: FirebaseAuth.instance.authStateChanges(),
+    stream: AuthService.authStateChanges,
     builder: (BuildContext context, snapshot) {
       if (snapshot.hasData)
         return Display();

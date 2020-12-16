@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
-import 'package:glug_app/screens/login_screen.dart';
 import 'package:glug_app/screens/profile_edit_screen.dart';
 import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
@@ -77,8 +76,7 @@ class _DashboardState extends State<Dashboard> {
       ),
       body: StreamBuilder(
         stream: _provider.fetchUserData(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        builder: (BuildContext ctxt, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasData) {
             DocumentSnapshot userData = snapshot.data;
             return SingleChildScrollView(
@@ -197,29 +195,8 @@ class _DashboardState extends State<Dashboard> {
                       onPressed: () {
                         _provider.getAuthProvider().then((value) {
                           if (value == "Google") {
-                            signOutGoogle().whenComplete(() {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) {
-                                  return LoginScreen();
-                                }),
-                              );
-                            });
-                          } else if (value == "Facebook") {
-                            // signOutFacebook().whenComplete(() {
-                            //   Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(builder: (context) {
-                            //       return LoginScreen();
-                            //     }),
-                            //   );
-                            // });
-                          } else {
-                            // signOutGuest().whenComplete(() {
-                            //   Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(builder: (context) {
-                            //       return LoginScreen();
-                            //     }),
-                            //   );
-                            // });
+                            AuthService.signOutGoogle().whenComplete(
+                                () => Navigator.of(context).pop());
                           }
                         });
                       },
