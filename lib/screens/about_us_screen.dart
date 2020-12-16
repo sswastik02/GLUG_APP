@@ -45,12 +45,12 @@ class AboutUS extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("About Us"),
-        // leading: new IconButton(
-        //   icon: new Icon(Icons.arrow_back),
-        //   onPressed: () {
-        //     Navigator.of(context).pop(true);
-        //   },
-        // ),
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+        ),
       ),
       drawer: Drawer(
         child: DrawerItems(),

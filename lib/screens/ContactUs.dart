@@ -83,12 +83,12 @@ class ContactUs extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Contact Us"),
-          // leading: new IconButton(
-          //   icon: new Icon(Icons.arrow_back),
-          //   onPressed: () {
-          //     Navigator.of(context).pop(true);
-          //   },
-          // ),
+           leading: new IconButton(
+             icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+              Navigator.of(context).pop(true);
+             },
+           ),
         ),
         drawer: Drawer(
           child: DrawerItems(),

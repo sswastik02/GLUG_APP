@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 import 'package:flutter/material.dart';
 import 'package:glug_app/blocs/blogPosts_bloc.dart';
@@ -153,9 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: DrawerItems(),
       ),
       body:
-
-
-
       SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -364,6 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+
 
 
 

@@ -272,6 +272,12 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Attendance Tracker"),
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.add),

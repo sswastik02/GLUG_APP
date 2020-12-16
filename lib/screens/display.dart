@@ -1,3 +1,4 @@
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/screens/chatroom.dart';
@@ -33,26 +34,25 @@ class _DisplayState extends State<Display> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        backgroundColor: Color(0xFF303C42),
-        selectedFontSize: 12.0,
-        unselectedFontSize: 10.0,
-        iconSize: 27.0,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Theme.of(context).primaryColor,
-        type: BottomNavigationBarType.fixed,
-        items: [
+  Widget _bottomNavigation(){
+    return
+
+     BottomNavigationBar(
+          currentIndex: _currentIndex,
+          backgroundColor: Color(0xFF303C42),
+          selectedFontSize: 12.0,
+          unselectedFontSize: 10.0,
+          iconSize: 27.0,
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Theme.of(context).primaryColor,
+          type: BottomNavigationBarType.fixed,
+          items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text(
-              "Home",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
+          icon: Icon(Icons.home),
+          title: Text(
+          "Home",
+          style: TextStyle(fontFamily: "Montserrat"),
+          ),
           ),
           // BottomNavigationBarItem(
           //   icon: FaIcon(FontAwesomeIcons.clock),
@@ -62,18 +62,18 @@ class _DisplayState extends State<Display> {
           //   ),
           // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            title: Text(
-              "Chat",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
+          icon: Icon(Icons.chat),
+          title: Text(
+          "Chat",
+          style: TextStyle(fontFamily: "Montserrat"),
+          ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.announcement),
-            title: Text(
-              "Notices",
-              style: TextStyle(fontFamily: "Montserrat"),
-            ),
+          icon: Icon(Icons.announcement),
+          title: Text(
+          "Notices",
+          style: TextStyle(fontFamily: "Montserrat"),
+          ),
           ),
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.games),
@@ -82,13 +82,26 @@ class _DisplayState extends State<Display> {
           //     style: TextStyle(fontFamily: "Montserrat"),
           //   ),
           // ),
-        ],
-        onTap: (index) {
+          ],
+          onTap: (index) {
           setState(() {
-            _currentIndex = index;
+          _currentIndex = index;
           });
-        },
+          },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: DoubleBackToCloseApp(
+        child: screens[_currentIndex],
+        snackBar: SnackBar(
+            content: Text('Tap back again to exit')
+        ),
       ),
+      bottomNavigationBar: _bottomNavigation(),
+
     );
   }
 }
