@@ -1,11 +1,11 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/screens/chatroom.dart';
-import 'package:glug_app/screens/game_chooser_screen.dart';
 import 'package:glug_app/screens/home_screen.dart';
 import 'package:glug_app/screens/notice_screen.dart';
-import 'package:glug_app/screens/timeline.dart';
+import 'package:glug_app/screens/attendance_tracker_screen.dart';
 
 class Display extends StatefulWidget {
   @override
@@ -13,9 +13,21 @@ class Display extends StatefulWidget {
 }
 
 class _DisplayState extends State<Display> {
-  var _currentIndex;
+  var  _currentIndex;
+  PageController _pageController;
 
-  List screens = [
+
+
+
+
+  @override
+  void initState() {
+    _currentIndex = 0;
+    _pageController = PageController();
+    super.initState();
+  }
+
+/*List screens = [
     HomeScreen(),
     // Timeline(),
     Chatroom(),
@@ -27,12 +39,6 @@ class _DisplayState extends State<Display> {
     // LinitScreen(),
     // Dashboard(),
   ];
-
-  @override
-  void initState() {
-    _currentIndex = 0;
-    super.initState();
-  }
 
   Widget _bottomNavigation(){
     return
@@ -89,18 +95,64 @@ class _DisplayState extends State<Display> {
           });
           },
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: DoubleBackToCloseApp(
-        child: screens[_currentIndex],
+        child:PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() => _currentIndex = index);
+          },
+          children: <Widget>[
+            HomeScreen(),
+            // Timeline(),
+            Chatroom(),
+            AttendanceTrackerScreen(),
+            NoticeScreen(),
+          ],
+        ),
+        //screens[_currentIndex],
+
         snackBar: SnackBar(
             content: Text('Tap back again to exit')
         ),
       ),
-      bottomNavigationBar: _bottomNavigation(),
+      bottomNavigationBar: BottomNavyBar(
+        selectedIndex: _currentIndex,
+        showElevation: true, // use this to remove appBar's elevation
+        onItemSelected: (index) => setState(() {
+          _currentIndex = index;
+         /// _pageController.animateToPage(index,
+          //    duration: Duration(milliseconds: 300), curve: Curves.ease);
+          _pageController.jumpToPage(index);
+        }),
+        items: [
+          BottomNavyBarItem(
+            icon: Icon(Icons.apps),
+            title: Text('Home'),
+            activeColor: Colors.red,
+          ),
+          BottomNavyBarItem(
+              icon: Icon(Icons.message),
+              title: Text('Chat'),
+            activeColor: Colors.red,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.track_changes),
+            title:Text('Attendance') ,
+            activeColor: Colors.red,
+          ),
+          BottomNavyBarItem(
+              icon: Icon(Icons.announcement),
+              title:Text('Notices') ,
+            activeColor: Colors.red,
+          ),
+
+        ],
+      )
 
     );
   }
