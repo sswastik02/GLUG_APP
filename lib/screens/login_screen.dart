@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                             color: Colors.deepOrange),
                       ),
                       Text(
-                        "ER'S GR",
+                        "ERS' GR",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 20,
