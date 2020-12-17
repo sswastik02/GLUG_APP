@@ -1,4 +1,3 @@
-
 import 'package:glug_app/models/blog_post_model.dart';
 import 'package:glug_app/models/blog_response.dart';
 import 'package:glug_app/models/event_model.dart';
@@ -75,19 +74,19 @@ class DatabaseProvider {
           ")",
         );
 
-        print("Creating attendance Table");
+        print("Creating Attendance Table");
 
         await db.execute(
           "CREATE TABLE $ATTENDANCE_TABLE ("
-              "id INTEGER PRIMARY KEY,"
-              "name TEXT,"
-              "total INTEGER,"
-              "attended INTEGER,"
-              "canceled INTEGER,"
-              "holiday INTEGER"
-              ")",
+          "id INTEGER PRIMARY KEY,"
+          "name TEXT,"
+          "total INTEGER,"
+          "attended INTEGER,"
+          "goal INTEGER,"
+          "canceled INTEGER,"
+          "holiday INTEGER"
+          ")",
         );
-
 
         print("Creating Upcoming Events Table");
 
@@ -123,10 +122,6 @@ class DatabaseProvider {
         );
       },
     );
-
-
-
-
   }
 
   Future<EventResponse> fetchEventData() async {
@@ -204,7 +199,6 @@ class DatabaseProvider {
     }
   }
 
-
   /*Future<AttendanceRespose> fetchAttendanceData() async {
     print("Entered");
     try {
@@ -218,86 +212,75 @@ class DatabaseProvider {
     }
   }*/
 
-  addNewSubject(String name, int total,int attended,int canceled,int holiday) async{
+  addNewSubject(String name, int total, int attended, int goal, int canceled,
+      int holiday) async {
     final db = await database;
     await db.transaction((txn) async {
       int id1 = await txn.rawInsert(
-          'INSERT INTO $ATTENDANCE_TABLE(name, total, attended,canceled,holiday) VALUES("$name",$total,$attended,$canceled,$holiday)');
+          'INSERT INTO $ATTENDANCE_TABLE(name, total, attended,goal,canceled,holiday) VALUES("$name",$total,$attended,$goal,$canceled,$holiday)');
       print('inserted1: $id1');
     });
     attendanceBloc.fetchAllData();
   }
-  
-  Future<List<Map>> getAttendanceData() async{
+
+  Future<List<Map>> getAttendanceData() async {
     final db = await database;
     List<Map> list = await db.rawQuery('SELECT * FROM $ATTENDANCE_TABLE');
     print(list);
     return list;
   }
 
-  addAttedance(int id,int total , int attended) async{
+  addAttedance(int id, int total, int attended) async {
     final db = await database;
-    int t = total+1;
-    int a = attended+1;
+    int t = total + 1;
+    int a = attended + 1;
     await db.rawUpdate(
         'UPDATE $ATTENDANCE_TABLE SET total = ?, attended = ? WHERE id = ?',
-        [ '$t', '$a', '$id']);
+        ['$t', '$a', '$id']);
     attendanceBloc.fetchAllData();
-
   }
 
-  addNotAttedanded(int id,int total) async{
+  addNotAttedanded(int id, int total) async {
     final db = await database;
-    int t = total+1;
+    int t = total + 1;
     await db.rawUpdate(
-        'UPDATE $ATTENDANCE_TABLE SET total = ? WHERE id = ?',
-        [ '$t','$id']);
+        'UPDATE $ATTENDANCE_TABLE SET total = ? WHERE id = ?', ['$t', '$id']);
     attendanceBloc.fetchAllData();
-
   }
 
-  deleteSubject(Map map) async{
+  deleteSubject(Map map) async {
     int id = map["id"];
     final db = await database;
-    await db
-        .rawDelete('DELETE FROM $ATTENDANCE_TABLE WHERE id = ?', ['$id']);
+    await db.rawDelete('DELETE FROM $ATTENDANCE_TABLE WHERE id = ?', ['$id']);
     attendanceBloc.fetchAllData();
   }
 
-  addHoliday(Map map) async{
+  addHoliday(Map map) async {
     int id = map["id"];
-    int holiday=map["holiday"];
+    int holiday = map["holiday"];
     final db = await database;
-    int t = holiday+1;
+    int t = holiday + 1;
     await db.rawUpdate(
-        'UPDATE $ATTENDANCE_TABLE SET holiday = ? WHERE id = ?',
-        [ '$t','$id']);
+        'UPDATE $ATTENDANCE_TABLE SET holiday = ? WHERE id = ?', ['$t', '$id']);
     attendanceBloc.fetchAllData();
-
   }
 
-  addCanceled(Map map) async{
+  addCanceled(Map map) async {
     int id = map["id"];
     int canceled = map["canceled"];
     final db = await database;
-    int t = canceled+1;
-    await db.rawUpdate(
-        'UPDATE $ATTENDANCE_TABLE SET canceled = ? WHERE id = ?',
-        [ '$t','$id']);
+    int t = canceled + 1;
+    await db.rawUpdate('UPDATE $ATTENDANCE_TABLE SET canceled = ? WHERE id = ?',
+        ['$t', '$id']);
     attendanceBloc.fetchAllData();
-
   }
 
-  updateSubject(int id, String name, int a,int t) async{
+  updateSubject(int id, String name, int a, int t, int g) async {
     final db = await database;
     await db.rawUpdate(
-        'UPDATE $ATTENDANCE_TABLE SET name = ?, total = ?, attended = ? WHERE id = ?',
-        [ '$name','$t', '$a', '$id']);
+        'UPDATE $ATTENDANCE_TABLE SET name = ?, total = ?, attended = ?, goal = ? WHERE id = ?',
+        ['$name', '$t', '$a', '$g', '$id']);
     print(name);
     attendanceBloc.fetchAllData();
-
   }
-
-
-
 }
