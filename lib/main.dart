@@ -29,28 +29,54 @@ Widget _getScreen() {
 }
 
 class MainApp extends StatelessWidget {
+  final ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: Colors.black,
+    accentColor: Colors.deepOrangeAccent,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    fontFamily: "Catamaran",
+    // textTheme: TextTheme(
+    // headline1: TextStyle(
+    //     fontFamily: "Catamaran",
+    //     fontSize: 45,
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.w900),
+    // bodyText1: TextStyle(
+    //     fontFamily: "Catamaran",
+    //     fontSize: 20,
+    //     color: Colors.white,
+    //     fontWeight: FontWeight.w700),
+
+    // ),
+  );
+
+  final ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
+    primaryColor: Colors.white,
+    accentColor: Colors.deepOrangeAccent,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    fontFamily: "Catamaran",
+    // textTheme: TextTheme(
+    // headline1: TextStyle(
+    //     fontFamily: "Catamaran",
+    //     fontSize: 45,
+    //     color: Colors.black,
+    //     fontWeight: FontWeight.w900),
+    // bodyText1: TextStyle(
+    //     fontFamily: "Catamaran",
+    //     fontSize: 20,
+    //     color: Colors.black,
+    //     fontWeight: FontWeight.w700),
+    // ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "GLUG App",
-      theme: ThemeData(
-        primaryColor: Colors.black,
-        accentColor: Colors.blue[900],
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: TextTheme(
-          headline1: TextStyle(
-              fontFamily: "Catamaran",
-              fontSize: 45,
-              color: Colors.white,
-              fontWeight: FontWeight.w900),
-          bodyText1: TextStyle(
-              fontFamily: "Catamaran",
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.w700),
-        ),
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: _getScreen(),
     );
   }

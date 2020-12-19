@@ -15,21 +15,24 @@ class _FirstScreenState extends State<FirstScreen> {
   // int _previousPage = 0;
   List<Map<String, dynamic>> data = [
     {
-      "title": "Home\nScreen",
+      "title": "Home",
       "body": "Take a deep dive into the year round activites of the club",
       "image": "images/glug_logo.jpeg",
+      "color": Colors.blue[900],
       "route": HomeScreen(),
     },
     {
       "title": "Attendance\nTracker",
       "body": "Stay on track with your classes",
       "image": "images/glug_logo.jpeg",
+      "color": Colors.deepOrange[700],
       "route": AttendanceTrackerScreen(),
     },
     {
       "title": "Notices",
       "body": "Never miss a notice from the institute",
       "image": "images/glug_logo.jpeg",
+      "color": Colors.green[900],
       "route": NoticeScreen(),
     },
   ];
@@ -66,13 +69,18 @@ class _FirstScreenState extends State<FirstScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Center(
       child: Container(
+        margin: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.width * 0.02),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               data[i]["title"],
-              style: Theme.of(context).textTheme.headline1,
+              style: TextStyle(
+                fontSize: 45,
+                fontWeight: FontWeight.w900,
+              ),
             ),
             // Text(
             //   "Books.",
@@ -100,7 +108,8 @@ class _FirstScreenState extends State<FirstScreen> {
                   children: [
                     Text(
                       data[i]["body"],
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                     Container(
                       height: screenWidth * 0.7,
@@ -116,7 +125,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   ],
                 ),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
+                  color: data[i]["color"],
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
@@ -134,7 +143,11 @@ class _FirstScreenState extends State<FirstScreen> {
 
     for (int i = 0; i < items; i++) {
       double s = i == _currentPage ? 10.0 : 8.0;
-      Color c = i == _currentPage ? Colors.white : Colors.grey;
+      Color c = i == _currentPage
+          ? (Theme.of(context).primaryColor == Colors.black
+              ? Colors.white
+              : Colors.black)
+          : Colors.grey;
       dots.add(
         AnimatedContainer(
           duration: Duration(milliseconds: 400),
@@ -156,7 +169,6 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
         child: Column(
           children: [

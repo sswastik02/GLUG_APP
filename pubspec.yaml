@@ -93,6 +93,7 @@ flutter:
         - asset: fonts/Flappy-Bird.ttf
     - family: Catamaran
       fonts:
+        - asset: fonts/Catamaran-Regular.ttf
         - asset: fonts/Catamaran-Black.ttf
           weight: 900
         - asset: fonts/Catamaran-Bold.ttf

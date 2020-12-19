@@ -54,7 +54,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(15.0),
               boxShadow: [
                 BoxShadow(
@@ -303,9 +303,9 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
           ),
         ],
       ),
-      drawer: Drawer(
-        child: DrawerItems(),
-      ),
+      // drawer: Drawer(
+      //   child: DrawerItems(),
+      // ),
       body: StreamBuilder(
           stream: attendanceBloc.allAttendanceData,
           builder: (context, snapshot) {

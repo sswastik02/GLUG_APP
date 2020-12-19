@@ -197,20 +197,21 @@ class _MyClassState extends State<EventInfo> {
                     margin: EdgeInsets.only(bottom: 90.0),
                     height: 50.0,
                     child: IconButton(
-                      icon:Icon(Icons.arrow_back,) ,
+                      icon: Icon(
+                        Icons.arrow_back,
+                      ),
                       color: Colors.white,
                       onPressed: () {
                         Navigator.of(context).pop(true);
                       },
-
                     ),
                   ),
-
                   Container(
                     margin: EdgeInsets.only(bottom: 20.0),
                     height: 50.0,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(210, 255, 255, 255),
+                      color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      // color: Color.fromARGB(210, 255, 255, 255),
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(50.0),
                         bottomRight: Radius.circular(50.0),

@@ -83,7 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(225, 255, 255, 255),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                  color: Theme.of(context).primaryColor.withOpacity(0.5),
                 ),
               ),
             ),
@@ -133,7 +137,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(225, 255, 255, 255),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+                  color: Theme.of(context).primaryColor.withOpacity(0.5),
+                  // color: Color.fromARGB(225, 255, 255, 255),
                 ),
               ),
             ),

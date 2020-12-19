@@ -102,7 +102,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                 height: 50,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  // color: Colors.white,
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
                       color: Colors.deepOrangeAccent //Color(0xFFE5E5E5),
