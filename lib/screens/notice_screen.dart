@@ -28,7 +28,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
   var _userEmail = "";
   var _isAdmin = true;
 
-
   void changeNoticeType(String noticeType) {
     noticeBloc.fetchCalledNotice(noticeType);
     _streamController.add(null);
@@ -36,7 +35,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
     setState(() {
       _dropdownvalue = noticeType;
     });
-
   }
 
   void _initEmail() async {
@@ -46,8 +44,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
       print(_userEmail);
     });
   }
-
-
 
   @override
   void initState() {
@@ -80,21 +76,21 @@ class _NoticeScreenState extends State<NoticeScreen> {
         appBar: AppBar(
           title: Text('Notices'),
           actions: [
-
-            _isAdmin ?
-            IconButton(
-                icon: Icon(Icons.star),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => StarredNoticeScreen()));
-                }) : SizedBox()
+            _isAdmin
+                ? IconButton(
+                    icon: Icon(Icons.star),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StarredNoticeScreen()));
+                    })
+                : SizedBox()
           ],
         ),
-        drawer: Drawer(
-          child: DrawerItems(),
-        ),
+        // drawer: Drawer(
+        //   child: DrawerItems(),
+        // ),
         body: Container(
           color: Colors.white10,
           child: Column(
@@ -155,12 +151,13 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                   itemCount: noticeType.length,
                                   itemBuilder: (context, index) {
                                     bool _isStared = false;
-                                    if(_isAdmin) {
-                                      List<dynamic> _startedList = snapshot1
-                                          .data;
+                                    if (_isAdmin) {
+                                      List<dynamic> _startedList =
+                                          snapshot1.data;
                                       print("list $_startedList");
-                                      for (int i = 0; i <
-                                          _startedList.length; i++) {
+                                      for (int i = 0;
+                                          i < _startedList.length;
+                                          i++) {
                                         print(_startedList[i]);
                                         if (noticeType[index].title ==
                                             _startedList[i]) {
@@ -172,9 +169,9 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                       print("data $a");
                                     }
                                     return NoticeTile(
-                                        notice: noticeType[index],
-                                        c: noticeType.length - index,
-                                        noticeStarred: _isStared,
+                                      notice: noticeType[index],
+                                      c: noticeType.length - index,
+                                      noticeStarred: _isStared,
                                     );
                                   },
                                 );
@@ -184,8 +181,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                 return Center(
                                     child: CircularProgressIndicator());
                               }
-                            }
-                            );
+                            });
                       } else if (snapshot1.hasError) {
                         return errorWidget(snapshot1.error);
                       } else {

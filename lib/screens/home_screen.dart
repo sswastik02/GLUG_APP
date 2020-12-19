@@ -147,14 +147,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-      ),
-      drawer: Drawer(
-        child: DrawerItems(),
-      ),
-      body:
-      SingleChildScrollView(
+      // appBar: AppBar(
+      //   title: Text("Home"),
+      // ),
+      // drawer: Drawer(
+      //   child: DrawerItems(),
+      // ),
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -362,10 +361,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-
-
-
-
     );
   }
 }

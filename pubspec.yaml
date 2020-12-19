@@ -50,6 +50,7 @@ dependencies:
   progress_dialog: ^1.2.4
   double_back_to_close_app: ^1.2.0
   bottom_navy_bar: ^5.6.0
+  intro_slider: ^2.3.3
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +91,12 @@ flutter:
     - family: FlappyBird
       fonts:
         - asset: fonts/Flappy-Bird.ttf
+    - family: Catamaran
+      fonts:
+        - asset: fonts/Catamaran-Black.ttf
+          weight: 900
+        - asset: fonts/Catamaran-Bold.ttf
+          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
