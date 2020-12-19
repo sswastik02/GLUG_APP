@@ -5,6 +5,7 @@ import 'package:glug_app/screens/display.dart';
 import 'package:glug_app/screens/first_screen.dart';
 // import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/login_screen.dart';
+import 'package:glug_app/screens/drawer_screen.dart';
 import 'package:glug_app/screens/splash_screen.dart';
 import 'package:glug_app/services/auth_service.dart';
 
@@ -21,7 +22,13 @@ Widget _getScreen() {
       if (snapshot.hasData)
         // return Display();
         // return IntroScreen();
-        return FirstScreen();
+        return Stack(
+          children: [
+            DrawerScreen(),
+            FirstScreen(),
+          ],
+        );
+
       else
         return LoginScreen();
     },

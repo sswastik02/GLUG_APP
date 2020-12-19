@@ -166,43 +166,77 @@ class _FirstScreenState extends State<FirstScreen> {
     return dots;
   }
 
+  double xOffset = 0;
+  double yOffset = 0;
+  double scaleFactor = 1;
+
+  bool isDrawerOpen = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: IconButton(
-                  icon: Icon(Icons.sort),
-                  iconSize: 35.0,
-                  color: Colors.white,
-                  onPressed: () {},
+    return AnimatedContainer(
+        transform: Matrix4.translationValues(xOffset, yOffset, 0)
+          ..scale(scaleFactor)
+          ..rotateY(isDrawerOpen ? -0.5 : 0),
+        duration: Duration(milliseconds: 250),
+        decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
+        child: Scaffold(
+          // backgroundColor: Theme.of(context).primaryColor,
+          body: SafeArea(
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: isDrawerOpen
+                        ? IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
+                            color: Colors.white,
+                            onPressed: () {
+                              setState(() {
+                                xOffset = 0;
+                                yOffset = 0;
+                                scaleFactor = 1;
+                                isDrawerOpen = false;
+                              });
+                            },
+                          )
+                        : IconButton(
+                            icon: Icon(Icons.sort),
+                            iconSize: 35.0,
+                            color: Colors.white,
+                            onPressed: () {
+                              setState(() {
+                                xOffset = 220;
+                                yOffset = 150;
+                                scaleFactor = 0.6;
+                                isDrawerOpen = true;
+                              });
+                            }),
+                  ),
                 ),
-              ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.03,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _buildDots(),
+                  ),
+                ),
+                Expanded(
+                  child: PageView.builder(
+                    controller: _ctrl,
+                    itemCount: 3,
+                    itemBuilder: (ctxt, index) {
+                      return _buildPage(context, index);
+                    },
+                  ),
+                ),
+              ],
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.03,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _buildDots(),
-              ),
-            ),
-            Expanded(
-              child: PageView.builder(
-                controller: _ctrl,
-                itemCount: 3,
-                itemBuilder: (ctxt, index) {
-                  return _buildPage(context, index);
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
