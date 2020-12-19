@@ -12,25 +12,24 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen> {
   final _ctrl = PageController();
   int _currentPage = 0;
-  // int _previousPage = 0;
   List<Map<String, dynamic>> data = [
     {
-      "title": "Home",
-      "body": "Take a deep dive into the year round activites of the club",
+      "title": "Our Activities\nand Workshops",
+      "body": "Wanna know what we're all about? Come, explore the Source!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.blue[900],
       "route": HomeScreen(),
     },
     {
-      "title": "Attendance\nTracker",
-      "body": "Stay on track with your classes",
+      "title": "Track Your\nAttendance",
+      "body": "Feel free to skip a class cause you're never falling behind!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.deepOrange[700],
       "route": AttendanceTrackerScreen(),
     },
     {
-      "title": "Notices",
-      "body": "Never miss a notice from the institute",
+      "title": "Browse Institute\nNotices",
+      "body": "Now you'll never miss an important update from the institute!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.green[900],
       "route": NoticeScreen(),
@@ -44,24 +43,17 @@ class _FirstScreenState extends State<FirstScreen> {
     _ctrl.addListener(() {
       int next = _ctrl.page.round();
 
-      // if (_ctrl.page.toInt() == _ctrl.page) {
-      //   _previousPage = _ctrl.page.toInt();
-      // }
-
       if (_currentPage != next) {
         setState(() {
           _currentPage = next;
         });
       }
-
-      // _notifier?.value = _ctrl.page - _previousPage;
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-    // _notifier?.dispose();
   }
 
   _buildPage(context, i) {
@@ -82,14 +74,6 @@ class _FirstScreenState extends State<FirstScreen> {
                 fontWeight: FontWeight.w900,
               ),
             ),
-            // Text(
-            //   "Books.",
-            //   style: Theme.of(context).textTheme.headline1,
-            // ),
-            // Text(
-            //   "Easy.",
-            //   style: Theme.of(context).textTheme.headline1,
-            // ),
             SizedBox(
               height: screenHeight * 0.02,
             ),
@@ -183,46 +167,59 @@ class _FirstScreenState extends State<FirstScreen> {
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
         child: Scaffold(
-          // backgroundColor: Theme.of(context).primaryColor,
           body: SafeArea(
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: isDrawerOpen
-                        ? IconButton(
-                            icon: Icon(Icons.arrow_back_ios),
-                            color:
-                                (Theme.of(context).primaryColor == Colors.black
-                                    ? Colors.white
-                                    : Colors.black),
-                            onPressed: () {
-                              setState(() {
-                                xOffset = 0;
-                                yOffset = 0;
-                                scaleFactor = 1;
-                                isDrawerOpen = false;
-                              });
-                            },
-                          )
-                        : IconButton(
-                            icon: Icon(Icons.sort),
-                            iconSize: 35.0,
-                            color:
-                                (Theme.of(context).primaryColor == Colors.black
-                                    ? Colors.white
-                                    : Colors.black),
-                            onPressed: () {
-                              setState(() {
-                                xOffset = 220;
-                                yOffset = 150;
-                                scaleFactor = 0.6;
-                                isDrawerOpen = true;
-                              });
-                            }),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: isDrawerOpen
+                          ? IconButton(
+                              icon: Icon(Icons.arrow_back_ios),
+                              iconSize: 35.0,
+                              color: (Theme.of(context).primaryColor ==
+                                      Colors.black
+                                  ? Colors.white
+                                  : Colors.black),
+                              onPressed: () {
+                                setState(() {
+                                  xOffset = 0;
+                                  yOffset = 0;
+                                  scaleFactor = 1;
+                                  isDrawerOpen = false;
+                                });
+                              },
+                            )
+                          : IconButton(
+                              icon: Icon(Icons.sort),
+                              iconSize: 35.0,
+                              color: (Theme.of(context).primaryColor ==
+                                      Colors.black
+                                  ? Colors.white
+                                  : Colors.black),
+                              onPressed: () {
+                                setState(() {
+                                  xOffset = 220;
+                                  yOffset = 150;
+                                  scaleFactor = 0.6;
+                                  isDrawerOpen = true;
+                                });
+                              }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: IconButton(
+                        icon: Icon(Icons.notifications),
+                        iconSize: 30.0,
+                        color: (Theme.of(context).primaryColor == Colors.black
+                            ? Colors.white
+                            : Colors.black),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.03,
