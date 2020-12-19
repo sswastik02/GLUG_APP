@@ -194,7 +194,10 @@ class _FirstScreenState extends State<FirstScreen> {
                     child: isDrawerOpen
                         ? IconButton(
                             icon: Icon(Icons.arrow_back_ios),
-                            color: Colors.white,
+                            color:
+                                (Theme.of(context).primaryColor == Colors.black
+                                    ? Colors.white
+                                    : Colors.black),
                             onPressed: () {
                               setState(() {
                                 xOffset = 0;
@@ -207,7 +210,10 @@ class _FirstScreenState extends State<FirstScreen> {
                         : IconButton(
                             icon: Icon(Icons.sort),
                             iconSize: 35.0,
-                            color: Colors.white,
+                            color:
+                                (Theme.of(context).primaryColor == Colors.black
+                                    ? Colors.white
+                                    : Colors.black),
                             onPressed: () {
                               setState(() {
                                 xOffset = 220;
