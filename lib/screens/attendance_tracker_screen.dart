@@ -292,105 +292,130 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
     final progDim = MediaQuery.of(context).size.width * 0.3;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Attendance Tracker"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              _addSubjectDialog(context, null);
-            },
-          ),
-        ],
-      ),
-      // drawer: Drawer(
-      //   child: DrawerItems(),
-      // ),
-      body: StreamBuilder(
-          stream: attendanceBloc.allAttendanceData,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<dynamic> subs = snapshot.data;
-
-              var attended = 0;
-              var total = 0;
-              subs.forEach((sub) {
-                attended += sub["attended"];
-                total += sub["total"];
-              });
-
-              var percentage =
-                  total != 0 ? (attended / total * 100).round() : 0;
-
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
+      body:
+      Column(
+          children: [
+            Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
+            child:Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 20.0,
+            Row(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.arrow_back,size: 30,),
+                    onPressed:(){
+                      Navigator.of(context).pop(true);
+                    }),
+                SizedBox(width: 20,),
+                Text(
+                  'Attendance Tracker',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        height: progDim,
-                        width: progDim,
-                        child: Stack(
+                ),
+              ],
+            ),
+                  IconButton(
+                    icon: Icon(Icons.add,size: 30,),
+                    onPressed: () {
+                      _addSubjectDialog(context, null);
+                    },
+                  ),
+            ]
+          ),
+
+          ),
+
+
+          Expanded(child:
+            StreamBuilder(
+                stream: attendanceBloc.allAttendanceData,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<dynamic> subs = snapshot.data;
+
+                    var attended = 0;
+                    var total = 0;
+                    subs.forEach((sub) {
+                      attended += sub["attended"];
+                      total += sub["total"];
+                    });
+
+                    var percentage =
+                        total != 0 ? (attended / total * 100).round() : 0;
+
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Center(
-                              child: Container(
-                                height: progDim + 20,
-                                width: progDim,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.green),
-                                  backgroundColor: Colors.red,
-                                  value: percentage / 100,
-                                  strokeWidth: 8.0,
-                                ),
+                            SizedBox(
+                              height: progDim,
+                              width: progDim,
+                              child: Stack(
+                                children: [
+                                  Center(
+                                    child: Container(
+                                      height: progDim + 20,
+                                      width: progDim,
+                                      child: CircularProgressIndicator(
+                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                            Colors.green),
+                                        backgroundColor: Colors.red,
+                                        value: percentage / 100,
+                                        strokeWidth: 8.0,
+                                      ),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "$percentage%",
+                                      style: TextStyle(
+                                        fontSize: 22.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Center(
-                              child: Text(
-                                "$percentage%",
-                                style: TextStyle(
-                                  fontSize: 22.0,
+                            Column(
+                              children: [
+                                Text(
+                                  "Total Classes: $total",
+                                  style: TextStyle(fontSize: 18.0),
                                 ),
-                              ),
+                                Text(
+                                  "Classes Attended: $attended",
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "Total Classes: $total",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                          Text(
-                            "Classes Attended: $attended",
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Expanded(
-                    child: _buildTiles(snapshot.data),
-                  )
-                ],
-              );
-            } else if (snapshot.hasError) {
-              return errorWidget(snapshot.error);
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          }),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Expanded(
+                          child: _buildTiles(snapshot.data),
+                        )
+                      ],
+                    );
+                  } else if (snapshot.hasError) {
+                    return errorWidget(snapshot.error);
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+    )
+    ])
     );
   }
 }

@@ -156,13 +156,31 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Home"),
-      // ),
-      // drawer: Drawer(
-      //   child: DrawerItems(),
-      // ),
-      body: SingleChildScrollView(
+
+      body:Column(
+          children: [
+
+      Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
+      child:Row(
+        children: [
+          IconButton(
+              icon: Icon(Icons.arrow_back,size: 30,),
+              onPressed:(){
+                Navigator.of(context).pop(true);
+              }),
+          SizedBox(width: 20,),
+          Text(
+            'Home',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      ),
+    ),
+    Expanded(child:
+    SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -370,6 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    );
+    )
+          ]));
   }
 }

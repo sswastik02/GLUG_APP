@@ -7,7 +7,7 @@ import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/starred_notices.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
-import 'package:glug_app/widgets/notice_tile.dart';
+import 'package:glug_app/widgets/notices_tile.dart';
 
 class NoticeScreen extends StatefulWidget {
   @override
@@ -26,7 +26,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
   Stream _stream;
 
   var _userEmail = "";
-  var _isAdmin = true;
+
 
   void changeNoticeType(String noticeType) {
     noticeBloc.fetchCalledNotice(noticeType);
@@ -73,25 +73,49 @@ class _NoticeScreenState extends State<NoticeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Notices'),
-          actions: [
-            _isAdmin
-                ? IconButton(
-                    icon: Icon(Icons.star),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => StarredNoticeScreen()));
-                    })
-                : SizedBox()
-          ],
-        ),
-        // drawer: Drawer(
-        //   child: DrawerItems(),
-        // ),
-        body: Container(
+
+        body:
+
+        Column(
+            children: [
+        Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
+      child:Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.arrow_back,size: 30,),
+                    onPressed:(){
+                      Navigator.of(context).pop(true);
+                    }),
+                SizedBox(width: 20,),
+                Text(
+                  'Notices',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
+            IconButton(
+                icon: Icon(Icons.star),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StarredNoticeScreen()));
+                })
+          ]
+      ),
+
+    ),
+
+
+    Expanded(child:
+
+        Container(
           color: Colors.white10,
           child: Column(
             children: [
@@ -106,7 +130,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
                       color: Colors.deepOrangeAccent //Color(0xFFE5E5E5),
-                      ),
+                  ),
                 ),
                 child: Row(
                   children: <Widget>[
@@ -136,7 +160,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                 child: StreamBuilder(
                     stream: _stream, //noticeBloc.noticeCategories,
                     builder: (context, AsyncSnapshot<dynamic> snapshot1) {
-                      if (snapshot1.hasData || !_isAdmin) {
+                      if (snapshot1.hasData) {
                         return StreamBuilder(
                             stream: noticeBloc.noticeCategories,
                             builder: (context,
@@ -151,13 +175,13 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                   itemCount: noticeType.length,
                                   itemBuilder: (context, index) {
                                     bool _isStared = false;
-                                    if (_isAdmin) {
+
                                       List<dynamic> _startedList =
                                           snapshot1.data;
                                       print("list $_startedList");
                                       for (int i = 0;
-                                          i < _startedList.length;
-                                          i++) {
+                                      i < _startedList.length;
+                                      i++) {
                                         print(_startedList[i]);
                                         if (noticeType[index].title ==
                                             _startedList[i]) {
@@ -167,7 +191,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                       }
                                       var a = snapshot1.data;
                                       print("data $a");
-                                    }
+
                                     return NoticeTile(
                                       notice: noticeType[index],
                                       c: noticeType.length - index,
@@ -191,24 +215,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
               ),
             ],
           ),
-        ));
+        )
+    )])
+    );
   }
 }
-
-//return Container(
-//   child: StreamBuilder(
-//     stream: noticeBloc.allNoticeData,
-//     builder: (context, AsyncSnapshot<Notice> snapshot) {
-//       if (snapshot.hasData) {
-//         Notice notice = snapshot.data;
-//         List<Academic> generalNotices = notice.notices.general;
-//         return Scaffold(
-//           appBar: AppBar(
-
-//           ),
-//         );
-//       } else
-//         return Center(child: CircularProgressIndicator());
-//     },
-//   ),
-// );

@@ -7,7 +7,7 @@ import 'package:glug_app/blocs/notices_bloc.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
-import 'package:glug_app/widgets/notice_tile.dart';
+import 'package:glug_app/widgets/notices_tile.dart';
 
 class StarredNoticeScreen extends StatefulWidget {
   @override
@@ -47,16 +47,31 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Starred Notices'),
-          leading: new IconButton(
-            icon: new Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
+        body:
+        Column(
+            children: [
+
+        Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
+      child:Row(
+        children: [
+          IconButton(
+              icon: Icon(Icons.arrow_back,size: 30,),
+              onPressed:(){
+                Navigator.of(context).pop(true);
+              }),
+          SizedBox(width: 20,),
+          Text(
+            'Starred Notices',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w900,
+            ),
           ),
-        ),
-        body: Container(
+        ],
+      ),
+    ),
+    Expanded(child:
+        Container(
           color: Colors.white10,
           child : Column(
             children: [
@@ -92,7 +107,9 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
               ),
             ],
           ),
-        ));
+        )
+                )])
+                );
   }
 }
 

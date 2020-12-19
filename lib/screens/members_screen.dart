@@ -72,9 +72,6 @@ class _MembersScreenState extends State<MembersScreen> {
       fontWeight: FontWeight.w900*/
 
       body: Column(
-
-
-
       children: [
         Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
             child:Row(
@@ -86,7 +83,7 @@ class _MembersScreenState extends State<MembersScreen> {
                 }),
                 SizedBox(width: 20,),
                 Text(
-                  'OUR TEAM',
+                  'Our Team',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.w900,

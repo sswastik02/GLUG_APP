@@ -43,19 +43,33 @@ class AboutUS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("About Us"),
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop(true);
-          },
-        ),
-      ),
       drawer: Drawer(
         child: DrawerItems(),
       ),
-      body: ListView(
+      body:
+      Column(
+          children: [
+      Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
+      child:Row(
+        children: [
+          IconButton(
+              icon: Icon(Icons.arrow_back,size: 30,),
+              onPressed:(){
+                Navigator.of(context).pop(true);
+              }),
+          SizedBox(width: 20,),
+          Text(
+            'About Us',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      ),
+    ),
+      Expanded(child:
+      ListView(
         padding: EdgeInsets.all(15),
         children: <Widget>[
           _getTitle("WHO WE ARE"),
@@ -85,6 +99,10 @@ class AboutUS extends StatelessWidget {
               "Being a bunch of FOSS enthusiasts, we preach the idea of “free things are the best things” and firmly believe in sharing knowledge. We strive to elevate the tech culture in our college and believe that this can only be done through giving people digital resources and knowledge in all realms from hardware to software and data to design. We promote FOSS through various endeavours because we believe in the freedom of expression for everyone."),
         ],
       ),
+      )
+    ]
+    )
+
     );
   }
 }
