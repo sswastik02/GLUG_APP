@@ -22,49 +22,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
   User user;
   FirestoreProvider _provider;
 
-  /*ListTile(
-  leading: Icon(FontAwesomeIcons.userFriends),
-  title: Text("Our team"),
-  onTap: () {
-  Navigator.push(context,
-  MaterialPageRoute(builder: (context) => MembersScreen()));
-  },
-  ),
-  ListTile(
-  leading: Icon(Icons.info_outline),
-  title: Text("About Us"),
-  onTap: () {
-  Navigator.push(
-  context, MaterialPageRoute(builder: (context) => AboutUS()));
-  },
-  ),
-  ListTile(
-  leading: Icon(Icons.contacts),
-  title: Text("Contact Us"),
-  onTap: () {
-  Navigator.push(
-  context, MaterialPageRoute(builder: (context) => ContactUs()));
-  },
-  ),
-  ListTile(
-  leading: Icon(Icons.track_changes),
-  title: Text("Attendance Tracker"),
-  onTap: () {
-  Navigator.push(
-  context,
-  MaterialPageRoute(
-  builder: (context) => AttendanceTrackerScreen()));
-  },*/
+
 
   List<Map> drawerItems = [
     {'icon': Icons.wc, 'title': "Our team", 'class': MembersScreen()},
     {'icon': Icons.info_outline, 'title': 'About Us', 'class': AboutUS()},
     {'icon': Icons.contacts, 'title': 'Contacts', 'class': ContactUs()},
-    // {
-    //   'icon': Icons.track_changes,
-    //   'title': 'Attendance',
-    //   'class': AttendanceTrackerScreen()
-    // },
   ];
   @override
   void initState() {

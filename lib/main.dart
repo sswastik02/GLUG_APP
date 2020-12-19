@@ -42,6 +42,7 @@ class MainApp extends StatelessWidget {
     accentColor: Colors.deepOrangeAccent,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     fontFamily: "Catamaran",
+
     // textTheme: TextTheme(
     // headline1: TextStyle(
     //     fontFamily: "Catamaran",

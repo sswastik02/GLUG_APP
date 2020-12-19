@@ -17,6 +17,10 @@ class _MembersScreenState extends State<MembersScreen> {
   List<ProfileTile> _finalYears = [];
   List<ProfileTile> _thirdYears = [];
   List<ProfileTile> _secondYears = [];
+  List<ProfileTile> _contributors = [];
+
+  List contributors= ["Avinash","Akshat"];
+
 
   @override
   void initState() {
@@ -32,12 +36,15 @@ class _MembersScreenState extends State<MembersScreen> {
 
   void _group(List<Profile> profiles) {
     profiles.forEach((profile) {
+      if(contributors.contains(profile.firstName)){
+        _contributors.add(ProfileTile(profile: profile,isContributor: true,));
+      }
       if (profile.yearName == 4)
-        _finalYears.add(ProfileTile(profile: profile));
+        _finalYears.add(ProfileTile(profile: profile,isContributor: false));
       else if (profile.yearName == 3)
-        _thirdYears.add(ProfileTile(profile: profile));
+        _thirdYears.add(ProfileTile(profile: profile,isContributor: false));
       else if (profile.yearName == 2)
-        _secondYears.add(ProfileTile(profile: profile));
+        _secondYears.add(ProfileTile(profile: profile,isContributor: false));
     });
   }
 
@@ -52,7 +59,7 @@ class _MembersScreenState extends State<MembersScreen> {
       drawer: Drawer(
         child: DrawerItems(),
       ),
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: Text("Our Team"),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back),
@@ -61,10 +68,35 @@ class _MembersScreenState extends State<MembersScreen> {
           },
         ),
       ),
+      titleFontSize:  45,
+      fontWeight: FontWeight.w900*/
+
       body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder(
+
+
+
+      children: [
+        Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
+            child:Row(
+              children: [
+                IconButton(
+                    icon: Icon(Icons.arrow_back,size: 30,),
+                    onPressed:(){
+                  Navigator.of(context).pop(true);
+                }),
+                SizedBox(width: 20,),
+                Text(
+                  'OUR TEAM',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
+        ),
+        Expanded(child:
+      StreamBuilder(
               stream: profilesBloc.allProfiles,
               builder: (context, AsyncSnapshot<ProfileResponse> snapshot) {
                 if (snapshot.hasData) {
@@ -73,73 +105,98 @@ class _MembersScreenState extends State<MembersScreen> {
                     return errorWidget(snapshot.data.error);
                   }
                   List<Profile> prof = _sort(snapshot.data.profiles);
-                  return ListView.builder(
+                  /*return ListView.builder(
                     itemCount: prof.length,
                     itemBuilder: (context, index) {
                       return ProfileTile(profile: prof[index]);
                     },
-                  );
-                  // _group(snapshot.data.profiles);
-                  // return Column(
-                  //   // crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     SizedBox(height: 20.0),
-                  //     Padding(
-                  //       padding: const EdgeInsets.only(left: 10.0),
-                  //       child: Text(
-                  //         "Final Years",
-                  //         style: TextStyle(
-                  //           fontSize: 20.0,
-                  //           fontWeight: FontWeight.bold,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: ListView(
-                  //         children: _finalYears,
-                  //       ),
-                  //     ),
-                  //     Padding(
-                  //       padding: const EdgeInsets.only(left: 10.0),
-                  //       child: Text(
-                  //         "Third Years",
-                  //         style: TextStyle(
-                  //           fontSize: 20.0,
-                  //           fontWeight: FontWeight.bold,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: ListView(
-                  //         children: _thirdYears,
-                  //       ),
-                  //     ),
-                  //     Padding(
-                  //       padding: const EdgeInsets.only(left: 10.0),
-                  //       child: Text(
-                  //         "Second Years",
-                  //         style: TextStyle(
-                  //           fontSize: 20.0,
-                  //           fontWeight: FontWeight.bold,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: ListView(
-                  //         children: _secondYears,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // );
+                  );*/
+                   _group(snapshot.data.profiles);
+
+                   return Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       SizedBox(height: 10,),
+                       Padding(
+                         padding: const EdgeInsets.only(left: 10.0),
+                         child: Text(
+                           "Contributors",
+                           style: TextStyle(
+                             fontSize: 20.0,
+                             fontWeight: FontWeight.bold,
+                           ),
+                         ),
+                       ),
+                       Expanded(
+                         child: ListView(
+                           scrollDirection: Axis.horizontal,
+                           children: _contributors,
+                         ),
+                       ),
+
+                       Padding(
+                         padding: const EdgeInsets.only(left: 10.0),
+                         child: Text(
+                           "Final Years",
+                           style: TextStyle(
+                             fontSize: 20.0,
+                             fontWeight: FontWeight.bold,
+                           ),
+                         ),
+                       ),
+                      Expanded(
+                        child: ListView(
+                              scrollDirection: Axis.horizontal,
+                               children: _finalYears,
+                             ),
+                      ),
+                       Padding(
+                         padding: const EdgeInsets.only(left: 10.0),
+                         child: Text(
+                           "Third Years",
+                           style: TextStyle(
+                             fontSize: 20.0,
+                             fontWeight: FontWeight.bold,
+                           ),
+                         ),
+                       ),
+                       Expanded(
+                         child: ListView(
+                           scrollDirection: Axis.horizontal,
+                           children: _thirdYears,
+                         ),
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.only(left: 10.0),
+                         child: Text(
+                           "Second Years",
+                           style: TextStyle(
+                             fontSize: 20.0,
+                             fontWeight: FontWeight.bold,
+                           ),
+                         ),
+                       ),
+                       Expanded(
+                         child: ListView(
+                           scrollDirection: Axis.horizontal,
+                           children: _secondYears,
+                         ),
+                       ),
+                     ],
+                   );
                 } else if (snapshot.hasError) {
                   return errorWidget(snapshot.error);
                 } else
                   return Center(child: CircularProgressIndicator());
               },
-            ),
-          ),
-        ],
-      ),
-    );
+            )
+        )
+
+
+
+      ]
+
+    )
+  );
   }
 }
