@@ -14,21 +14,21 @@ class _FirstScreenState extends State<FirstScreen> {
   int _currentPage = 0;
   List<Map<String, dynamic>> data = [
     {
-      "title": "Our Activities\nand Workshops",
+      "title": "Our\nClub\nActivities",
       "body": "Wanna know what we're all about? Come, explore the Source!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.blue[900],
       "route": HomeScreen(),
     },
     {
-      "title": "Track Your\nAttendance",
+      "title": "Track\nYour\nAttendance",
       "body": "Feel free to skip a class cause you're never falling behind!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.deepOrange[700],
       "route": AttendanceTrackerScreen(),
     },
     {
-      "title": "Browse Institute\nNotices",
+      "title": "Browse\nInstitute\nNotices",
       "body": "Now you'll never miss an important update from the institute!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.green[900],
@@ -74,18 +74,17 @@ class _FirstScreenState extends State<FirstScreen> {
                 fontWeight: FontWeight.w900,
               ),
             ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
+
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (ctxt) => data[i]["route"]));
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                height: screenHeight * 0.6,
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                height: screenHeight * 0.55,
                 width: screenWidth * 0.88,
+
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,8 +95,8 @@ class _FirstScreenState extends State<FirstScreen> {
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                     Container(
-                      height: screenWidth * 0.7,
-                      width: screenWidth * 0.8,
+                      height: screenWidth * 0.6,
+                      width: screenWidth * 0.6,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.contain,
@@ -222,7 +221,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   ],
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.03,
+                  height: MediaQuery.of(context).size.height * 0.01,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: _buildDots(),
