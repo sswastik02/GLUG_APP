@@ -14,21 +14,21 @@ class _FirstScreenState extends State<FirstScreen> {
   int _currentPage = 0;
   List<Map<String, dynamic>> data = [
     {
-      "title": "Our\nClub\nActivities",
+      "title": "Our Activities\nand Workshops",
       "body": "Wanna know what we're all about? Come, explore the Source!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.blue[900],
       "route": HomeScreen(),
     },
     {
-      "title": "Track\nYour\nAttendance",
+      "title": "Track Your\nAttendance",
       "body": "Feel free to skip a class cause you're never falling behind!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.deepOrange[700],
       "route": AttendanceTrackerScreen(),
     },
     {
-      "title": "Browse\nInstitute\nNotices",
+      "title": "Browse Institute\nNotices",
       "body": "Now you'll never miss an important update from the institute!",
       "image": "images/glug_logo.jpeg",
       "color": Colors.green[900],
@@ -74,7 +74,6 @@ class _FirstScreenState extends State<FirstScreen> {
                 fontWeight: FontWeight.w900,
               ),
             ),
-
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(
@@ -82,9 +81,8 @@ class _FirstScreenState extends State<FirstScreen> {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                height: screenHeight * 0.55,
+                height: screenHeight * 0.6,
                 width: screenWidth * 0.88,
-
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,8 +93,8 @@ class _FirstScreenState extends State<FirstScreen> {
                           fontSize: 20.0, fontWeight: FontWeight.bold),
                     ),
                     Container(
-                      height: screenWidth * 0.6,
-                      width: screenWidth * 0.6,
+                      height: screenWidth * 0.7,
+                      width: screenWidth * 0.8,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.contain,
