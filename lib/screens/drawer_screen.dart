@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:glug_app/models/themes.dart';
 import 'package:glug_app/screens/ContactUs.dart';
 import 'package:glug_app/screens/about_us_screen.dart';
 import 'package:glug_app/screens/attendance_tracker_screen.dart';
@@ -11,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/services/auth_service.dart';
+import 'package:glug_app/widgets/theme_toggle_switch.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -21,8 +23,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User user;
   FirestoreProvider _provider;
-
-
 
   List<Map> drawerItems = [
     {'icon': Icons.wc, 'title': "Our team", 'class': MembersScreen()},
@@ -44,11 +44,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Theme.of(context).primaryColor == Colors.black;
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         body: Container(
           padding: EdgeInsets.only(top: 50, bottom: 70, left: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
@@ -72,6 +74,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   )
                 ],
               ),
+              ThemeToggler(
+                  toggleVal: isDarkTheme,
+                  onTap: () {
+                    setState(() {
+                      isDarkTheme = !isDarkTheme;
+                      Themes.changeTheme(context);
+                    });
+                  }),
               Column(
                 children: drawerItems
                     .map((element) => Padding(
