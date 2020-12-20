@@ -96,6 +96,21 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                                 noticeStarred: true);
                           },
 
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                          
                         );
                       } else if (snapshot.hasError) {
                         return errorWidget(snapshot.error);
