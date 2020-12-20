@@ -128,7 +128,7 @@ class _SubjectFormState extends State<SubjectForm> {
                 child: Text(
                   'Cancel',
                   style: TextStyle(
-                    // color: Colors.white,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -161,7 +161,7 @@ class _SubjectFormState extends State<SubjectForm> {
                 child: Text(
                   isEdit ? 'Edit' : 'Add',
                   style: TextStyle(
-                    // color: Colors.white,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

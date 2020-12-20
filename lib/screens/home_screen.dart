@@ -156,239 +156,248 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body:Column(
-          children: [
-
-      Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
-      child:Row(
-        children: [
-          IconButton(
-              icon: Icon(Icons.arrow_back,size: 30,),
-              onPressed:(){
-                Navigator.of(context).pop(true);
-              }),
-          SizedBox(width: 20,),
-          Text(
-            'Home',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w900,
+        backgroundColor: Theme.of(context).primaryColor,
+        body: Column(children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+              children: [
+                IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    }),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Home',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
-    ),
-    Expanded(child:
-    SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 15.0),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "OU",
-                          style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal),
-                        ),
-                        Text(
-                          "R UPCOMING EV",
-                          style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              color: Colors.deepOrange),
-                        ),
-                        Text(
-                          "ENTS",
-                          style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                          ),
-                        ),
-                      ])),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 15.0),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "OU",
+                                style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal),
+                              ),
+                              Text(
+                                "R UPCOMING EV",
+                                style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.deepOrange),
+                              ),
+                              Text(
+                                "ENTS",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
+                            ])),
+                  ),
+                  StreamBuilder(
+                      stream: upcomingEventsBloc.allUpcomingEvents,
+                      builder:
+                          (context, AsyncSnapshot<EventResponse> snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data.error != null &&
+                              snapshot.data.error.length > 0)
+                            return errorWidget(snapshot.data.error);
+                          return CarouselSlider(
+                            items: _buildEventList(snapshot.data.events),
+                            options: CarouselOptions(
+                              aspectRatio: 2.5,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              reverse: false,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 5),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return errorWidget(snapshot.error);
+                        } else
+                          return Center(child: CircularProgressIndicator());
+                      }),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 15.0),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "OU",
+                                style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal),
+                              ),
+                              Text(
+                                "R EV",
+                                style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.deepOrange),
+                              ),
+                              Text(
+                                "ENTS",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
+                            ])),
+                  ),
+                  StreamBuilder(
+                      stream: eventsBloc.allEvents,
+                      builder:
+                          (context, AsyncSnapshot<EventResponse> snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data.error != null &&
+                              snapshot.data.error.length > 0)
+                            return errorWidget(snapshot.data.error);
+                          return CarouselSlider(
+                            items: _buildEventList(snapshot.data.events),
+                            options: CarouselOptions(
+                              aspectRatio: 2.5,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              reverse: false,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 5),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return errorWidget(snapshot.error);
+                        } else
+                          return Center(child: CircularProgressIndicator());
+                      }),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 15.0),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "OU",
+                                style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal),
+                              ),
+                              Text(
+                                "R BL",
+                                style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal,
+                                    color: Colors.deepOrange),
+                              ),
+                              Text(
+                                "OGS",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
+                            ])),
+                  ),
+                  StreamBuilder(
+                      stream: blogPostsBloc.allBlogPosts,
+                      builder: (context, AsyncSnapshot<BlogResponse> snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data.error != null &&
+                              snapshot.data.error.length > 0)
+                            return errorWidget(snapshot.data.error);
+                          return CarouselSlider(
+                            items: _buildBlogList(snapshot.data.blogPosts),
+                            options: CarouselOptions(
+                              aspectRatio: 2.5,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              reverse: false,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 5),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return errorWidget(snapshot.error);
+                        } else
+                          return Center(child: CircularProgressIndicator());
+                      }),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                ],
+              ),
             ),
-            StreamBuilder(
-                stream: upcomingEventsBloc.allUpcomingEvents,
-                builder: (context, AsyncSnapshot<EventResponse> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data.error != null &&
-                        snapshot.data.error.length > 0)
-                      return errorWidget(snapshot.data.error);
-                    return CarouselSlider(
-                      items: _buildEventList(snapshot.data.events),
-                      options: CarouselOptions(
-                        aspectRatio: 2.5,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 5),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return errorWidget(snapshot.error);
-                  } else
-                    return Center(child: CircularProgressIndicator());
-                }),
-            SizedBox(
-              height: 20.0,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 15.0),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "OU",
-                          style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal),
-                        ),
-                        Text(
-                          "R EV",
-                          style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              color: Colors.deepOrange),
-                        ),
-                        Text(
-                          "ENTS",
-                          style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                          ),
-                        ),
-                      ])),
-            ),
-            StreamBuilder(
-                stream: eventsBloc.allEvents,
-                builder: (context, AsyncSnapshot<EventResponse> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data.error != null &&
-                        snapshot.data.error.length > 0)
-                      return errorWidget(snapshot.data.error);
-                    return CarouselSlider(
-                      items: _buildEventList(snapshot.data.events),
-                      options: CarouselOptions(
-                        aspectRatio: 2.5,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 5),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return errorWidget(snapshot.error);
-                  } else
-                    return Center(child: CircularProgressIndicator());
-                }),
-            SizedBox(
-              height: 20.0,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 15.0),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "OU",
-                          style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal),
-                        ),
-                        Text(
-                          "R BL",
-                          style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.normal,
-                              color: Colors.deepOrange),
-                        ),
-                        Text(
-                          "OGS",
-                          style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.normal,
-                          ),
-                        ),
-                      ])),
-            ),
-            StreamBuilder(
-                stream: blogPostsBloc.allBlogPosts,
-                builder: (context, AsyncSnapshot<BlogResponse> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data.error != null &&
-                        snapshot.data.error.length > 0)
-                      return errorWidget(snapshot.data.error);
-                    return CarouselSlider(
-                      items: _buildBlogList(snapshot.data.blogPosts),
-                      options: CarouselOptions(
-                        aspectRatio: 2.5,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 5),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.horizontal,
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return errorWidget(snapshot.error);
-                  } else
-                    return Center(child: CircularProgressIndicator());
-                }),
-            SizedBox(
-              height: 10.0,
-            ),
-          ],
-        ),
-      ),
-    )
-          ]));
+          )
+        ]));
   }
 }

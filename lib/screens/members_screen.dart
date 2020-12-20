@@ -54,6 +54,7 @@ class _MembersScreenState extends State<MembersScreen> {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         drawer: Drawer(
           child: DrawerItems(),
         ),

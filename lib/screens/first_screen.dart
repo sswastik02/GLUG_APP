@@ -23,15 +23,15 @@ class _FirstScreenState extends State<FirstScreen> {
     {
       "title": "Track Your\nAttendance",
       "body": "Feel free to skip a class cause you're never falling behind!",
-      "image": "images/glug_logo.jpeg",
-      "color": Colors.deepOrange[700],
+      "image": "images/attendArtboard.png",
+      "color": Color(0xFF71C978),
       "route": AttendanceTrackerScreen(),
     },
     {
       "title": "Browse Institute\nNotices",
       "body": "Now you'll never miss an important update from the institute!",
-      "image": "images/glug_logo.jpeg",
-      "color": Colors.green[900],
+      "image": "images/noticeArtboard.png",
+      "color": Color(0xFF8DB6FA),
       "route": NoticeScreen(),
     },
   ];
@@ -90,7 +90,9 @@ class _FirstScreenState extends State<FirstScreen> {
                     Text(
                       data[i]["body"],
                       style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
                     ),
                     Container(
                       height: screenWidth * 0.7,
@@ -138,7 +140,7 @@ class _FirstScreenState extends State<FirstScreen> {
           width: s,
           decoration: BoxDecoration(
             color: c,
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(s),
           ),
         ),
       );
@@ -164,6 +166,7 @@ class _FirstScreenState extends State<FirstScreen> {
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
         child: Scaffold(
+          backgroundColor: Theme.of(context).primaryColor,
           body: SafeArea(
             child: Column(
               children: [
@@ -205,6 +208,13 @@ class _FirstScreenState extends State<FirstScreen> {
                                 });
                               }),
                     ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: _buildDots(),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
                       child: IconButton(
@@ -217,13 +227,6 @@ class _FirstScreenState extends State<FirstScreen> {
                       ),
                     ),
                   ],
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.01,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildDots(),
-                  ),
                 ),
                 Expanded(
                   child: PageView.builder(

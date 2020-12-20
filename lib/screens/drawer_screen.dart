@@ -46,7 +46,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     bool isDarkTheme = Theme.of(context).primaryColor == Colors.black;
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor:
+            isDarkTheme ? Colors.blueGrey[900] : Colors.white.withOpacity(0.95),
         body: Container(
           padding: EdgeInsets.only(top: 50, bottom: 70, left: 10),
           child: Column(

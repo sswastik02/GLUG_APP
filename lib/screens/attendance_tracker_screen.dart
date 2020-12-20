@@ -54,7 +54,9 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).primaryColor == Colors.black
+                  ? Colors.blueGrey[900]
+                  : Colors.white.withOpacity(0.95),
               borderRadius: BorderRadius.circular(15.0),
               boxShadow: [
                 BoxShadow(
@@ -292,44 +294,48 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
     final progDim = MediaQuery.of(context).size.width * 0.3;
 
     return Scaffold(
-      body:
-      Column(
-          children: [
-            Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
-            child:Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        backgroundColor: Theme.of(context).primaryColor,
+        body: Column(children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-            Row(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.arrow_back,size: 30,),
-                    onPressed:(){
-                      Navigator.of(context).pop(true);
-                    }),
-                SizedBox(width: 20,),
-                Text(
-                  'Attendance Tracker',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w900,
+                  Row(
+                    children: [
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          }),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'Attendance Tracker',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
                   IconButton(
-                    icon: Icon(Icons.add,size: 30,),
+                    icon: Icon(
+                      Icons.add,
+                      size: 30,
+                    ),
                     onPressed: () {
                       _addSubjectDialog(context, null);
                     },
                   ),
-            ]
+                ]),
           ),
-
-          ),
-
-
-          Expanded(child:
-            StreamBuilder(
+          Expanded(
+            child: StreamBuilder(
                 stream: attendanceBloc.allAttendanceData,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -365,8 +371,9 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                                       height: progDim + 20,
                                       width: progDim,
                                       child: CircularProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation<Color>(
-                                            Colors.green),
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.green),
                                         backgroundColor: Colors.red,
                                         value: percentage / 100,
                                         strokeWidth: 8.0,
@@ -414,8 +421,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                     );
                   }
                 }),
-    )
-    ])
-    );
+          )
+        ]));
   }
 }

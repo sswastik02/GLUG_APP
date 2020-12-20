@@ -173,6 +173,7 @@ class _MyClassState extends State<EventInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

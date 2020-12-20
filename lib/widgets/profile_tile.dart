@@ -86,12 +86,14 @@ class ProfileTile extends StatelessWidget {
                       ),
                       IconButton(
                         icon: Icon(FontAwesomeIcons.linkedin),
+                        color: Colors.blue[900],
                         onPressed: () {
                           _launchURL(profile.linkedinLink);
                         },
                       ),
                       IconButton(
                         icon: Icon(FontAwesomeIcons.github),
+                        color: Colors.white,
                         onPressed: () {
                           _launchURL(profile.gitLink);
                         },

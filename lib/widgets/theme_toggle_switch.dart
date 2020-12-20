@@ -23,12 +23,13 @@ class _ThemeTogglerState extends State<ThemeToggler> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      margin: EdgeInsets.only(left: 20.0),
       duration: Duration(milliseconds: 500),
       height: 30.0,
       width: 75.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: _val ? Theme.of(context).accentColor : Colors.grey[350],
+        color: _val ? Theme.of(context).accentColor : Colors.white,
       ),
       child: Stack(
         children: [
