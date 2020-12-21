@@ -81,50 +81,46 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-        body:
-        Column(
-            children: [
-
-              Padding(padding: EdgeInsets.fromLTRB(0, 30, 0,0),
-                  child:Row(
-                    children: [
-                      IconButton(
-                          icon: Icon(Icons.arrow_back,size: 30,),
-                          onPressed:(){
-                            Navigator.of(context).pop(true);
-                          }),
-                      SizedBox(width: 20,),
-                      Text(
-                        'Contact Us',
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ],
+        backgroundColor: Theme.of(context).primaryColor,
+        body: Column(children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+              children: [
+                IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    }),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Contact Us',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
-                Expanded(child:
-                ListView(
-                  children: <Widget>[
-                    _tile("Liman Rahman (President)", "+91 9475522304",
-                        "president@nitdgplug.org"),
-                    _tile("Akshat Jain (General Secretary)", "+91 8004937056",
-                        "gs@nitdgplug.org"),
-                    _tile("Ayush Shukla (Treasurer)", "+91 8001507060",
-                        "treasurer@nitdgplug.org"),
-                    _tile("Archana Choudhary (Convener)", "+91 7044791608",
-                        "convenor@nitdgplug.org"),
-                  ],
-                )
-                )
-
-
-            ]
-    )
-
-
-    );
+              ],
+            ),
+          ),
+          Expanded(
+              child: ListView(
+            children: <Widget>[
+              _tile("Liman Rahman (President)", "+91 9475522304",
+                  "president@nitdgplug.org"),
+              _tile("Akshat Jain (General Secretary)", "+91 8004937056",
+                  "gs@nitdgplug.org"),
+              _tile("Ayush Shukla (Treasurer)", "+91 8001507060",
+                  "treasurer@nitdgplug.org"),
+              _tile("Archana Choudhary (Convener)", "+91 7044791608",
+                  "convenor@nitdgplug.org"),
+            ],
+          ))
+        ]));
   }
 }

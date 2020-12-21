@@ -129,7 +129,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               activeThumbImage: AssetImage("images/night.png"),
                               inactiveThumbImage: AssetImage("images/day.png"),
                               // inactiveThumbImage: ,
-                              activeColor: Colors.deepOrange,
+                              activeColor: Theme.of(context).accentColor,
                             ),
                           ),
                         ),
