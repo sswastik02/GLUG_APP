@@ -101,8 +101,9 @@ class ContactUs extends StatelessWidget {
                 Text(
                   'Contact Us',
                   style: TextStyle(
+                    fontFamily: "BebasNeue",
                     fontSize: 30,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],

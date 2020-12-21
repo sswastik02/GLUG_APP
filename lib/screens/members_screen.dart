@@ -19,7 +19,18 @@ class _MembersScreenState extends State<MembersScreen> {
   List<ProfileTile> _secondYears = [];
   List<ProfileTile> _contributors = [];
 
-  List contributors = ["Avinash", "Akshat","Simran","Jyotishka","romit","Souparno","Rishav","Nikhil","Anurag","Subhadip"];
+  List contributors = [
+    "Avinash",
+    "Akshat",
+    "Simran",
+    "Jyotishka",
+    "romit",
+    "Souparno",
+    "Rishav",
+    "Nikhil",
+    "Anurag",
+    "Subhadip"
+  ];
 
   @override
   void initState() {
@@ -55,9 +66,6 @@ class _MembersScreenState extends State<MembersScreen> {
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        drawer: Drawer(
-          child: DrawerItems(),
-        ),
         body: Column(children: [
           Padding(
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -77,8 +85,9 @@ class _MembersScreenState extends State<MembersScreen> {
                 Text(
                   'Our Team',
                   style: TextStyle(
+                    fontFamily: "BebasNeue",
                     fontSize: 30,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],

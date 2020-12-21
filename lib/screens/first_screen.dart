@@ -18,7 +18,7 @@ class _FirstScreenState extends State<FirstScreen> {
       "title": "Our Activities\nand Workshops",
       "body": "Wanna know what we're all about? Come, explore the Source!",
       "image": "images/eventArtboard.png",
-      "color": Color(0xFFD72638),
+      "color": Color(0xFFE83D56),
       "route": HomeScreen(),
     },
     {
@@ -70,14 +70,24 @@ class _FirstScreenState extends State<FirstScreen> {
             Text(
               data[i]["title"],
               style: TextStyle(
-                fontSize: 45,
+                fontFamily: "BebasNeue",
+                fontSize: 60,
                 fontWeight: FontWeight.w900,
               ),
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (ctxt) => data[i]["route"]));
+                if (!isDrawerOpen) {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (ctxt) => data[i]["route"]));
+                } else {
+                  setState(() {
+                    xOffset = 0;
+                    yOffset = 0;
+                    scaleFactor = 1;
+                    isDrawerOpen = false;
+                  });
+                }
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -85,24 +95,45 @@ class _FirstScreenState extends State<FirstScreen> {
                 width: screenWidth * 0.88,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       data[i]["body"],
                       style: TextStyle(
+                          fontFamily: "SourceSansPro",
                           color: Colors.white,
                           fontSize: 20.0,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.w700),
                     ),
-                    Container(
-                      height: screenWidth * 0.7,
-                      width: screenWidth * 0.8,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.contain,
-                          image: AssetImage(data[i]["image"]),
+                    Expanded(
+                      child: Center(
+                        child: Container(
+                          height: screenWidth * 0.65,
+                          width: screenWidth * 0.75,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: AssetImage(data[i]["image"]),
+                            ),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 5.0,
+                        right: 5.0,
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: isDrawerOpen
+                            ? SizedBox()
+                            : Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                                size: 30.0,
+                              ),
                       ),
                     ),
                   ],
@@ -157,95 +188,100 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-        transform: Matrix4.translationValues(xOffset, yOffset, 0)
-          ..scale(scaleFactor)
-          ..rotateY(isDrawerOpen ? -0.5 : 0),
-        duration: Duration(milliseconds: 250),
-        decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
-        child: Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
-          body: SafeArea(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: isDrawerOpen
-                          ? IconButton(
-                              icon: Icon(Icons.arrow_back_ios),
-                              iconSize: 35.0,
-                              color: (Theme.of(context).primaryColor ==
-                                      Colors.black
-                                  ? Colors.white
-                                  : Colors.black),
-                              onPressed: () {
-                                setState(() {
-                                  xOffset = 0;
-                                  yOffset = 0;
-                                  scaleFactor = 1;
-                                  isDrawerOpen = false;
-                                });
-                              },
-                            )
-                          : IconButton(
-                              icon: Icon(Icons.sort),
-                              iconSize: 35.0,
-                              color: (Theme.of(context).primaryColor ==
-                                      Colors.black
-                                  ? Colors.white
-                                  : Colors.black),
-                              onPressed: () {
-                                setState(() {
-                                  xOffset = 220;
-                                  yOffset = 150;
-                                  scaleFactor = 0.6;
-                                  isDrawerOpen = true;
-                                });
-                              }),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: _buildDots(),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          xOffset = 0;
+          yOffset = 0;
+          scaleFactor = 1;
+          isDrawerOpen = false;
+        });
+      },
+      child: AnimatedContainer(
+          transform: Matrix4.translationValues(xOffset, yOffset, 0)
+            ..scale(scaleFactor)
+            ..rotateY(isDrawerOpen ? -0.5 : 0),
+          duration: Duration(milliseconds: 250),
+          decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
+          child: Scaffold(
+            backgroundColor: Theme.of(context).primaryColor,
+            // decoration: BoxDecoration(
+            //   color: Theme.of(context).primaryColor,
+            //   borderRadius: BorderRadius.only(
+            //     topLeft: Radius.circular(isDrawerOpen ? 40 : 0.0),
+            //     bottomLeft: Radius.circular(isDrawerOpen ? 40 : 0.0),
+            //   ),
+            // ),
+            body: SafeArea(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: isDrawerOpen
+                            ? SizedBox()
+                            : IconButton(
+                                icon: Icon(Icons.sort),
+                                iconSize: 35.0,
+                                color: (Theme.of(context).primaryColor ==
+                                        Colors.black
+                                    ? Colors.white
+                                    : Colors.black),
+                                onPressed: () {
+                                  setState(() {
+                                    xOffset = 200;
+                                    yOffset = 150;
+                                    scaleFactor = 0.6;
+                                    isDrawerOpen = true;
+                                  });
+                                }),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: IconButton(
-                        icon: Icon(Icons.notifications),
-                        iconSize: 30.0,
-                        color: (Theme.of(context).primaryColor == Colors.black
-                            ? Colors.white
-                            : Colors.black),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) {
-                              return FirebaseMessagingDemoApp();
-                            }),
-                          );
-                        },
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _buildDots(),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: PageView.builder(
-                    controller: _ctrl,
-                    itemCount: 3,
-                    itemBuilder: (ctxt, index) {
-                      return _buildPage(context, index);
-                    },
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: isDrawerOpen
+                            ? SizedBox()
+                            : IconButton(
+                                icon: Icon(Icons.notifications),
+                                iconSize: 30.0,
+                                color: (Theme.of(context).primaryColor ==
+                                        Colors.black
+                                    ? Colors.white
+                                    : Colors.black),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) {
+                                      return FirebaseMessagingDemoApp();
+                                    }),
+                                  );
+                                },
+                              ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _ctrl,
+                      itemCount: 3,
+                      itemBuilder: (ctxt, index) {
+                        return _buildPage(context, index);
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }

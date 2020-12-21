@@ -87,21 +87,20 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Montserrat
-      fonts:
-        - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Bold.ttf
-        - asset: fonts/Montserrat-BoldItalic.ttf
-          style: italic
-    - family: FlappyBird
-      fonts:
-        - asset: fonts/Flappy-Bird.ttf
     - family: Catamaran
       fonts:
         - asset: fonts/Catamaran-Regular.ttf
         - asset: fonts/Catamaran-Black.ttf
           weight: 900
         - asset: fonts/Catamaran-Bold.ttf
+          weight: 700
+    - family: BebasNeue
+      fonts:
+        - asset: fonts/BebasNeue-Regular.ttf
+    - family: SourceSansPro
+      fonts:
+        - asset: fonts/SourceSansPro-Regular.ttf
+        - asset: fonts/SourceSansPro-Bold.ttf
           weight: 700
   #
   # For details regarding fonts from package dependencies,

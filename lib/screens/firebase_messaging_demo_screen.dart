@@ -75,8 +75,9 @@ class _FirebaseMessagingDemoAppState extends State<FirebaseMessagingDemoApp> {
                 Text(
                   'Notifications',
                   style: TextStyle(
+                    fontFamily: "BebasNeue",
                     fontSize: 30,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],

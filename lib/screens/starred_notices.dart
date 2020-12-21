@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:glug_app/models/notice_model.dart';
-import 'package:glug_app/blocs/notices_bloc.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
-import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notices_tile.dart';
 
@@ -42,68 +40,69 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         body: Column(children: [
-      Padding(
-        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-        child: Row(
-          children: [
-            IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 30,
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+              children: [
+                IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    }),
+                SizedBox(
+                  width: 20,
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                }),
-            SizedBox(
-              width: 20,
+                Text(
+                  'Starred Notices',
+                  style: TextStyle(
+                      fontFamily: "BebasNeue",
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            Text(
-              'Starred Notices',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w900,
-              ),
+          ),
+          Expanded(
+              child: Container(
+            color: Colors.white10,
+            child: Column(
+              children: [
+                Expanded(
+                  child: StreamBuilder(
+                      stream: _stream, //noticeBloc.noticeCategories,
+                      builder: (context, AsyncSnapshot<dynamic> snapshot) {
+                        if (snapshot.hasData) {
+                          notices = snapshot.data;
+                          notices = notices.reversed.toList();
+                          return ListView.builder(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 0,
+                              horizontal: 8,
+                            ),
+                            itemCount: notices.length,
+                            itemBuilder: (context, index) {
+                              return NoticeTile(
+                                  notice: notices[index],
+                                  c: notices.length - index,
+                                  noticeStarred: true);
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return errorWidget(snapshot.error);
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      }),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-      Expanded(
-          child: Container(
-        color: Colors.white10,
-        child: Column(
-          children: [
-            Expanded(
-              child: StreamBuilder(
-                  stream: _stream, //noticeBloc.noticeCategories,
-                  builder: (context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.hasData) {
-                      notices = snapshot.data;
-                      notices = notices.reversed.toList();
-                      return ListView.builder(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 0,
-                          horizontal: 8,
-                        ),
-                        itemCount: notices.length,
-                        itemBuilder: (context, index) {
-                          return NoticeTile(
-                              notice: notices[index],
-                              c: notices.length - index,
-                              noticeStarred: true);
-                        },
-                      );
-                    } else if (snapshot.hasError) {
-                      return errorWidget(snapshot.error);
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  }),
-            ),
-          ],
-        ),
-      ))
-    ]));
+          ))
+        ]));
   }
 }
 

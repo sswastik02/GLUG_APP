@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Themes {
   static final ThemeData darkTheme = ThemeData(
@@ -8,7 +7,18 @@ class Themes {
     primaryColor: Colors.black,
     accentColor: Colors.deepOrangeAccent,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    fontFamily: "Catamaran",
+    fontFamily: "SourceSansPro",
+    // textTheme: TextTheme(
+    //   headline1: TextStyle(
+    //     fontFamily: "BebasNeue",
+    //     fontSize: 45.0,
+    //     fontWeight: FontWeight.bold,
+    //   ),
+    //   bodyText1: TextStyle(
+    //     fontFamily: "SourceSansPro",
+    //     fontSize: 20.0,
+    //   ),
+    // ),
   );
 
   static final ThemeData lightTheme = ThemeData(
@@ -16,7 +26,18 @@ class Themes {
     primaryColor: Colors.white,
     accentColor: Colors.deepOrangeAccent,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    fontFamily: "Catamaran",
+    fontFamily: "SourceSansPro",
+    // textTheme: TextTheme(
+    //   headline1: TextStyle(
+    //     fontFamily: "BebasNeue",
+    //     fontSize: 45.0,
+    //     fontWeight: FontWeight.bold,
+    //   ),
+    //   bodyText1: TextStyle(
+    //     fontFamily: "SourceSansPro",
+    //     fontSize: 20.0,
+    //   ),
+    // ),
   );
 
   static void changeTheme(context) {
@@ -25,16 +46,4 @@ class Themes {
             ? lightTheme
             : darkTheme);
   }
-
-  // static Future<bool> isDarkTheme() async {
-  //   var prefs = await SharedPreferences.getInstance();
-  //   final isDarkTheme = prefs.getBool('darkTheme');
-
-  //   return isDarkTheme == null ? true : isDarkTheme;
-  // }
-
-  // static void saveDarkTheme(bool b) async {
-  //   var prefs = await SharedPreferences.getInstance();
-  //   await prefs.setBool('darkTheme', b);
-  // }
 }

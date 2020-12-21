@@ -7,26 +7,26 @@ class AboutUS extends StatelessWidget {
     Widget txt1 = Text(
       m.substring(0, 3),
       style: TextStyle(
-        fontFamily: "Montserrat",
-        fontSize: 16.0,
+        fontFamily: "BebasNeue",
+        fontSize: 25.0,
         fontWeight: FontWeight.bold,
       ),
     );
     Widget txt2 = Text(
       m.substring(3, 5),
       style: TextStyle(
-        fontFamily: "Montserrat",
+        fontFamily: "BebasNeue",
+        fontSize: 25.0,
         color: Colors.deepOrange,
-        fontSize: 16.0,
         fontWeight: FontWeight.bold,
       ),
     );
     Widget txt3 = Text(
       m.substring(5),
       style: TextStyle(
-        fontFamily: "Montserrat",
+        fontFamily: "BebasNeue",
+        fontSize: 25.0,
         color: Colors.deepOrange,
-        fontSize: 16.0,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -66,8 +66,9 @@ class AboutUS extends StatelessWidget {
                 Text(
                   'About Us',
                   style: TextStyle(
+                    fontFamily: "BebasNeue",
                     fontSize: 30,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ],

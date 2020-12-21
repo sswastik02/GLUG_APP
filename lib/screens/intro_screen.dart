@@ -39,8 +39,7 @@ class IntroScreenState extends State<IntroScreen> {
 
     slides.add(
       new Slide(
-        description:
-            "Get up, stretch your arms and take a seat. Let's code! Practice makes perfect.",
+        description: "Get up, stretch your arms and take a seat.Let's code!",
         pathImage: "images/splash_1.gif",
         widthImage: 200,
         heightImage: 200,
@@ -60,7 +59,7 @@ class IntroScreenState extends State<IntroScreen> {
     slides.add(
       new Slide(
         description:
-            "All the hard work pays off and Voila! You have a brand new application. Let's celebrate!",
+            "All the hard work pays off and Voila! You have a brand new application.",
         pathImage: "images/splash_3.gif",
         widthImage: 300,
         heightImage: 300,

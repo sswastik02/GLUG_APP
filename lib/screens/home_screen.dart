@@ -19,14 +19,12 @@ import 'package:glug_app/screens/club_activity_search.dart';
 class HomeScreen extends StatefulWidget {
   static final id = 'homescreen';
 
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Event> eventsList;
-
 
   @override
   void initState() {
@@ -184,8 +182,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'Club Activities',
                         style: TextStyle(
+                          fontFamily: "BebasNeue",
                           fontSize: 30,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],
@@ -196,16 +195,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       size: 30,
                     ),
                     onPressed: () {
-                      if(eventsList!=null) {
+                      if (eventsList != null) {
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) {
-                            return ClubActivitySearch(eventList: eventsList,);
+                            return ClubActivitySearch(
+                              eventList: eventsList,
+                            );
                           }),
                         );
-                      }else{
+                      } else {
                         SnackBar(
-                          content: Text(
-                              'Event data if not fetched yet'),
+                          content: Text('Event data if not fetched yet'),
                           duration: Duration(seconds: 3),
                         );
                       }
@@ -230,16 +230,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18.0,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R UPCOMING EV",
                                 style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18.0,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -247,8 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "ENTS",
                                 style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 18.0,
+                                  fontFamily: "BebasNeue",
+                                  fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -299,16 +299,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18.0,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R EV",
                                 style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18.0,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -316,8 +316,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "ENTS",
                                 style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 18.0,
+                                  fontFamily: "BebasNeue",
+                                  fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -369,16 +369,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18.0,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R BL",
                                 style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18.0,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -386,8 +386,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OGS",
                                 style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 18.0,
+                                  fontFamily: "BebasNeue",
+                                  fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),

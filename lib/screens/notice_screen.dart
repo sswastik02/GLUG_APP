@@ -95,9 +95,9 @@ class _NoticeScreenState extends State<NoticeScreen> {
                       Text(
                         'Notices',
                         style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w900,
-                        ),
+                            fontFamily: "BebasNeue",
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -113,7 +113,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
           ),
           Expanded(
               child: Container(
-            color: Colors.white10,
             child: Column(
               children: [
                 SizedBox(height: 20),
