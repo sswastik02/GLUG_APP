@@ -1,4 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:glug_app/screens/drawer_screen.dart';
+import 'package:glug_app/screens/first_screen.dart';
+import 'package:glug_app/screens/login_screen.dart';
+import 'package:glug_app/services/auth_service.dart';
+import 'package:glug_app/services/shared_pref_service.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 
@@ -10,15 +16,31 @@ class IntroScreen extends StatefulWidget {
 class IntroScreenState extends State<IntroScreen> {
   List<Slide> slides = new List();
 
+  Widget _getScreen() {
+    return StreamBuilder<User>(
+      stream: AuthService.authStateChanges,
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.hasData)
+          return Stack(
+            children: [
+              DrawerScreen(),
+              FirstScreen(),
+            ],
+          );
+        else
+          return LoginScreen();
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
 
     slides.add(
       new Slide(
-        title: "ERASER",
         description:
-            "Allow miles wound place the leave had. To sitting subject no improve studied limited",
+            "Get up, stretch your arms and take a seat. Let's code! Practice makes perfect.",
         pathImage: "images/splash_1.gif",
         widthImage: 200,
         heightImage: 200,
@@ -27,9 +49,8 @@ class IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
       new Slide(
-        title: "PENCIL",
         description:
-            "Ye indulgence unreserved connection alteration appearance",
+            "Be sure to make the tiniest of adjustments. They go a long way.",
         pathImage: "images/splash_2.gif",
         widthImage: 300,
         heightImage: 300,
@@ -38,9 +59,8 @@ class IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
       new Slide(
-        title: "RULER",
         description:
-            "Much evil soon high in hope do view. Out may few northward believing attempted. Yet timed being songs marry one defer men our. Although finished blessing do of",
+            "All the hard work pays off and Voila! You have a brand new application. Let's celebrate!",
         pathImage: "images/splash_3.gif",
         widthImage: 300,
         heightImage: 300,
@@ -49,15 +69,19 @@ class IntroScreenState extends State<IntroScreen> {
     );
   }
 
-  void onDonePress() {
-// Do what you want
-  }
-
   @override
   Widget build(BuildContext context) {
     return new IntroSlider(
       slides: this.slides,
-      onDonePress: this.onDonePress,
+      onDonePress: () {
+        SharedPrefService.saveIntroDone().whenComplete(() {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) {
+              return _getScreen();
+            }),
+          );
+        });
+      },
     );
   }
 }

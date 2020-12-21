@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_loading/flare_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/screens/drawer_screen.dart';
+import 'package:glug_app/screens/intro_screen.dart';
 import 'package:glug_app/services/auth_service.dart';
+import 'package:glug_app/services/shared_pref_service.dart';
 import 'package:lottie/lottie.dart';
 
 import 'first_screen.dart';
@@ -16,6 +18,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool _isIntroDone = false;
   Widget _getScreen() {
     return StreamBuilder<User>(
       stream: AuthService.authStateChanges,
@@ -36,11 +39,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    SharedPrefService.getIntroDone().then((isDone) {
+      setState(() {
+        _isIntroDone = isDone;
+      });
+    });
     Timer(
       Duration(seconds: 8),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) {
-          return _getScreen();
+          return _isIntroDone ? _getScreen() : IntroScreen();
         }),
       ),
     );
