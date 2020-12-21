@@ -14,15 +14,20 @@ import 'package:glug_app/screens/event_info.dart';
 import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:glug_app/screens/club_activity_search.dart';
 
 class HomeScreen extends StatefulWidget {
   static final id = 'homescreen';
+
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Event> eventsList;
+
+
   @override
   void initState() {
     // homeBloc.fetchAllData();
@@ -161,27 +166,52 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Row(
-              children: [
-                IconButton(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          }),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'Club Activities',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ],
+                  ),
+                  IconButton(
                     icon: Icon(
-                      Icons.arrow_back,
+                      Icons.search,
                       size: 30,
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(true);
-                    }),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  'Home',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w900,
+                      if(eventsList!=null) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return ClubActivitySearch(eventList: eventsList,);
+                          }),
+                        );
+                      }else{
+                        SnackBar(
+                          content: Text(
+                              'Event data if not fetched yet'),
+                          duration: Duration(seconds: 3),
+                        );
+                      }
+                    },
                   ),
-                ),
-              ],
-            ),
+                ]),
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -302,6 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (snapshot.data.error != null &&
                               snapshot.data.error.length > 0)
                             return errorWidget(snapshot.data.error);
+                          eventsList = snapshot.data.events;
                           return CarouselSlider(
                             items: _buildEventList(snapshot.data.events),
                             options: CarouselOptions(
