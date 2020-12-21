@@ -93,11 +93,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               children: [
                                 Text(
                                   user.displayName,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Text(user.email,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold))
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold))
                               ],
                             )
                           ],
@@ -141,9 +144,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                       leading: Icon(
                                         element['icon'],
                                         size: 30,
+                                        color: Colors.white,
                                       ),
                                       title: Text(element['title'],
                                           style: TextStyle(
+                                              color: Colors.white,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18)),
                                       onTap: () {
@@ -162,10 +167,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             ListTile(
                               leading: Icon(
                                 Icons.exit_to_app,
+                                color: Colors.white,
                               ),
                               title: Text(
                                 'Log out',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
                               onTap: () {
                                 _provider.getAuthProvider().then((value) {
@@ -179,7 +187,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             SizedBox(
                               height: 50,
                             ),
-                            Text("Developed By The GNU/Linux Users' Group")
+                            Text(
+                              "Developed By The GNU/Linux Users' Group",
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.white),
+                            )
                           ],
                         )
                       ],

@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 70),
               _signInButton(type: "Google", context: context),
               SizedBox(height: 20),
-              _signInButton(type: "GitHub", context: context),
+              // _signInButton(type: "GitHub", context: context),
             ],
           ),
         ),
