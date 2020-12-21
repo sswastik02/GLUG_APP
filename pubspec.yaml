@@ -55,6 +55,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   flare_loading: ^2.1.1
   lottie: ^0.7.0+1
+  uni_links: ^0.4.0
 
 dev_dependencies:
   flutter_test:
