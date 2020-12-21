@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/home_screen.dart';
 import 'package:glug_app/screens/notice_screen.dart';
 
@@ -223,7 +224,13 @@ class _FirstScreenState extends State<FirstScreen> {
                         color: (Theme.of(context).primaryColor == Colors.black
                             ? Colors.white
                             : Colors.black),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) {
+                              return FirebaseMessagingDemoApp();
+                            }),
+                          );
+                        },
                       ),
                     ),
                   ],
