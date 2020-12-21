@@ -54,26 +54,63 @@ class _FirebaseMessagingDemoAppState extends State<FirebaseMessagingDemoApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Firebase Cloud Messaging'),
-        centerTitle: true,
-      ),
-      body: ListView.builder(
-        itemCount: _messages == null ? 0 : _messages.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text(
-                _messages[index].message,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.0,
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            child: Row(
+              children: [
+                IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    }),
+                SizedBox(
+                  width: 20,
                 ),
-              ),
+                Text(
+                  'Notifications',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
             ),
-          );
-        },
+          ),
+          Expanded(
+            child: _messages.isEmpty
+                ? Container(
+                    child: Center(
+                      child: Text(
+                        "No notifications to show",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: _messages == null ? 0 : _messages.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        elevation: 5.0,
+                        child: Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text(
+                            _messages[index].message,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ],
       ),
     );
   }
