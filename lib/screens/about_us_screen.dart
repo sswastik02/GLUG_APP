@@ -82,7 +82,7 @@ class AboutUS extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  "The GNU/Linux User’s Group, NIT Durgapur is a community of GNU/Linux Users that promote the use of Free and Open Source Software. The Group was established in 2003 by a bunch of FOSS enthusiasts with the idea of popularising and contributing to Open Source. We are a plethora of designers, contributors and developers that believe in learning and sharing through opening up your mind to Open Source.",
+                  "Established in 2003 The GNU/Linux Users Group, NIT Durgapur is a community of GNU/Linux Users that promote the use of Free and Open Source Software. We are a team of designers, developers and contributors that believe in learning and sharing through opening up your mind to Open Source.",
                 ),
                 SizedBox(
                   height: 20,
@@ -92,7 +92,7 @@ class AboutUS extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                    "We provide budding enthusiasts like ourselves a forum to contribute and learn about FOSS. Through varied workshops on revolutionary Open Technologies throughout the year, we spread the idea of Open Source to beginners and veterans alike. We bring people together to ideate and contribute to the leading Open technologies. We provide help and resources to everyone who wants to make the web world a better place."),
+                    "We provide budding enthusiasts like ourselves a forum to contribute and learn about FOSS. Through varied workshops on Open Source Technologies, we spread the idea of Open Source to novices and veterans alike. We extend help and resources to everyone who wants to make the web world a better place."),
                 SizedBox(
                   height: 20,
                 ),
@@ -101,7 +101,7 @@ class AboutUS extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                    "Being a bunch of FOSS enthusiasts, we preach the idea of “free things are the best things” and firmly believe in sharing knowledge. We strive to elevate the tech culture in our college and believe that this can only be done through giving people digital resources and knowledge in all realms from hardware to software and data to design. We promote FOSS through various endeavours because we believe in the freedom of expression for everyone."),
+                    "Being a bunch of FOSS enthusiasts, we promote the idea of “free things are the best things”. We strive to elevate the tech culture in our college and believe that this can only be done by giving people digital resources and knowledge in all realms from hardware to software and data to design."),
               ],
             ),
           )
