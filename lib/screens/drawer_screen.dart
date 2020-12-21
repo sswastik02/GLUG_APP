@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:glug_app/models/themes.dart';
@@ -59,33 +61,48 @@ class _DrawerScreenState extends State<DrawerScreen> {
         backgroundColor:
             isDarkTheme ? Colors.blueGrey[900] : Colors.white.withOpacity(0.95),
         body: Container(
-          padding: EdgeInsets.only(top: 50, bottom: 70, left: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(user.photoURL),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        user.displayName,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(user.email,
-                          style: TextStyle(fontWeight: FontWeight.bold))
-                    ],
-                  )
-                ],
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/back.jpeg"),
+                fit: BoxFit.cover,
               ),
-              /*ThemeToggler(
+            ),
+            child: ClipRRect(
+              // make sure we apply clip it properly
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  alignment: Alignment.center,
+                  color: Colors.grey.withOpacity(0.1),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 50, 0, 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(user.photoURL),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  user.displayName,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(user.email,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold))
+                              ],
+                            )
+                          ],
+                        ),
+                        /*ThemeToggler(
                   toggleVal: isDarkTheme ,
                   onTap: () {
                     SharedPrefService.saveIsDark(!isDarkTheme);
@@ -96,67 +113,80 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     });
                   }),*/
 
-              Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Transform.scale(
-                  scale: 1.5,
-                  child: Switch(
-                    value: isDarkTheme,
-                    onChanged: (value) {
-                      setState(() {
-                        isDarkTheme = !isDarkTheme;
-                        Themes.changeTheme(context);
-                        SharedPrefService.saveIsDark(isDarkTheme);
-                      });
-                    },
-                    activeThumbImage: AssetImage("images/night.png"),
-                    inactiveThumbImage: AssetImage("images/day.png"),
-                    // inactiveThumbImage: ,
-                    activeColor: Theme.of(context).accentColor,
+                        Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Transform.scale(
+                            scale: 1.5,
+                            child: Switch(
+                              value: isDarkTheme,
+                              onChanged: (value) {
+                                setState(() {
+                                  isDarkTheme = !isDarkTheme;
+                                  Themes.changeTheme(context);
+                                  SharedPrefService.saveIsDark(isDarkTheme);
+                                });
+                              },
+                              activeThumbImage: AssetImage("images/night.png"),
+                              inactiveThumbImage: AssetImage("images/day.png"),
+                              // inactiveThumbImage: ,
+                              activeColor: Theme.of(context).accentColor,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          children: drawerItems
+                              .map((element) => Padding(
+                                    padding: const EdgeInsets.all(0),
+                                    child: ListTile(
+                                      leading: Icon(
+                                        element['icon'],
+                                        size: 30,
+                                      ),
+                                      title: Text(element['title'],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18)),
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    element['class']));
+                                      },
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                        Column(
+                          children: [
+                            ListTile(
+                              leading: Icon(
+                                Icons.exit_to_app,
+                              ),
+                              title: Text(
+                                'Log out',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              onTap: () {
+                                _provider.getAuthProvider().then((value) {
+                                  if (value == "Google") {
+                                    AuthService.signOutGoogle();
+                                    // .whenComplete(() => Navigator.of(context).pop());
+                                  }
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Text("Developed By The GNU/Linux Users' Group")
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Column(
-                children: drawerItems
-                    .map((element) => Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: ListTile(
-                            leading: Icon(
-                              element['icon'],
-                              size: 30,
-                            ),
-                            title: Text(element['title'],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18)),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => element['class']));
-                            },
-                          ),
-                        ))
-                    .toList(),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.exit_to_app,
-                ),
-                title: Text(
-                  'Log out',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                onTap: () {
-                  _provider.getAuthProvider().then((value) {
-                    if (value == "Google") {
-                      AuthService.signOutGoogle();
-                      // .whenComplete(() => Navigator.of(context).pop());
-                    }
-                  });
-                },
-              ),
-            ],
-          ),
-        ));
+            )));
   }
 }
