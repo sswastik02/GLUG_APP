@@ -9,7 +9,21 @@ class SharedPrefService {
   static Future<bool> getIntroDone() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isDone = prefs.getBool("intro");
-
     return isDone != null ? isDone : false;
   }
+
+  static Future<void> saveIsDark(bool isDark) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isDark", isDark);
+  }
+
+  static Future<bool> getIsDark() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isDone = prefs.getBool("isDark");
+    print("isDark : $isDone");
+    return isDone != null ? isDone : false;
+  }
+
+
+
 }

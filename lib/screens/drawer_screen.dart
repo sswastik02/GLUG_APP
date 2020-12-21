@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/widgets/theme_toggle_switch.dart';
+import 'package:glug_app/services/shared_pref_service.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -29,10 +30,19 @@ class _DrawerScreenState extends State<DrawerScreen> {
     {'icon': Icons.info_outline, 'title': 'About Us', 'class': AboutUS()},
     {'icon': Icons.contacts, 'title': 'Contacts', 'class': ContactUs()},
   ];
+
+  bool isDarkTheme = false;
+
   @override
   void initState() {
     user = _auth.currentUser;
     _provider = FirestoreProvider();
+    SharedPrefService.getIsDark().then((value) => {
+          setState(() {
+            isDarkTheme = value;
+          })
+        });
+
     super.initState();
   }
 
@@ -44,7 +54,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkTheme = Theme.of(context).primaryColor == Colors.black;
+    // isDarkTheme= Theme.of(context).primaryColor == Colors.black;
     return Scaffold(
         backgroundColor:
             isDarkTheme ? Colors.blueGrey[900] : Colors.white.withOpacity(0.95),
@@ -75,14 +85,37 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   )
                 ],
               ),
-              ThemeToggler(
-                  toggleVal: isDarkTheme,
+              /*ThemeToggler(
+                  toggleVal: isDarkTheme ,
                   onTap: () {
+                    SharedPrefService.saveIsDark(!isDarkTheme);
                     setState(() {
                       isDarkTheme = !isDarkTheme;
                       Themes.changeTheme(context);
+                      SharedPrefService.saveIsDark(isDarkTheme);
                     });
-                  }),
+                  }),*/
+
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Transform.scale(
+                  scale: 1.5,
+                  child: Switch(
+                    value: isDarkTheme,
+                    onChanged: (value) {
+                      setState(() {
+                        isDarkTheme = !isDarkTheme;
+                        Themes.changeTheme(context);
+                        SharedPrefService.saveIsDark(isDarkTheme);
+                      });
+                    },
+                    activeThumbImage: AssetImage("images/night.png"),
+                    inactiveThumbImage: AssetImage("images/day.png"),
+                    // inactiveThumbImage: ,
+                     activeColor: Colors.deepOrange,
+                  ),
+                ),
+              ),
               Column(
                 children: drawerItems
                     .map((element) => Padding(
