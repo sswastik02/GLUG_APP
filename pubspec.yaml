@@ -53,6 +53,8 @@ dependencies:
   intro_slider: ^2.3.3
   dynamic_theme: ^1.0.0
   shared_preferences: ^0.5.12+4
+  flare_loading: ^2.1.1
+  lottie: ^0.7.0+1
 
 dev_dependencies:
   flutter_test:

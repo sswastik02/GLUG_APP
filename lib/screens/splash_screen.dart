@@ -1,63 +1,101 @@
-import 'package:flutter/material.dart';
-import 'package:intro_slider/intro_slider.dart';
-import 'package:intro_slider/slide_object.dart';
+import 'dart:async';
 
-class IntroScreen extends StatefulWidget {
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flare_loading/flare_loading.dart';
+import 'package:flutter/material.dart';
+import 'package:glug_app/screens/drawer_screen.dart';
+import 'package:glug_app/services/auth_service.dart';
+import 'package:lottie/lottie.dart';
+
+import 'first_screen.dart';
+import 'login_screen.dart';
+
+class SplashScreen extends StatefulWidget {
   @override
-  IntroScreenState createState() => IntroScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class IntroScreenState extends State<IntroScreen> {
-  List<Slide> slides = new List();
+class _SplashScreenState extends State<SplashScreen> {
+  Widget _getScreen() {
+    return StreamBuilder<User>(
+      stream: AuthService.authStateChanges,
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.hasData)
+          return Stack(
+            children: [
+              DrawerScreen(),
+              FirstScreen(),
+            ],
+          );
+        else
+          return LoginScreen();
+      },
+    );
+  }
 
   @override
   void initState() {
     super.initState();
-
-    slides.add(
-      new Slide(
-        title: "ERASER",
-        description:
-            "Allow miles wound place the leave had. To sitting subject no improve studied limited",
-        pathImage: "images/splash_1.gif",
-        widthImage: 200,
-        heightImage: 200,
-        backgroundColor: Color(0xff1C1C3C),
+    Timer(
+      Duration(seconds: 8),
+      () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) {
+          return _getScreen();
+        }),
       ),
     );
-    slides.add(
-      new Slide(
-        title: "PENCIL",
-        description:
-            "Ye indulgence unreserved connection alteration appearance",
-        pathImage: "images/splash_2.gif",
-        widthImage: 300,
-        heightImage: 300,
-        backgroundColor: Color(0xff1C1C3C),
-      ),
-    );
-    slides.add(
-      new Slide(
-        title: "RULER",
-        description:
-            "Much evil soon high in hope do view. Out may few northward believing attempted. Yet timed being songs marry one defer men our. Although finished blessing do of",
-        pathImage: "images/splash_3.gif",
-        widthImage: 300,
-        heightImage: 300,
-        backgroundColor: Color(0xff1C1C3C),
-      ),
-    );
-  }
-
-  void onDonePress() {
-// Do what you want
   }
 
   @override
   Widget build(BuildContext context) {
-    return new IntroSlider(
-      slides: this.slides,
-      onDonePress: this.onDonePress,
+    return Scaffold(
+      backgroundColor: Colors.deepOrangeAccent,
+      body: Center(
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height,
+              child: Lottie.asset(
+                "images/snowing.json",
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+            Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "THE GNU/LINUX\nUSERS' GROUP",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 45.0,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    // color: Colors.white,
+                    alignment: Alignment.center,
+                    child: FlareLoading(
+                        fit: BoxFit.fitHeight,
+                        name: 'images/penguin_nodding.flr',
+                        // startAnimation: 'walk',
+                        loopAnimation: 'walk',
+                        // endAnimation: 'walk',
+                        onSuccess: (_) {},
+                        onError: (_, __) {}),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
