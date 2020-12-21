@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_loading/flare_loading.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,19 @@ class _SplashScreenState extends State<SplashScreen> {
       stream: AuthService.authStateChanges,
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData)
-          return Stack(
+          return Scaffold(
+            body:
+            DoubleBackToCloseApp(
+              snackBar: const SnackBar(
+                content: Text('Tap back again to leave'),
+              ),
+              child :
+          Stack(
             children: [
               DrawerScreen(),
               FirstScreen(),
             ],
-          );
+          )));
         else
           return LoginScreen();
       },
