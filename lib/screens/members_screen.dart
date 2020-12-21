@@ -19,7 +19,7 @@ class _MembersScreenState extends State<MembersScreen> {
   List<ProfileTile> _secondYears = [];
   List<ProfileTile> _contributors = [];
 
-  List contributors = ["Avinash", "Akshat"];
+  List contributors = ["Avinash", "Akshat","Simran","Jyotishka","romit","Souparno","Rishav","Nikhil","Anurag","Subhadip"];
 
   @override
   void initState() {
