@@ -17,8 +17,8 @@ class _FirstScreenState extends State<FirstScreen> {
     {
       "title": "Our Activities\nand Workshops",
       "body": "Wanna know what we're all about? Come, explore the Source!",
-      "image": "images/glug_logo.jpeg",
-      "color": Colors.blue[900],
+      "image": "images/eventArtboard.png",
+      "color": Color(0xFFD72638),
       "route": HomeScreen(),
     },
     {
@@ -36,7 +36,6 @@ class _FirstScreenState extends State<FirstScreen> {
       "route": NoticeScreen(),
     },
   ];
-  // final ValueNotifier<double> _notifier = ValueNotifier<double>(0);
 
   @override
   void initState() {
