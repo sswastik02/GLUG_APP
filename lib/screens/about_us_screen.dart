@@ -63,8 +63,8 @@ class AboutUS extends StatelessWidget {
                 Text(
                   'About Us',
                   style: TextStyle(
-                    fontFamily: "BebasNeue",
-                    fontSize: 30,
+                    fontFamily: "Nexa-Bold",
+                    fontSize: 24,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

@@ -70,9 +70,9 @@ class _FirstScreenState extends State<FirstScreen> {
             Text(
               data[i]["title"],
               style: TextStyle(
-                fontFamily: "BebasNeue",
-                fontSize: 60,
-                fontWeight: FontWeight.w900,
+                fontFamily: "Nexa-Bold",
+                fontSize: screenWidth * 0.12,
+                fontWeight: FontWeight.w700,
               ),
             ),
             GestureDetector(

@@ -316,8 +316,8 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                       Text(
                         'Attendance Tracker',
                         style: TextStyle(
-                          fontFamily: "BebasNeue",
-                          fontSize: 30,
+                          fontFamily: "Nexa-Bold",
+                          fontSize: 24,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
