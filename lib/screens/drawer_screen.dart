@@ -1,23 +1,14 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:glug_app/models/themes.dart';
-import 'package:glug_app/screens/ContactUs.dart';
 import 'package:glug_app/screens/about_us_screen.dart';
-import 'package:glug_app/screens/attendance_tracker_screen.dart';
-import 'package:glug_app/screens/dashboard.dart';
-import 'package:glug_app/screens/display.dart';
 import 'package:glug_app/screens/members_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/services/auth_service.dart';
-import 'package:glug_app/widgets/theme_toggle_switch.dart';
 import 'package:glug_app/services/shared_pref_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -29,6 +20,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   User user;
   FirestoreProvider _provider;
   bool _surprise = false;
+  InAppWebViewController _webViewController;
 
   List<Map> drawerItems = [
     {'icon': Icons.wc, 'title': "Our team", 'class': MembersScreen()},
@@ -196,58 +188,83 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 fontSize: 18),
                           ),
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) {
-                                return Scaffold(
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                  body: SafeArea(
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                          child: Row(
+                            Permission.camera.request().whenComplete(() => {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) {
+                                      return Scaffold(
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                        body: SafeArea(
+                                          child: Column(
                                             children: [
-                                              IconButton(
-                                                  icon: Icon(
-                                                    Icons.arrow_back,
-                                                    size: 30,
-                                                  ),
-                                                  onPressed: () {
-                                                    Navigator.of(context)
-                                                        .pop(true);
-                                                  }),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                'Surprise',
-                                                style: TextStyle(
-                                                  fontFamily: "BebasNeue",
-                                                  fontSize: 30,
-                                                  fontWeight: FontWeight.w700,
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    0, 10, 0, 0),
+                                                child: Row(
+                                                  children: [
+                                                    IconButton(
+                                                        icon: Icon(
+                                                          Icons.arrow_back,
+                                                          size: 30,
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop(true);
+                                                        }),
+                                                    SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    Text(
+                                                      'Surprise',
+                                                      style: TextStyle(
+                                                        fontFamily: "BebasNeue",
+                                                        fontSize: 30,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
+                                              ),
+                                              Expanded(
+                                                child: InAppWebView(
+                                                    initialUrl:
+                                                        "https://himanshu272.github.io/",
+                                                    initialOptions:
+                                                        InAppWebViewGroupOptions(
+                                                      crossPlatform:
+                                                          InAppWebViewOptions(
+                                                        mediaPlaybackRequiresUserGesture:
+                                                            false,
+                                                        debuggingEnabled: true,
+                                                      ),
+                                                    ),
+                                                    onWebViewCreated:
+                                                        (InAppWebViewController
+                                                            controller) {
+                                                      _webViewController =
+                                                          controller;
+                                                    },
+                                                    androidOnPermissionRequest:
+                                                        (InAppWebViewController
+                                                                controller,
+                                                            String origin,
+                                                            List<String>
+                                                                resources) async {
+                                                      return PermissionRequestResponse(
+                                                          resources: resources,
+                                                          action:
+                                                              PermissionRequestResponseAction
+                                                                  .GRANT);
+                                                    }),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        Expanded(
-                                          child: WebviewScaffold(
-                                            hidden: true,
-                                            url:
-                                                "https://himanshu272.github.io/",
-                                            // appBar: new AppBar(
-                                            //   title: new Text("Widget webview"),
-                                            // ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      );
+                                    }),
                                   ),
-                                );
-                              }),
-                            );
+                                });
                           },
                         )
                       : SizedBox(),

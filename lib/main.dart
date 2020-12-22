@@ -7,16 +7,16 @@ import 'package:flutter/services.dart';
 import 'package:glug_app/models/themes.dart';
 import 'package:glug_app/screens/drawer_screen.dart';
 import 'package:glug_app/screens/first_screen.dart';
-import 'package:glug_app/screens/intro_screen.dart';
 import 'package:glug_app/screens/login_screen.dart';
-// import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/splash_screen.dart';
 import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/services/shared_pref_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // await Permission.camera.request();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MainApp());
 }

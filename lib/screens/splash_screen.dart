@@ -64,51 +64,53 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepOrangeAccent,
-      body: Center(
-        child: Stack(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height,
-              child: Lottie.asset(
-                "images/snowing.json",
-                fit: BoxFit.fitHeight,
+      body: SafeArea(
+        child: Center(
+          child: Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: Lottie.asset(
+                  "images/snowing.json",
+                  fit: BoxFit.fitHeight,
+                ),
               ),
-            ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "THE GNU/LINUX\nUSERS' GROUP",
-                      style: TextStyle(
-                        fontFamily: "BebasNeue",
-                        color: Colors.white,
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.w700,
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "THE GNU/LINUX\nUSERS' GROUP",
+                        style: TextStyle(
+                          fontFamily: "BebasNeue",
+                          color: Colors.white,
+                          fontSize: 40.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    // color: Colors.white,
-                    alignment: Alignment.center,
-                    child: FlareLoading(
-                        fit: BoxFit.fitHeight,
-                        name: 'images/penguin_nodding.flr',
-                        // startAnimation: 'walk',
-                        loopAnimation: 'walk',
-                        // endAnimation: 'walk',
-                        onSuccess: (_) {},
-                        onError: (_, __) {}),
-                  ),
-                ],
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      // color: Colors.white,
+                      alignment: Alignment.center,
+                      child: FlareLoading(
+                          fit: BoxFit.fitHeight,
+                          name: 'images/penguin_nodding.flr',
+                          // startAnimation: 'walk',
+                          loopAnimation: 'walk',
+                          // endAnimation: 'walk',
+                          onSuccess: (_) {},
+                          onError: (_, __) {}),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
