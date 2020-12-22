@@ -39,6 +39,12 @@ class FirestoreProvider {
     yield* snap;
   }
 
+  Future<bool> showSurprise() async {
+    final uid = "sUBMozuYLEsONSSB9VOi";
+    DocumentSnapshot doc = await _firestore.collection("users").doc(uid).get();
+    return doc["surprise"];
+  }
+
   Stream<QuerySnapshot> fetchChatroomData() async* {
     Stream<QuerySnapshot> snap = _firestore
         .collection("chatroom")
