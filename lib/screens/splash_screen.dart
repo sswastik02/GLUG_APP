@@ -63,53 +63,93 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepOrangeAccent,
       body: SafeArea(
-        child: Center(
-          child: Stack(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height,
-                child: Lottie.asset(
-                  "images/snowing.json",
-                  fit: BoxFit.fitHeight,
+        child: Container(
+          decoration: BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("images/back3.jpg"),
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 100.0,
                 ),
-              ),
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      alignment: Alignment.center,
-                      child: Text(
-                        "THE GNU/LINUX\nUSERS' GROUP",
-                        style: TextStyle(
-                          fontFamily: "BebasNeue",
-                          color: Colors.white,
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.w700,
+                Container(
+                  width: (MediaQuery.of(context).size.width),
+                  height: 50,
+                  color: Colors.black54,
+                  child: Center(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "GNU LIN",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "BebasNeue",
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
+                        Text(
+                          "UX US",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "BebasNeue",
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepOrange),
+                        ),
+                        Text(
+                          "ERS' GR",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "BebasNeue",
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        Text(
+                          "OUP",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: "BebasNeue",
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepOrange),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      child: FlareLoading(
+                        fit: BoxFit.fitHeight,
+                        name: 'images/Bart.flr',
+                        // startAnimation: 'walk',
+                        loopAnimation: 'Excited Hi',
+                        // endAnimation: 'walk',
+                        onSuccess: (_) {},
+                        onError: (_, __) {},
                       ),
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      // color: Colors.white,
-                      alignment: Alignment.center,
-                      child: FlareLoading(
-                          fit: BoxFit.fitHeight,
-                          name: 'images/penguin_nodding.flr',
-                          // startAnimation: 'walk',
-                          loopAnimation: 'walk',
-                          // endAnimation: 'walk',
-                          onSuccess: (_) {},
-                          onError: (_, __) {}),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                )
+              ],
+            ),
           ),
         ),
       ),

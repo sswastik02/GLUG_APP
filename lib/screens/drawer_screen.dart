@@ -60,41 +60,71 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Scaffold(
         backgroundColor: isDarkTheme ? Colors.blueGrey[900] : Colors.grey,
         body: Container(
-
           padding: EdgeInsets.fromLTRB(10, 50, 0, 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
+              // Row(
+              //   children: [
+              //     CircleAvatar(
+              //       backgroundImage: NetworkImage(user.photoURL),
+              //     ),
+              //     SizedBox(
+              //       width: 10,
+              //     ),
+              //     Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              // Text(
+              //   user.displayName,
+              //   style: TextStyle(
+              //     // color: Colors.white,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
+              //         Text(user.email,
+              //             style: TextStyle(
+              //               // color: Colors.white,
+              //               fontWeight: FontWeight.bold,
+              //             ))
+              //       ],
+              //     )
+              //   ],
+              // ),
+              Container(),
+              Column(
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(user.photoURL),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 35.0,
+                            backgroundImage: NetworkImage(user.photoURL),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            user.displayName,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              // color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   SizedBox(
-                    width: 10,
+                    height: MediaQuery.of(context).size.height * 0.15,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        user.displayName,
-                        style: TextStyle(
-                          // color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(user.email,
-                          style: TextStyle(
-                            // color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ))
-                    ],
-                  )
-                ],
-              ),
-              Column(
-                children: [
                   Row(
                     children: [
                       SizedBox(
@@ -281,7 +311,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                   Text(
                     "Developed By The GNU/Linux Users' Group",
-                    style: TextStyle(fontSize: 16.0, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      // color: Colors.white,
+                    ),
                   )
                 ],
               )

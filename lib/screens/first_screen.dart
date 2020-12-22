@@ -205,81 +205,79 @@ class _FirstScreenState extends State<FirstScreen> {
           decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
-          child: Scaffold(
-            backgroundColor: Theme.of(context).primaryColor,
-            // decoration: BoxDecoration(
-            //   color: Theme.of(context).primaryColor,
-            //   borderRadius: BorderRadius.only(
-            //     topLeft: Radius.circular(isDrawerOpen ? 40 : 0.0),
-            //     bottomLeft: Radius.circular(isDrawerOpen ? 40 : 0.0),
-            //   ),
-            // ),
-            body: SafeArea(
-              child:
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: isDrawerOpen
-                            ? SizedBox()
-                            : IconButton(
-                                icon: Icon(Icons.sort),
-                                iconSize: 35.0,
-                                color: (Theme.of(context).primaryColor ==
-                                        Colors.black
-                                    ? Colors.white
-                                    : Colors.black),
-                                onPressed: () {
-                                  setState(() {
-                                    xOffset = 200;
-                                    yOffset = 150;
-                                    scaleFactor = 0.6;
-                                    isDrawerOpen = true;
-                                  });
-                                }),
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: _buildDots(),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(isDrawerOpen ? 40 : 0.0),
+              bottomLeft: Radius.circular(isDrawerOpen ? 40 : 0.0),
+            ),
+            child: Scaffold(
+              backgroundColor: Theme.of(context).primaryColor,
+              body: SafeArea(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: isDrawerOpen
+                              ? SizedBox()
+                              : IconButton(
+                                  icon: Icon(Icons.sort),
+                                  iconSize: 35.0,
+                                  color: (Theme.of(context).primaryColor ==
+                                          Colors.black
+                                      ? Colors.white
+                                      : Colors.black),
+                                  onPressed: () {
+                                    setState(() {
+                                      xOffset = 200;
+                                      yOffset = 150;
+                                      scaleFactor = 0.6;
+                                      isDrawerOpen = true;
+                                    });
+                                  }),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        child: isDrawerOpen
-                            ? SizedBox()
-                            : IconButton(
-                                icon: Icon(Icons.notifications),
-                                iconSize: 30.0,
-                                color: (Theme.of(context).primaryColor ==
-                                        Colors.black
-                                    ? Colors.white
-                                    : Colors.black),
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) {
-                                      return FirebaseMessagingDemoApp();
-                                    }),
-                                  );
-                                },
-                              ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: PageView.builder(
-                      controller: _ctrl,
-                      itemCount: 3,
-                      itemBuilder: (ctxt, index) {
-                        return _buildPage(context, index);
-                      },
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: _buildDots(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: isDrawerOpen
+                              ? SizedBox()
+                              : IconButton(
+                                  icon: Icon(Icons.notifications),
+                                  iconSize: 30.0,
+                                  color: (Theme.of(context).primaryColor ==
+                                          Colors.black
+                                      ? Colors.white
+                                      : Colors.black),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                        return FirebaseMessagingDemoApp();
+                                      }),
+                                    );
+                                  },
+                                ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: PageView.builder(
+                        controller: _ctrl,
+                        itemCount: 3,
+                        itemBuilder: (ctxt, index) {
+                          return _buildPage(context, index);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           )),
