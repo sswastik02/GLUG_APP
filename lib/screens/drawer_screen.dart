@@ -116,76 +116,101 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     });
                   }),*/
 
-                        Padding(
-                          padding: EdgeInsets.only(left: 20),
-                          child: Transform.scale(
-                            scale: 1.5,
-                            child: Switch(
-                              value: isDarkTheme,
-                              onChanged: (value) {
-                                setState(() {
-                                  isDarkTheme = !isDarkTheme;
-                                  Themes.changeTheme(context);
-                                  SharedPrefService.saveIsDark(isDarkTheme);
-                                });
-                              },
-                              activeThumbImage: AssetImage("images/night.png"),
-                              inactiveThumbImage: AssetImage("images/day.png"),
-                              // inactiveThumbImage: ,
-                              activeColor: Theme.of(context).accentColor,
-                            ),
-                          ),
-                        ),
-                        Column(
-                          children: drawerItems
-                              .map((element) => Padding(
-                                    padding: const EdgeInsets.all(0),
-                                    child: ListTile(
-                                      leading: Icon(
-                                        element['icon'],
-                                        size: 30,
-                                        color: Colors.white,
+
+
+
+                        Column(children: [
+
+                          Row(
+                            children: [
+
+                              SizedBox(width: 18,),
+
+                              Text('Theme  ',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+
+                              Transform.scale(
+                                scale: 1.3,
+                                child: Switch(
+                                  value: isDarkTheme,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isDarkTheme = !isDarkTheme;
+                                      Themes.changeTheme(context);
+                                      SharedPrefService.saveIsDark(isDarkTheme);
+                                    });
+                                  },
+                                  activeThumbImage: AssetImage("images/night.png"),
+                                  inactiveThumbImage: AssetImage("images/day.png"),
+                                  // inactiveThumbImage: ,
+                                  activeColor: Theme.of(context).accentColor,
+                                ),
+                              ),
+                            ],
+                          )
+
+                          ,
+
+                          Column(
+                            children: drawerItems
+                                .map((element) => Padding(
+                                      padding: const EdgeInsets.all(0),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          element['icon'],
+                                          size: 30,
+                                          color: Colors.white,
+                                        ),
+                                        title: Text(element['title'],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18)),
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      element['class']));
+                                        },
                                       ),
-                                      title: Text(element['title'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18)),
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    element['class']));
-                                      },
-                                    ),
-                                  ))
-                              .toList(),
-                        ),
-                        Column(
-                          children: [
-                            ListTile(
-                              leading: Icon(
-                                Icons.exit_to_app,
-                                color: Colors.white,
-                              ),
-                              title: Text(
-                                'Log out',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              onTap: () {
-                                _provider.getAuthProvider().then((value) {
-                                  if (value == "Google") {
-                                    AuthService.signOutGoogle();
-                                    // .whenComplete(() => Navigator.of(context).pop());
-                                  }
-                                });
-                              },
+                                    ))
+                                .toList(),
+                          ),
+                          ListTile(
+                            leading: Icon(
+                              Icons.exit_to_app,
+                              size: 30,
+                              color: Colors.white,
                             ),
+                            title: Text(
+                              'Log out',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18
+                              ),
+                            ),
+                            onTap: () {
+                              _provider.getAuthProvider().then((value) {
+                                if (value == "Google") {
+                                  AuthService.signOutGoogle();
+                                  // .whenComplete(() => Navigator.of(context).pop());
+                                }
+                              });
+                            },
+                          ),
+                        ]),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
                             SizedBox(
                               height: 50,
+                              width: 1000,
                             ),
                             Text(
                               "Developed By The GNU/Linux Users' Group",
