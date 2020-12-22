@@ -10,8 +10,6 @@ import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notices_tile.dart';
 
 class NoticeScreen extends StatefulWidget {
-
-
   @override
   _NoticeScreenState createState() => _NoticeScreenState();
 }
@@ -69,16 +67,15 @@ class _NoticeScreenState extends State<NoticeScreen> {
     _streamController.sink.add(_startedLista);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     print("build");
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: Column(children: [
+        body: SafeArea(
+            child: Column(children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -110,8 +107,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StarredNoticeScreen(
-                                )));
+                                builder: (context) => StarredNoticeScreen()));
                       })
                 ]),
           ),
@@ -192,10 +188,9 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                       print("data $a");
 
                                       return NoticeTile(
-                                        notice: noticeType[index],
-                                        noticeStarred: _isStared,
-                                        onUnStar: (value){}
-                                      );
+                                          notice: noticeType[index],
+                                          noticeStarred: _isStared,
+                                          onUnStar: (value) {});
                                     },
                                   );
                                 } else if (snapshot.hasError) {
@@ -215,6 +210,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
               ],
             ),
           ))
-        ]));
+        ])));
   }
 }

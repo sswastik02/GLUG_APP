@@ -295,9 +295,10 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
 
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: Column(children: [
+        body: SafeArea(
+            child: Column(children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -423,6 +424,6 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                   }
                 }),
           )
-        ]));
+        ])));
   }
 }

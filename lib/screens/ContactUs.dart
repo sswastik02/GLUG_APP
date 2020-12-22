@@ -82,9 +82,10 @@ class ContactUs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: Column(children: [
+        body: SafeArea(child:
+        Column(children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(
               children: [
                 IconButton(
@@ -122,6 +123,6 @@ class ContactUs extends StatelessWidget {
                   "convenor@nitdgplug.org"),
             ],
           ))
-        ]));
+        ])));
   }
 }

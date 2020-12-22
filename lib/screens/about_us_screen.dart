@@ -47,9 +47,10 @@ class AboutUS extends StatelessWidget {
         drawer: Drawer(
           child: DrawerItems(),
         ),
-        body: Column(children: [
+        body: SafeArea(child:
+        Column(children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(
               children: [
                 IconButton(
@@ -106,6 +107,6 @@ class AboutUS extends StatelessWidget {
               ],
             ),
           )
-        ]));
+        ])));
   }
 }
