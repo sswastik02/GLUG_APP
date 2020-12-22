@@ -46,18 +46,42 @@ class _MembersScreenState extends State<MembersScreen> {
 
   void _group(List<Profile> profiles) {
     profiles.forEach((profile) {
-      if (contributors.contains(profile.firstName)) {
+
+      if (profile.yearName == 2) {
+        _secondYears.add(ProfileTile(profile: profile, isContributor: false));
+      }
+      else if (profile.yearName == 3) {
+        _thirdYears.add(ProfileTile(profile: profile, isContributor: false));
+      }
+      else if (profile.yearName == 4) {
+        _finalYears.add(ProfileTile(profile: profile, isContributor: false));
+      }
+
+    });
+
+    _secondYears.forEach((profileTile) {
+      if (contributors.contains(profileTile.profile.firstName)) {
         _contributors.add(ProfileTile(
-          profile: profile,
+          profile: profileTile.profile,
           isContributor: true,
         ));
       }
-      if (profile.yearName == 4)
-        _finalYears.add(ProfileTile(profile: profile, isContributor: false));
-      else if (profile.yearName == 3)
-        _thirdYears.add(ProfileTile(profile: profile, isContributor: false));
-      else if (profile.yearName == 2)
-        _secondYears.add(ProfileTile(profile: profile, isContributor: false));
+    });
+    _thirdYears.forEach((profileTile) {
+      if (contributors.contains(profileTile.profile.firstName)) {
+        _contributors.add(ProfileTile(
+          profile: profileTile.profile,
+          isContributor: true,
+        ));
+      }
+    });
+    _finalYears.forEach((profileTile) {
+      if (contributors.contains(profileTile.profile.firstName)) {
+        _contributors.add(ProfileTile(
+          profile: profileTile.profile,
+          isContributor: true,
+        ));
+      }
     });
   }
 
