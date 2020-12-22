@@ -15,12 +15,13 @@ import 'package:glug_app/screens/event_info.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:glug_app/screens/club_activity_search.dart';
-import 'package:glug_app/widgets/loader.dart';
+import 'package:glug_app/widgets/loader_w.dart';
 
 import 'blog_info.dart';
 
 class HomeScreen extends StatefulWidget {
   static final id = 'homescreen';
+
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -28,6 +29,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Event> eventsList;
+  Loader loader;
+  int loadCount=0;
 
   @override
   void initState() {
@@ -35,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     eventsBloc.fetchAllEvents();
     upcomingEventsBloc.fetchAllUpcomingEvents();
     blogPostsBloc.fetchAllBlogPosts();
+    loader=Loader();
     super.initState();
   }
 
@@ -54,36 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return base64UrlEncode(values);
   }
 
-  _showLoader(context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-          elevation: 5.0,
-          backgroundColor: Colors.transparent,
-          child: Container(
-            height: MediaQuery.of(context).size.width * 0.55,
-            width: MediaQuery.of(context).size.width * 0.55,
-            padding: EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Theme.of(context).primaryColor == Colors.black
-                  ? Colors.blueGrey[900]
-                  : Colors.white.withOpacity(0.95),
-              borderRadius: BorderRadius.circular(15.0),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black, offset: Offset(0, 5), blurRadius: 10),
-              ],
-            ),
-            child: Loader(),
-          ),
-        );
-      },
-    );
-  }
+
 
   _buildEventList(List<Event> events) {
     events.removeWhere((event) => event.title == null);
@@ -236,8 +211,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'Club Activities',
                         style: TextStyle(
-                          fontFamily: "Nexa-Bold",
-                          fontSize: MediaQuery.of(context).size.height * 0.03,
+                          fontFamily: "BebasNeue",
+                          fontSize: 30,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -284,20 +259,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "Nexa-Bold",
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R UPCOMING EV",
                                 style: TextStyle(
-                                    fontFamily: "Nexa-Bold",
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -305,9 +276,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "ENTS",
                                 style: TextStyle(
-                                  fontFamily: "Nexa-Bold",
-                                  fontSize:
-                                      MediaQuery.of(context).size.height * 0.03,
+                                  fontFamily: "BebasNeue",
+                                  fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -322,6 +292,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (snapshot.data.error != null &&
                               snapshot.data.error.length > 0)
                             return errorWidget(snapshot.data.error);
+
+                          loadCount++;
+                          if(loadCount>=3){
+                            loader.dismiss();
+                          }
+
                           return CarouselSlider(
                             items: _buildEventList(snapshot.data.events),
                             options: CarouselOptions(
@@ -341,7 +317,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);
                         } else
-                          return Center(child: CircularProgressIndicator());
+                          loader.showLoader(context);
+                          return SizedBox(height:10);
                       }),
                   SizedBox(
                     height: 20.0,
@@ -358,20 +335,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "Nexa-Bold",
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R EV",
                                 style: TextStyle(
-                                    fontFamily: "Nexa-Bold",
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -379,9 +352,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "ENTS",
                                 style: TextStyle(
-                                  fontFamily: "Nexa-Bold",
-                                  fontSize:
-                                      MediaQuery.of(context).size.height * 0.03,
+                                  fontFamily: "BebasNeue",
+                                  fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -396,6 +368,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (snapshot.data.error != null &&
                               snapshot.data.error.length > 0)
                             return errorWidget(snapshot.data.error);
+                          loadCount++;
+                          if(loadCount>=3){
+                            loader.dismiss();
+                          }
+
                           eventsList = snapshot.data.events;
                           return CarouselSlider(
                             items: _buildEventList(snapshot.data.events),
@@ -416,7 +393,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);
                         } else
-                          return Center(child: CircularProgressIndicator());
+                          return SizedBox(height: 0,);
                       }),
                   SizedBox(
                     height: 20.0,
@@ -433,20 +410,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "Nexa-Bold",
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R BL",
                                 style: TextStyle(
-                                    fontFamily: "Nexa-Bold",
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                    fontFamily: "BebasNeue",
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -454,9 +427,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OGS",
                                 style: TextStyle(
-                                  fontFamily: "Nexa-Bold",
-                                  fontSize:
-                                      MediaQuery.of(context).size.height * 0.03,
+                                  fontFamily: "BebasNeue",
+                                  fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -470,6 +442,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (snapshot.data.error != null &&
                               snapshot.data.error.length > 0)
                             return errorWidget(snapshot.data.error);
+                          loadCount++;
+                          if(loadCount>=3){
+                            loader.dismiss();
+                          }
                           return CarouselSlider(
                             items: _buildBlogList(snapshot.data.blogPosts),
                             options: CarouselOptions(
@@ -489,7 +465,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);
                         } else
-                          return Center(child: CircularProgressIndicator());
+                          return SizedBox(height: 0,);
                       }),
                   SizedBox(
                     height: 10.0,
