@@ -41,8 +41,8 @@ class IntroScreenState extends State<IntroScreen> {
       new Slide(
         description: "Get up, stretch your arms and take a seat.Let's code!",
         pathImage: "images/splash_1.gif",
-        widthImage: 200,
-        heightImage: 200,
+        widthImage: 300,
+        heightImage: 300,
         backgroundColor: Color(0xff1C1C3C),
       ),
     );
