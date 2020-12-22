@@ -1,11 +1,9 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controller.dart';
+import 'package:flare_loading/flare_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/services/auth_service.dart';
-import 'package:uni_links/uni_links.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -13,56 +11,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  StreamSubscription _subs;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   @override
   void initState() {
-    _initDeepLinkListener();
     super.initState();
   }
 
   @override
   void dispose() {
-    _disposeDeepLinkListener();
     super.dispose();
-  }
-
-  void _initDeepLinkListener() async {
-    _subs = getLinksStream().listen((String link) {
-     // _checkDeepLink(link);
-    }, cancelOnError: true);
-  }
-
- /* void _checkDeepLink(String link) {
-    if (link != null) {
-      String code = link.substring(link.indexOf(RegExp('code=')) + 5);
-      AuthService.signInWithGitHub(code).then((user) async {
-        print("LOGGED IN AS: " + user.displayName);
-        DocumentSnapshot doc =
-            await _firestore.collection("/users").doc(user.uid).get();
-
-        if (!doc.exists) {
-          _firestore.collection("/users").doc(user.uid).set({
-            "name": user.displayName,
-            "email": user.email,
-            "photoURL": user.photoURL,
-            "eventDetail": [],
-            "starred_notices": [],
-            "interested": []
-          });
-        }
-      }).catchError((e) {
-        print("LOGIN ERROR: " + e.toString());
-      });
-    }
-  }*/
-
-  void _disposeDeepLinkListener() {
-    if (_subs != null) {
-      _subs.cancel();
-      _subs = null;
-    }
   }
 
   @override
@@ -71,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: new DecorationImage(
-            image: new AssetImage("images/back.jpeg"),
+            image: new AssetImage("images/back2.jpg"),
             fit: BoxFit.fill,
           ),
         ),
@@ -96,7 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         "GNU LIN",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20,
+                            fontFamily: "BebasNeue",
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -104,7 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         "UX US",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20,
+                            fontFamily: "BebasNeue",
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.deepOrange),
                       ),
@@ -112,7 +70,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         "ERS' GR",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20,
+                            fontFamily: "BebasNeue",
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -120,7 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         "OUP",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 20,
+                            fontFamily: "BebasNeue",
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.deepOrange),
                       ),
@@ -128,16 +88,38 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 100.0,
+              Expanded(
+                child: Center(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    // child: FlareActor(
+                    //   "images/Bart.flr",
+                    //   animation: "Excited Hi",
+                    //   alignment: Alignment.center,
+                    // ),
+                    child: FlareLoading(
+                      fit: BoxFit.fitHeight,
+                      name: 'images/Bart.flr',
+                      // startAnimation: 'walk',
+                      loopAnimation: 'Excited Hi',
+                      // endAnimation: 'walk',
+                      onSuccess: (_) {},
+                      onError: (_, __) {},
+                    ),
+                  ),
+                ),
               ),
-              CircleAvatar(
-                radius: 60.0,
-                backgroundImage: AssetImage("images/glug_logo.jpeg"),
-              ),
-              SizedBox(height: 70),
+              // SizedBox(
+              //   height: 100.0,
+              // ),
+              // CircleAvatar(
+              //   radius: 60.0,
+              //   backgroundImage: AssetImage("images/glug_logo.jpeg"),
+              // ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               _signInButton(type: "Google", context: context),
-              SizedBox(height: 20),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2),
               // _signInButton(type: "GitHub", context: context),
             ],
           ),
@@ -145,7 +127,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 
   Widget _signInButton({String type, BuildContext context}) {
     return RaisedButton(
@@ -180,9 +161,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     : 'Sign in with GitHub',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 15.0,
+                  fontSize: 18.0,
                   color: Colors.black54,
-                  fontFamily: "Montserrat",
                 ),
               ),
             )

@@ -41,17 +41,5 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
-        <activity android:name="com.github.GitHubActivity">
-            <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data
-                android:scheme="https"
-                android:host="glug-app-78220.firebaseapp.com" />
-            </intent-filter>
-        </activity>
-
     </application>
 </manifest>

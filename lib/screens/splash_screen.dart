@@ -26,18 +26,16 @@ class _SplashScreenState extends State<SplashScreen> {
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData)
           return Scaffold(
-            body:
-            DoubleBackToCloseApp(
-              snackBar: const SnackBar(
-                content: Text('Tap back again to leave'),
-              ),
-              child :
-          Stack(
-            children: [
-              DrawerScreen(),
-              FirstScreen(),
-            ],
-          )));
+              body: DoubleBackToCloseApp(
+                  snackBar: const SnackBar(
+                    content: Text('Tap back again to leave'),
+                  ),
+                  child: Stack(
+                    children: [
+                      DrawerScreen(),
+                      FirstScreen(),
+                    ],
+                  )));
         else
           return LoginScreen();
       },
@@ -53,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
     Timer(
-      Duration(seconds: 7),
+      Duration(seconds: 5),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) {
           return _isIntroDone ? _getScreen() : IntroScreen();
@@ -87,9 +85,10 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Text(
                       "THE GNU/LINUX\nUSERS' GROUP",
                       style: TextStyle(
+                        fontFamily: "BebasNeue",
                         color: Colors.white,
-                        fontSize: 45.0,
-                        fontWeight: FontWeight.w900,
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
