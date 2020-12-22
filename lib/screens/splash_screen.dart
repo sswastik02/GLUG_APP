@@ -8,7 +8,6 @@ import 'package:glug_app/screens/drawer_screen.dart';
 import 'package:glug_app/screens/intro_screen.dart';
 import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/services/shared_pref_service.dart';
-import 'package:lottie/lottie.dart';
 
 import 'first_screen.dart';
 import 'login_screen.dart';
@@ -92,8 +91,9 @@ class _SplashScreenState extends State<SplashScreen> {
                           "GNU LIN",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: "BebasNeue",
-                              fontSize: 30,
+                              fontFamily: "Nexa-Bold",
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -101,8 +101,9 @@ class _SplashScreenState extends State<SplashScreen> {
                           "UX US",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: "BebasNeue",
-                              fontSize: 30,
+                              fontFamily: "Nexa-Bold",
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,
                               color: Colors.deepOrange),
                         ),
@@ -110,8 +111,9 @@ class _SplashScreenState extends State<SplashScreen> {
                           "ERS' GR",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: "BebasNeue",
-                              fontSize: 30,
+                              fontFamily: "Nexa-Bold",
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -119,8 +121,9 @@ class _SplashScreenState extends State<SplashScreen> {
                           "OUP",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: "BebasNeue",
-                              fontSize: 30,
+                              fontFamily: "Nexa-Bold",
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,
                               color: Colors.deepOrange),
                         ),

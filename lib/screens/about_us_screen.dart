@@ -2,20 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AboutUS extends StatelessWidget {
-  Widget _getTitle(String m) {
+  Widget _getTitle(String m, context) {
     Widget txt1 = Text(
       m.substring(0, 3),
       style: TextStyle(
-        fontFamily: "BebasNeue",
-        fontSize: 25.0,
+        fontFamily: "Nexa-Bold",
+        fontSize: MediaQuery.of(context).size.height * 0.03,
         fontWeight: FontWeight.bold,
       ),
     );
     Widget txt2 = Text(
       m.substring(3, 5),
       style: TextStyle(
-        fontFamily: "BebasNeue",
-        fontSize: 25.0,
+        fontFamily: "Nexa-Bold",
+        fontSize: MediaQuery.of(context).size.height * 0.03,
         color: Colors.deepOrange,
         fontWeight: FontWeight.bold,
       ),
@@ -23,8 +23,8 @@ class AboutUS extends StatelessWidget {
     Widget txt3 = Text(
       m.substring(5),
       style: TextStyle(
-        fontFamily: "BebasNeue",
-        fontSize: 25.0,
+        fontFamily: "Nexa-Bold",
+        fontSize: MediaQuery.of(context).size.height * 0.03,
         color: Colors.deepOrange,
         fontWeight: FontWeight.bold,
       ),
@@ -64,7 +64,7 @@ class AboutUS extends StatelessWidget {
                   'About Us',
                   style: TextStyle(
                     fontFamily: "Nexa-Bold",
-                    fontSize: 24,
+                    fontSize: MediaQuery.of(context).size.height * 0.03,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -75,7 +75,7 @@ class AboutUS extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(15),
               children: <Widget>[
-                _getTitle("WHO WE ARE"),
+                _getTitle("WHO WE ARE", context),
                 SizedBox(
                   height: 5,
                 ),
@@ -85,7 +85,7 @@ class AboutUS extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                _getTitle("WHAT WE DO"),
+                _getTitle("WHAT WE DO", context),
                 SizedBox(
                   height: 5,
                 ),
@@ -94,7 +94,7 @@ class AboutUS extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                _getTitle("OUR VISION"),
+                _getTitle("OUR VISION", context),
                 SizedBox(
                   height: 5,
                 ),

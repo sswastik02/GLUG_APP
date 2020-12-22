@@ -116,8 +116,8 @@ class _MembersScreenState extends State<MembersScreen> {
                 Text(
                   'Our Team',
                   style: TextStyle(
-                    fontFamily: "BebasNeue",
-                    fontSize: 30,
+                    fontFamily: "Nexa-Bold",
+                    fontSize: MediaQuery.of(context).size.height * 0.03,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

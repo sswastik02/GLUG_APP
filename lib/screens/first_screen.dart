@@ -91,7 +91,7 @@ class _FirstScreenState extends State<FirstScreen> {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                height: screenHeight * 0.6,
+                height: screenHeight * 0.65,
                 width: screenWidth * 0.88,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,8 +108,8 @@ class _FirstScreenState extends State<FirstScreen> {
                     Expanded(
                       child: Center(
                         child: Container(
-                          height: screenWidth * 0.65,
-                          width: screenWidth * 0.75,
+                          height: screenWidth * 0.7,
+                          width: screenWidth * 0.8,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               fit: BoxFit.contain,
@@ -144,6 +144,9 @@ class _FirstScreenState extends State<FirstScreen> {
                 ),
               ),
             ),
+            // SizedBox(
+            //   height: screenHeight * 0.0005,
+            // ),
           ],
         ),
       ),

@@ -83,8 +83,8 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                     Text(
                       'Starred Notices',
                       style: TextStyle(
-                          fontFamily: "BebasNeue",
-                          fontSize: 30,
+                          fontFamily: "Nexa-Bold",
+                          fontSize: MediaQuery.of(context).size.height * 0.03,
                           fontWeight: FontWeight.bold),
                     ),
                   ],

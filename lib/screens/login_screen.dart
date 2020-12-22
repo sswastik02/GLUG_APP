@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_loading/flare_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:glug_app/services/auth_service.dart';
@@ -51,8 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         "GNU LIN",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontFamily: "BebasNeue",
-                            fontSize: 30,
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -60,8 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         "UX US",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontFamily: "BebasNeue",
-                            fontSize: 30,
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
                             fontWeight: FontWeight.bold,
                             color: Colors.deepOrange),
                       ),
@@ -69,8 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         "ERS' GR",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontFamily: "BebasNeue",
-                            fontSize: 30,
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -78,8 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         "OUP",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontFamily: "BebasNeue",
-                            fontSize: 30,
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
                             fontWeight: FontWeight.bold,
                             color: Colors.deepOrange),
                       ),

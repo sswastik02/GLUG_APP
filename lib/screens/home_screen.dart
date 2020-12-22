@@ -60,12 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context) {
         return Dialog(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           elevation: 5.0,
           backgroundColor: Colors.transparent,
           child: Container(
             height: MediaQuery.of(context).size.width * 0.55,
-            width:MediaQuery.of(context).size.width * 0.55 ,
+            width: MediaQuery.of(context).size.width * 0.55,
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.black, offset: Offset(0, 5), blurRadius: 10),
               ],
             ),
-            child: Loader() ,
+            child: Loader(),
           ),
         );
       },
@@ -236,8 +236,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'Club Activities',
                         style: TextStyle(
-                          fontFamily: "BebasNeue",
-                          fontSize: 30,
+                          fontFamily: "Nexa-Bold",
+                          fontSize: MediaQuery.of(context).size.height * 0.03,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -284,16 +284,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "BebasNeue",
-                                    fontSize: 25.0,
+                                    fontFamily: "Nexa-Bold",
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.03,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R UPCOMING EV",
                                 style: TextStyle(
-                                    fontFamily: "BebasNeue",
-                                    fontSize: 25.0,
+                                    fontFamily: "Nexa-Bold",
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.03,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -301,8 +305,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "ENTS",
                                 style: TextStyle(
-                                  fontFamily: "BebasNeue",
-                                  fontSize: 25.0,
+                                  fontFamily: "Nexa-Bold",
+                                  fontSize:
+                                      MediaQuery.of(context).size.height * 0.03,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -336,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);
                         } else
-                          return _showLoader(context);
+                          return Center(child: CircularProgressIndicator());
                       }),
                   SizedBox(
                     height: 20.0,
@@ -353,16 +358,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "BebasNeue",
-                                    fontSize: 25.0,
+                                    fontFamily: "Nexa-Bold",
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.03,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R EV",
                                 style: TextStyle(
-                                    fontFamily: "BebasNeue",
-                                    fontSize: 25.0,
+                                    fontFamily: "Nexa-Bold",
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.03,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -370,8 +379,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "ENTS",
                                 style: TextStyle(
-                                  fontFamily: "BebasNeue",
-                                  fontSize: 25.0,
+                                  fontFamily: "Nexa-Bold",
+                                  fontSize:
+                                      MediaQuery.of(context).size.height * 0.03,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -423,16 +433,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OU",
                                 style: TextStyle(
-                                    fontFamily: "BebasNeue",
-                                    fontSize: 25.0,
+                                    fontFamily: "Nexa-Bold",
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.03,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
                               Text(
                                 "R BL",
                                 style: TextStyle(
-                                    fontFamily: "BebasNeue",
-                                    fontSize: 25.0,
+                                    fontFamily: "Nexa-Bold",
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.03,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -440,8 +454,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 "OGS",
                                 style: TextStyle(
-                                  fontFamily: "BebasNeue",
-                                  fontSize: 25.0,
+                                  fontFamily: "Nexa-Bold",
+                                  fontSize:
+                                      MediaQuery.of(context).size.height * 0.03,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),

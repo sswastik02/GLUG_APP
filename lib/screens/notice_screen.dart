@@ -43,8 +43,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
     });
   }
 
-
-
   @override
   void initState() {
     _dropdownvalue = "General";
@@ -59,21 +57,19 @@ class _NoticeScreenState extends State<NoticeScreen> {
     super.initState();
   }
 
-
-
   _showLoader(context) async {
-     await showDialog(
+    await showDialog(
       context: context,
       builder: (context) {
-        loaderCotext=context;
+        loaderCotext = context;
         return Dialog(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           elevation: 5.0,
           backgroundColor: Colors.transparent,
           child: Container(
             height: MediaQuery.of(context).size.width * 0.55,
-            width:MediaQuery.of(context).size.width * 0.55 ,
+            width: MediaQuery.of(context).size.width * 0.55,
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
@@ -93,7 +89,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
     );
   }
 
-
   @override
   void dispose() {
     //noticeBloc.dispose();
@@ -101,10 +96,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
   }
 
   void _getStaredList() async {
-
     _startedLista = await _provider.fetchStaredNoticeTitle();
     _streamController.sink.add(_startedLista);
-
   }
 
   @override
@@ -135,8 +128,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
                       Text(
                         'Notices',
                         style: TextStyle(
-                            fontFamily: "BebasNeue",
-                            fontSize: 30,
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -239,15 +232,18 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                   return errorWidget(snapshot.error);
                                 } else {
                                   return Center(
-                                      child: SizedBox(height: 10,),
+                                    child: SizedBox(
+                                      height: 10,
+                                    ),
                                   );
                                 }
                               });
                         } else if (snapshot1.hasError) {
                           return errorWidget(snapshot1.error);
                         } else {
-
-                          return SizedBox(height: 10,);
+                          return SizedBox(
+                            height: 10,
+                          );
                           //Center(child: CircularProgressIndicator());
                         }
                       }),

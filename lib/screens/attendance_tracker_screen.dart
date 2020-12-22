@@ -317,7 +317,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
                         'Attendance Tracker',
                         style: TextStyle(
                           fontFamily: "Nexa-Bold",
-                          fontSize: 24,
+                          fontSize: MediaQuery.of(context).size.height * 0.03,
                           fontWeight: FontWeight.w700,
                         ),
                       ),

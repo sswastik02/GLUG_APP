@@ -39,9 +39,9 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
   _repushPDFViewer() {
     Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => PDFViewScreen(
-          name: name,
-          file: file,
-        )));
+              name: name,
+              file: file,
+            )));
   }
 
   @override
@@ -61,13 +61,12 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
           children: [
             isReady
                 ? Text(
-              "Page:    $_currentPage of $_totalPages",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: "Montserrat",
-                fontSize: 16.0,
-              ),
-            )
+                    "Page:    $_currentPage of $_totalPages",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ),
+                  )
                 : Offstage(),
             Container(
               margin: EdgeInsets.only(top: 12.0),
@@ -104,8 +103,8 @@ class _PDFViewScreenState extends State<PDFViewScreen> {
         ),
         !isReady
             ? Center(
-          child: CircularProgressIndicator(),
-        )
+                child: CircularProgressIndicator(),
+              )
             : Offstage()
       ]),
     );
