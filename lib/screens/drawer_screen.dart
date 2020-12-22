@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:glug_app/models/themes.dart';
 import 'package:glug_app/screens/about_us_screen.dart';
+import 'package:glug_app/screens/contact_us.dart';
 import 'package:glug_app/screens/members_screen.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/services/auth_service.dart';
@@ -25,7 +26,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   List<Map> drawerItems = [
     {'icon': Icons.wc, 'title': "Our team", 'class': MembersScreen()},
     {'icon': Icons.info_outline, 'title': 'About Us', 'class': AboutUS()},
-    // {'icon': Icons.contacts, 'title': 'Contacts', 'class': ContactUs()},
+    {'icon': Icons.contacts, 'title': 'Contact Us', 'class': ContactUs()},
   ];
 
   bool isDarkTheme = false;
@@ -123,7 +124,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.1,
                   ),
                   Row(
                     children: [

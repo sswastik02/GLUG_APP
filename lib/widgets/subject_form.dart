@@ -47,8 +47,8 @@ class _SubjectFormState extends State<SubjectForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
-      Form(
+    return Scaffold(
+        body: Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,11 +77,14 @@ class _SubjectFormState extends State<SubjectForm> {
             child: TextFormField(
                 controller: _ctrl2,
                 decoration: InputDecoration(
-                    hintText: "Initial Total Classes",
+                    hintText: "Initial total classes",
                     hintStyle: TextStyle(fontSize: 13)),
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter a valid number';
+                  } else if (int.parse(value) <
+                      int.parse(_ctrl3.text.toString())) {
+                    return 'Initial Presents > Total Classes';
                   }
                   return null;
                 },
@@ -97,6 +100,9 @@ class _SubjectFormState extends State<SubjectForm> {
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter a valid number';
+                  } else if (int.parse(value) >
+                      int.parse(_ctrl2.text.toString())) {
+                    return 'Initial presents > Total classes';
                   }
                   return null;
                 },
@@ -112,6 +118,8 @@ class _SubjectFormState extends State<SubjectForm> {
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter a valid number';
+                  } else if (int.parse(value) > 100) {
+                    return "Attendance goal > 100%";
                   }
                   return null;
                 },
@@ -137,38 +145,37 @@ class _SubjectFormState extends State<SubjectForm> {
               FlatButton(
                 color: Colors.deepOrangeAccent,
                 onPressed: () {
-
-                  if(int.parse(_ctrl3.text)<int.parse(_ctrl2.text)) {
-                    if (_formKey.currentState.validate()) {
-                      if (isEdit) {
-                        _databaseProvider.updateSubject(
-                          map["id"],
+                  // if(int.parse(_ctrl3.text)<int.parse(_ctrl2.text)) {
+                  if (_formKey.currentState.validate()) {
+                    if (isEdit) {
+                      _databaseProvider.updateSubject(
+                        map["id"],
+                        _ctrl1.text.toString(),
+                        int.parse(_ctrl3.text.toString()),
+                        int.parse(_ctrl2.text.toString()),
+                        int.parse(_ctrl4.text.toString()),
+                      );
+                    } else {
+                      _databaseProvider.addNewSubject(
                           _ctrl1.text.toString(),
-                          int.parse(_ctrl3.text.toString()),
                           int.parse(_ctrl2.text.toString()),
+                          int.parse(_ctrl3.text.toString()),
                           int.parse(_ctrl4.text.toString()),
-                        );
-                      } else {
-                        _databaseProvider.addNewSubject(
-                            _ctrl1.text.toString(),
-                            int.parse(_ctrl2.text.toString()),
-                            int.parse(_ctrl3.text.toString()),
-                            int.parse(_ctrl4.text.toString()),
-                            0,
-                            0);
-                      }
-
-                      Navigator.of(context).pop();
+                          0,
+                          0);
                     }
 
+                    Navigator.of(context).pop();
                   }
-                  else{
-                    Scaffold.of(context).showSnackBar(
-                        new SnackBar(
-                          content: Text("Initial present should less than total present"),
-                        )
-                    );
-                  }
+
+                  // }
+                  // else{
+                  //   Scaffold.of(context).showSnackBar(
+                  //       new SnackBar(
+                  //         content: Text("Initial present should less than total present"),
+                  //       )
+                  //   );
+                  // }
                 },
                 child: Text(
                   isEdit ? 'Edit' : 'Add',

@@ -48,7 +48,7 @@ class _AttendanceTrackerScreenState extends State<AttendanceTrackerScreen> {
           elevation: 5.0,
           backgroundColor: Colors.transparent,
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.45,
+            height: MediaQuery.of(context).size.height * 0.65,
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
