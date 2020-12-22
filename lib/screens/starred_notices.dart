@@ -92,7 +92,6 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
               ),
               Expanded(
                   child: Container(
-                color: Colors.white10,
                 child: Column(
                   children: [
                     Expanded(
