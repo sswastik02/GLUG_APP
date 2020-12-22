@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:glug_app/models/github_login_model.dart';
-import 'package:glug_app/secret_keys.dart' as SecretKey;
+//import 'package:glug_app/secret_keys.dart' as SecretKey;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -62,7 +62,7 @@ class AuthService {
     }
   }
 
-  static Future<User> signInWithGitHub(String code) async {
+  /*static Future<User> signInWithGitHub(String code) async {
     try {
       final response = await http.post(
         "https://github.com/login/oauth/access_token",
@@ -88,7 +88,7 @@ class AuthService {
       print(e.message);
       return null;
     }
-  }
+  }*/
 
   static Future<void> signOutGithub() async {
     await _auth.signOut();

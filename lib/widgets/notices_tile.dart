@@ -11,10 +11,10 @@ import 'package:progress_dialog/progress_dialog.dart';
 
 class NoticeTile extends StatefulWidget {
   final Academic notice;
-  final int c;
-  final bool noticeStarred;
+  bool noticeStarred;
+  final ValueChanged<Academic> onUnStar;
 
-  const NoticeTile({Key key, @required this.notice, this.c, this.noticeStarred})
+   NoticeTile({Key key, @required this.notice,this.noticeStarred,this.onUnStar})
       : super(key: key);
 
   @override
@@ -23,14 +23,12 @@ class NoticeTile extends StatefulWidget {
 
 class _NoticeTileState extends State<NoticeTile> {
   FirestoreProvider _provider;
-  bool _isStared;
-
   ProgressDialog pr;
   @override
   void initState() {
     super.initState();
     _provider = new FirestoreProvider();
-    _isStared = widget.noticeStarred;
+
     pr = ProgressDialog(context);
     // _initStarred();
   }
@@ -70,7 +68,8 @@ class _NoticeTileState extends State<NoticeTile> {
     }
   }
 
-  Widget _tile(int index, String title, String date) {
+  Widget _tile( String title, String date) {
+
     return Card(
       elevation: 10,
       margin: new EdgeInsets.symmetric(horizontal: 0.0, vertical: 6.0),
@@ -131,26 +130,27 @@ class _NoticeTileState extends State<NoticeTile> {
         ),
         trailing: IconButton(
           icon: Icon(
-            _isStared ? Icons.star : Icons.star_border,
-            color: _isStared ? Colors.red : Colors.black45,
+            widget.noticeStarred ? Icons.star : Icons.star_border,
+            color: widget.noticeStarred ? Colors.red : Colors.black45,
           ),
           onPressed: () {
             setState(() {
-              if (!_isStared) {
-                print(_isStared);
+              if (!widget.noticeStarred) {
+                print(widget.noticeStarred);
                 _provider.addStarredNotice({
                   "title": widget.notice.title,
                   "date": widget.notice.date,
                   "file": widget.notice.file
                 });
               } else {
+                widget.onUnStar(widget.notice);
                 _provider.removeStarredNotice({
                   "title": widget.notice.title,
                   "date": widget.notice.date,
                   "file": widget.notice.file
                 });
               }
-              _isStared = !_isStared;
+              widget.noticeStarred = !widget.noticeStarred;
             });
           },
         ),
@@ -160,6 +160,6 @@ class _NoticeTileState extends State<NoticeTile> {
 
   @override
   Widget build(BuildContext context) {
-    return _tile(widget.c, widget.notice.title, widget.notice.date);
+    return _tile( widget.notice.title, widget.notice.date);
   }
 }

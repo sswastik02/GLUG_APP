@@ -10,6 +10,8 @@ import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notices_tile.dart';
 
 class NoticeScreen extends StatefulWidget {
+
+
   @override
   _NoticeScreenState createState() => _NoticeScreenState();
 }
@@ -21,10 +23,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
   List<Academic> noticeType;
   FirestoreProvider _provider;
   List<String> _startedLista;
-  //var _startedList;
   StreamController _streamController;
   Stream _stream;
-
   var _userEmail = "";
 
   void changeNoticeType(String noticeType) {
@@ -66,11 +66,14 @@ class _NoticeScreenState extends State<NoticeScreen> {
 
   void _getStaredList() async {
     _startedLista = await _provider.fetchStaredNoticeTitle();
-    _streamController.add(_startedLista);
+    _streamController.sink.add(_startedLista);
   }
+
+
 
   @override
   Widget build(BuildContext context) {
+    print("build");
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         body: Column(children: [
@@ -104,10 +107,11 @@ class _NoticeScreenState extends State<NoticeScreen> {
                   IconButton(
                       icon: Icon(Icons.star),
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StarredNoticeScreen()));
+                                builder: (context) => StarredNoticeScreen(
+                                )));
                       })
                 ]),
           ),
@@ -171,7 +175,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                     itemCount: noticeType.length,
                                     itemBuilder: (context, index) {
                                       bool _isStared = false;
-
                                       List<dynamic> _startedList =
                                           snapshot1.data;
                                       print("list $_startedList");
@@ -190,8 +193,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
 
                                       return NoticeTile(
                                         notice: noticeType[index],
-                                        c: noticeType.length - index,
                                         noticeStarred: _isStared,
+                                        onUnStar: (value){}
                                       );
                                     },
                                   );

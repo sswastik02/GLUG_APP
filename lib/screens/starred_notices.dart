@@ -6,13 +6,16 @@ import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notices_tile.dart';
 
+import 'notice_screen.dart';
+
 class StarredNoticeScreen extends StatefulWidget {
+
   @override
   _StarredNoticeScreenState createState() => _StarredNoticeScreenState();
 }
 
 class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
-  List<Academic> notices;
+  List<Academic> notices, temp;
   FirestoreProvider _provider;
   StreamController _streamController;
   Stream _stream;
@@ -23,12 +26,15 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
     _stream = _streamController.stream;
     _provider = FirestoreProvider();
     _getStaredList();
+    temp = new List();
     super.initState();
   }
 
+
+
+
   @override
   void dispose() {
-    //noticeBloc.dispose();
     super.dispose();
   }
 
@@ -37,9 +43,34 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
     _streamController.add(notices);
   }
 
+
+
+
+  Widget noticeTile(int c, Academic notice) {
+    return NoticeTile(
+      noticeStarred: true,
+      notice: notice,
+      onUnStar: (notice) {
+
+        notices.remove(notice);
+        for (int i = 0; i < notices.length; i++) {}
+        _streamController.sink.add(notices);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  WillPopScope(
+      onWillPop: (){
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NoticeScreen(
+                )));
+      },
+    child:
+      Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         body: Column(children: [
           Padding(
@@ -52,7 +83,11 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                       size: 30,
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(true);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NoticeScreen(
+                              )));
                     }),
                 SizedBox(
                   width: 20,
@@ -78,7 +113,7 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                       builder: (context, AsyncSnapshot<dynamic> snapshot) {
                         if (snapshot.hasData) {
                           notices = snapshot.data;
-                          notices = notices.reversed.toList();
+                          notices = notices.toList();
                           return ListView.builder(
                             padding: EdgeInsets.symmetric(
                               vertical: 0,
@@ -86,10 +121,7 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                             ),
                             itemCount: notices.length,
                             itemBuilder: (context, index) {
-                              return NoticeTile(
-                                  notice: notices[index],
-                                  c: notices.length - index,
-                                  noticeStarred: true);
+                              return noticeTile(index, notices[index]);
                             },
                           );
                         } else if (snapshot.hasError) {
@@ -102,7 +134,7 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
               ],
             ),
           ))
-        ]));
+        ])));
   }
 }
 
