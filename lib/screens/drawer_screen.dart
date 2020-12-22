@@ -68,6 +68,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Scaffold(
         backgroundColor: isDarkTheme ? Colors.blueGrey[900] : Colors.grey,
         body: Container(
+
           padding: EdgeInsets.fromLTRB(10, 50, 0, 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
