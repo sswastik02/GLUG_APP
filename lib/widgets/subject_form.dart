@@ -47,7 +47,8 @@ class _SubjectFormState extends State<SubjectForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return Scaffold(body:
+      Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,26 +137,37 @@ class _SubjectFormState extends State<SubjectForm> {
               FlatButton(
                 color: Colors.deepOrangeAccent,
                 onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    if (isEdit) {
-                      _databaseProvider.updateSubject(
-                        map["id"],
-                        _ctrl1.text.toString(),
-                        int.parse(_ctrl3.text.toString()),
-                        int.parse(_ctrl2.text.toString()),
-                        int.parse(_ctrl4.text.toString()),
-                      );
-                    } else {
-                      _databaseProvider.addNewSubject(
+
+                  if(int.parse(_ctrl3.text)<int.parse(_ctrl2.text)) {
+                    if (_formKey.currentState.validate()) {
+                      if (isEdit) {
+                        _databaseProvider.updateSubject(
+                          map["id"],
                           _ctrl1.text.toString(),
-                          int.parse(_ctrl2.text.toString()),
                           int.parse(_ctrl3.text.toString()),
+                          int.parse(_ctrl2.text.toString()),
                           int.parse(_ctrl4.text.toString()),
-                          0,
-                          0);
+                        );
+                      } else {
+                        _databaseProvider.addNewSubject(
+                            _ctrl1.text.toString(),
+                            int.parse(_ctrl2.text.toString()),
+                            int.parse(_ctrl3.text.toString()),
+                            int.parse(_ctrl4.text.toString()),
+                            0,
+                            0);
+                      }
+
+                      Navigator.of(context).pop();
                     }
 
-                    Navigator.of(context).pop();
+                  }
+                  else{
+                    Scaffold.of(context).showSnackBar(
+                        new SnackBar(
+                          content: Text("Initial present should less than total present"),
+                        )
+                    );
                   }
                 },
                 child: Text(
@@ -170,6 +182,6 @@ class _SubjectFormState extends State<SubjectForm> {
           ),
         ],
       ),
-    );
+    ));
   }
 }

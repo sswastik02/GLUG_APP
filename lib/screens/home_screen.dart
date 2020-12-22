@@ -15,6 +15,7 @@ import 'package:glug_app/screens/event_info.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:glug_app/screens/club_activity_search.dart';
+import 'package:glug_app/widgets/loader.dart';
 
 import 'blog_info.dart';
 
@@ -51,6 +52,37 @@ class _HomeScreenState extends State<HomeScreen> {
     var random = Random.secure();
     var values = List<int>.generate(len, (i) => random.nextInt(255));
     return base64UrlEncode(values);
+  }
+
+  _showLoader(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          elevation: 5.0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: MediaQuery.of(context).size.width * 0.55,
+            width:MediaQuery.of(context).size.width * 0.55 ,
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Theme.of(context).primaryColor == Colors.black
+                  ? Colors.blueGrey[900]
+                  : Colors.white.withOpacity(0.95),
+              borderRadius: BorderRadius.circular(15.0),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black, offset: Offset(0, 5), blurRadius: 10),
+              ],
+            ),
+            child: Loader() ,
+          ),
+        );
+      },
+    );
   }
 
   _buildEventList(List<Event> events) {
@@ -304,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);
                         } else
-                          return Center(child: CircularProgressIndicator());
+                          return _showLoader(context);
                       }),
                   SizedBox(
                     height: 20.0,
