@@ -211,7 +211,7 @@ class _MyClassState extends State<EventInfo> {
                     margin: EdgeInsets.only(bottom: 20.0),
                     height: 50.0,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      color: Theme.of(context).primaryColor.withOpacity(0.7),
                       // color: Color.fromARGB(210, 255, 255, 255),
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(50.0),
@@ -260,7 +260,7 @@ class _MyClassState extends State<EventInfo> {
             SizedBox(
               height: 15.0,
             ),
-            _interestedButton(),
+            // _interestedButton(),
             SizedBox(
               height: 7.0,
             ),
