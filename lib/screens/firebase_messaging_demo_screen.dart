@@ -55,10 +55,11 @@ class _FirebaseMessagingDemoAppState extends State<FirebaseMessagingDemoApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: Column(
+      body: SafeArea(child:
+      Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(
               children: [
                 IconButton(
@@ -113,6 +114,7 @@ class _FirebaseMessagingDemoAppState extends State<FirebaseMessagingDemoApp> {
           ),
         ],
       ),
+    )
     );
   }
 }

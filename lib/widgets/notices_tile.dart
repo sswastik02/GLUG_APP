@@ -8,6 +8,7 @@ import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/pdf_view_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:glug_app/widgets/loader_w.dart';
 
 class NoticeTile extends StatefulWidget {
   final Academic notice;
@@ -23,13 +24,15 @@ class NoticeTile extends StatefulWidget {
 
 class _NoticeTileState extends State<NoticeTile> {
   FirestoreProvider _provider;
-  ProgressDialog pr;
+
+  Loader loader;
   @override
   void initState() {
     super.initState();
     _provider = new FirestoreProvider();
 
-    pr = ProgressDialog(context);
+    loader =Loader();
+
     // _initStarred();
   }
 
@@ -78,9 +81,9 @@ class _NoticeTileState extends State<NoticeTile> {
       ),
       child: ListTile(
         onTap: () async {
-          pr.show();
+          loader.showLoader(context);
           File pdfFile = await _getFileFromUrl();
-          pr.hide();
+          loader.dismiss();
           pdfFile != null
               ? Navigator.push(
                   context,

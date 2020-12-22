@@ -3,6 +3,7 @@ import 'package:glug_app/blocs/profiles_bloc.dart';
 import 'package:glug_app/models/profile_model.dart';
 import 'package:glug_app/models/profile_response.dart';
 import 'package:glug_app/widgets/error_widget.dart';
+import 'package:glug_app/widgets/loader_w.dart';
 import 'package:glug_app/widgets/profile_tile.dart';
 
 class MembersScreen extends StatefulWidget {
@@ -17,6 +18,8 @@ class _MembersScreenState extends State<MembersScreen> {
   List<ProfileTile> _thirdYears = [];
   List<ProfileTile> _secondYears = [];
   List<ProfileTile> _contributors = [];
+
+  Loader loader;
 
   List contributors = [
     "Avinash",
@@ -34,6 +37,7 @@ class _MembersScreenState extends State<MembersScreen> {
   @override
   void initState() {
     profilesBloc.fetchAllProfiles();
+    loader=Loader();
     super.initState();
   }
 
@@ -134,6 +138,7 @@ class _MembersScreenState extends State<MembersScreen> {
                   return errorWidget(snapshot.data.error);
                 }
                 _group(snapshot.data.profiles);
+                loader.dismiss();
 
                 return SingleChildScrollView(
                   child: Column(
@@ -240,7 +245,8 @@ class _MembersScreenState extends State<MembersScreen> {
               } else if (snapshot.hasError) {
                 return errorWidget(snapshot.error);
               } else
-                return Center(child: CircularProgressIndicator());
+                loader.showLoader(context);
+                return Center(child:SizedBox(height: 10,));
             },
           ))
         ])));

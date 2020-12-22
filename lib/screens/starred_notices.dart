@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/widgets/error_widget.dart';
+import 'package:glug_app/widgets/loader_w.dart';
 import 'package:glug_app/widgets/notices_tile.dart';
 
 import 'notice_screen.dart';
@@ -19,6 +20,8 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
   StreamController _streamController;
   Stream _stream;
 
+  Loader loader;
+
   @override
   void initState() {
     _streamController = StreamController();
@@ -26,6 +29,7 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
     _provider = FirestoreProvider();
     _getStaredList();
     temp = new List();
+    loader = Loader();
     super.initState();
   }
 
@@ -99,6 +103,7 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                           stream: _stream, //noticeBloc.noticeCategories,
                           builder: (context, AsyncSnapshot<dynamic> snapshot) {
                             if (snapshot.hasData) {
+                              loader.dismiss();
                               notices = snapshot.data;
                               notices = notices.toList();
                               return ListView.builder(
@@ -114,7 +119,8 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                             } else if (snapshot.hasError) {
                               return errorWidget(snapshot.error);
                             } else {
-                              return Center(child: CircularProgressIndicator());
+                              loader.showLoader(context);
+                              return SizedBox(height: 1,);
                             }
                           }),
                     ),

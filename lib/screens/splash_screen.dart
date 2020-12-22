@@ -62,97 +62,91 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("images/back3.jpg"),
-              fit: BoxFit.fitHeight,
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage("images/back.jpeg"),
+            fit: BoxFit.fitHeight,
           ),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: 100.0,
-                ),
-                Container(
-                  width: (MediaQuery.of(context).size.width),
-                  height: 50,
-                  color: Colors.black54,
-                  child: Center(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "GNU LIN",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: "Nexa-Bold",
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.03,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        Text(
-                          "UX US",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: "Nexa-Bold",
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.03,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange),
-                        ),
-                        Text(
-                          "ERS' GR",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: "Nexa-Bold",
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.03,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
-                        Text(
-                          "OUP",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: "Nexa-Bold",
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.03,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: MediaQuery.of(context).size.height * 0.35,
-                      child: FlareLoading(
-                        fit: BoxFit.fitHeight,
-                        name: 'images/Bart.flr',
-                        // startAnimation: 'walk',
-                        loopAnimation: 'Excited Hi',
-                        // endAnimation: 'walk',
-                        onSuccess: (_) {},
-                        onError: (_, __) {},
+        ),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 100.0,
+              ),
+              Container(
+                width: (MediaQuery.of(context).size.width),
+                height: 50,
+                color: Colors.black54,
+                child: Center(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "GNU LIN",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
+                      Text(
+                        "UX US",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepOrange),
+                      ),
+                      Text(
+                        "ERS' GR",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        "OUP",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepOrange),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Center(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    child: FlareLoading(
+                      fit: BoxFit.fitHeight,
+                      name: 'images/Bart.flr',
+                      // startAnimation: 'walk',
+                      loopAnimation: 'Excited Hi',
+                      // endAnimation: 'walk',
+                      onSuccess: (_) {},
+                      onError: (_, __) {},
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                )
-              ],
-            ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+              )
+            ],
           ),
         ),
       ),

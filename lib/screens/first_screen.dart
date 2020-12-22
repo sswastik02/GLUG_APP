@@ -71,7 +71,7 @@ class _FirstScreenState extends State<FirstScreen> {
               data[i]["title"],
               style: TextStyle(
                 fontFamily: "Nexa-Bold",
-                fontSize: screenWidth * 0.12,
+                fontSize: screenWidth * 0.11,
                 fontWeight: FontWeight.w700,
               ),
             ),
