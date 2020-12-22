@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:glug_app/blocs/profiles_bloc.dart';
 import 'package:glug_app/models/profile_model.dart';
 import 'package:glug_app/models/profile_response.dart';
-import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/profile_tile.dart';
 
@@ -47,13 +46,13 @@ class _MembersScreenState extends State<MembersScreen> {
   List<Profile> p;
 
   void _group(List<Profile> profiles) {
-    p= new List();
+    p = new List();
     profiles.forEach((element) {
       p.add(element);
     });
 
     p.forEach((profile) {
-      if(profile.yearName==2) {
+      if (profile.yearName == 2) {
         if (contributors.contains(profile.firstName)) {
           _contributors.add(ProfileTile(
             profile: profile,
@@ -63,22 +62,16 @@ class _MembersScreenState extends State<MembersScreen> {
       }
     });
 
-
     profiles.sort((a, b) => a.firstName.compareTo(b.firstName));
     profiles.forEach((profile) {
-
       if (profile.yearName == 2) {
         _secondYears.add(ProfileTile(profile: profile, isContributor: false));
-      }
-      else if (profile.yearName == 3) {
+      } else if (profile.yearName == 3) {
         _thirdYears.add(ProfileTile(profile: profile, isContributor: false));
-      }
-      else if (profile.yearName == 4) {
+      } else if (profile.yearName == 4) {
         _finalYears.add(ProfileTile(profile: profile, isContributor: false));
       }
-
     });
-
 
     _thirdYears.forEach((profileTile) {
       if (contributors.contains(profileTile.profile.firstName)) {
@@ -96,8 +89,6 @@ class _MembersScreenState extends State<MembersScreen> {
         ));
       }
     });
-
-
   }
 
   @override
@@ -105,8 +96,8 @@ class _MembersScreenState extends State<MembersScreen> {
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: SafeArea(child:
-        Column(children: [
+        body: SafeArea(
+            child: Column(children: [
           Padding(
             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(

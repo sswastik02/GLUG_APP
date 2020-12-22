@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 class EventInfo extends StatefulWidget {
   final Event event;
   var hash;
-  EventInfo({Key key, @required this.event,this.hash}) : super(key: key);
+  EventInfo({Key key, @required this.event, this.hash}) : super(key: key);
 
   @override
   _MyClassState createState() => _MyClassState(event);
@@ -40,7 +40,6 @@ class _MyClassState extends State<EventInfo> {
   @override
   void initState() {
     _provider = new FirestoreProvider();
-    _initInterested();
     super.initState();
   }
 
@@ -48,13 +47,6 @@ class _MyClassState extends State<EventInfo> {
   void dispose() {
     _provider = null;
     super.dispose();
-  }
-
-  void _initInterested() async {
-    var ins = await _provider.isInterested(event.title);
-    setState(() {
-      _isInterested = ins;
-    });
   }
 
   String _getTime(String timing) {
@@ -120,49 +112,6 @@ class _MyClassState extends State<EventInfo> {
     );
   }
 
-  Widget _interestedButton() {
-    return FlatButton(
-        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-        color: Colors.deepOrangeAccent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
-        ),
-        child: Wrap(
-          direction: Axis.horizontal,
-          spacing: 0,
-          children: <Widget>[
-            Text(
-              "Interested",
-              style: TextStyle(
-                fontFamily: "Montserrat",
-                color: Colors.white,
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Icon(
-              // Icons.favorite_border,
-              _isInterested ? Icons.favorite : Icons.favorite_border,
-              size: 20.0,
-              color: Colors.white,
-            ),
-          ],
-        ),
-        onPressed: () {
-          setState(() {
-            if (!_isInterested) {
-              _provider.addInterested(event.title.toString());
-            } else {
-              _provider.removeInterested(event.title.toString());
-            }
-            _isInterested = !_isInterested;
-          });
-        });
-  }
-
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -178,9 +127,9 @@ class _MyClassState extends State<EventInfo> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-           // Hero(
+            // Hero(
             //  tag: widget.hash,
-             // child:
+            // child:
             Container(
               constraints: BoxConstraints.expand(
                 height: 250.0,
@@ -211,7 +160,6 @@ class _MyClassState extends State<EventInfo> {
                       },
                     ),
                   ),
-
                   Container(
                     margin: EdgeInsets.only(bottom: 20.0),
                     height: 50.0,
@@ -227,7 +175,7 @@ class _MyClassState extends State<EventInfo> {
                   ),
                 ],
               ),
-            ),//),
+            ), //),
             SizedBox(
               height: 20.0,
             ),

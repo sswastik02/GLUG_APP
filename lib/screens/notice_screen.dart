@@ -5,7 +5,6 @@ import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/blocs/notices_bloc.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/starred_notices.dart';
-import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notices_tile.dart';
 

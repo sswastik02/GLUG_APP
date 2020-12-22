@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:glug_app/widgets/drawer_items.dart';
 
 class AboutUS extends StatelessWidget {
   Widget _getTitle(String m) {
@@ -44,11 +43,8 @@ class AboutUS extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        drawer: Drawer(
-          child: DrawerItems(),
-        ),
-        body: SafeArea(child:
-        Column(children: [
+        body: SafeArea(
+            child: Column(children: [
           Padding(
             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 import 'package:flutter/material.dart';
 import 'package:glug_app/blocs/blogPosts_bloc.dart';
@@ -12,9 +11,7 @@ import 'package:glug_app/models/blog_post_model.dart';
 import 'package:glug_app/models/blog_response.dart';
 import 'package:glug_app/models/event_model.dart';
 import 'package:glug_app/models/event_response.dart';
-import 'package:glug_app/screens/blog.dart';
 import 'package:glug_app/screens/event_info.dart';
-import 'package:glug_app/widgets/drawer_items.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:glug_app/screens/club_activity_search.dart';
@@ -49,10 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-   int i=0;
+  int i = 0;
   String getRandString(int len) {
     var random = Random.secure();
-    var values = List<int>.generate(len, (i) =>  random.nextInt(255));
+    var values = List<int>.generate(len, (i) => random.nextInt(255));
     return base64UrlEncode(values);
   }
 
@@ -61,43 +58,37 @@ class _HomeScreenState extends State<HomeScreen> {
     events.removeWhere((event) => DateTime.parse(event.event_timing)
         .toLocal()
         .isBefore(DateTime(DateTime.now().year - 1, 1, 1).toLocal()));
-    List<Widget> eventWidgets = events
-        .map(
-          (item){
-           var random = getRandString(10);
-           print(events.length);
-            return
-            GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EventInfo(event: item,hash:random),
-                  ));
-            },
-            child: Stack(
-              children:[
-
-                //Hero(tag: random, child:
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    image: DecorationImage(
-                      image: item.event_image != null
-                          ? CachedNetworkImageProvider(
-                        item.event_image,
-                      )
-                          : AssetImage("images/glug_logo.jpeg"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+    List<Widget> eventWidgets = events.map((item) {
+      var random = getRandString(10);
+      print(events.length);
+      return GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EventInfo(event: item, hash: random),
+                ));
+          },
+          child: Stack(children: [
+            //Hero(tag: random, child:
+            Container(
+              alignment: Alignment.bottomCenter,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.0),
+                image: DecorationImage(
+                  image: item.event_image != null
+                      ? CachedNetworkImageProvider(
+                          item.event_image,
+                        )
+                      : AssetImage("images/glug_logo.jpeg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-               // ),
+            // ),
 
             Container(
               alignment: Alignment.bottomCenter,
-
               child: Container(
                 height: 50.0,
                 child: Center(
@@ -120,10 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            ]
-          ));}
-        )
-        .toList();
+          ]));
+    }).toList();
 
     return eventWidgets;
   }
@@ -141,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Stack(children: [
                 Hero(
-                    tag: item.title+item.thumbnail_image,
+                    tag: item.title + item.thumbnail_image,
                     child: Container(
                       alignment: Alignment.bottomCenter,
                       decoration: BoxDecoration(

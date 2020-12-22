@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:glug_app/models/blog_post_model.dart';
-import 'package:glug_app/models/event_model.dart';
 import 'package:date_format/date_format.dart';
 import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,7 +39,6 @@ class _MyClassState extends State<BlogInfo> {
   @override
   void initState() {
     _provider = new FirestoreProvider();
-    _initInterested();
     super.initState();
   }
 
@@ -48,13 +46,6 @@ class _MyClassState extends State<BlogInfo> {
   void dispose() {
     _provider = null;
     super.dispose();
-  }
-
-  void _initInterested() async {
-    var ins = await _provider.isInterested(post.title);
-    setState(() {
-      _isInterested = ins;
-    });
   }
 
   String _getTime(String timing) {
@@ -120,49 +111,6 @@ class _MyClassState extends State<BlogInfo> {
     );
   }
 
-  Widget _interestedButton() {
-    return FlatButton(
-        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-        color: Colors.deepOrangeAccent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
-        ),
-        child: Wrap(
-          direction: Axis.horizontal,
-          spacing: 0,
-          children: <Widget>[
-            Text(
-              "Interested",
-              style: TextStyle(
-                fontFamily: "Montserrat",
-                color: Colors.white,
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Icon(
-              // Icons.favorite_border,
-              _isInterested ? Icons.favorite : Icons.favorite_border,
-              size: 20.0,
-              color: Colors.white,
-            ),
-          ],
-        ),
-        onPressed: () {
-          setState(() {
-            if (!_isInterested) {
-              _provider.addInterested(post.title.toString());
-            } else {
-              _provider.removeInterested(post.title.toString());
-            }
-            _isInterested = !_isInterested;
-          });
-        });
-  }
-
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -180,7 +128,7 @@ class _MyClassState extends State<BlogInfo> {
           children: <Widget>[
             Stack(children: [
               Hero(
-                tag: post.title+post.thumbnail_image,
+                tag: post.title + post.thumbnail_image,
                 child: Container(
                   alignment: Alignment.bottomLeft,
                   constraints: BoxConstraints.expand(
