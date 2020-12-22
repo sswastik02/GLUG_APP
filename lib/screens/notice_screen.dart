@@ -7,6 +7,7 @@ import 'package:glug_app/resources/firestore_provider.dart';
 import 'package:glug_app/screens/starred_notices.dart';
 import 'package:glug_app/widgets/error_widget.dart';
 import 'package:glug_app/widgets/notices_tile.dart';
+import 'package:glug_app/widgets/loader.dart';
 
 class NoticeScreen extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
   StreamController _streamController;
   Stream _stream;
   var _userEmail = "";
+  BuildContext loaderCotext;
 
   void changeNoticeType(String noticeType) {
     noticeBloc.fetchCalledNotice(noticeType);
@@ -41,6 +43,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
     });
   }
 
+
+
   @override
   void initState() {
     _dropdownvalue = "General";
@@ -55,6 +59,41 @@ class _NoticeScreenState extends State<NoticeScreen> {
     super.initState();
   }
 
+
+
+  _showLoader(context) async {
+     await showDialog(
+      context: context,
+      builder: (context) {
+        loaderCotext=context;
+        return Dialog(
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          elevation: 5.0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            height: MediaQuery.of(context).size.width * 0.55,
+            width:MediaQuery.of(context).size.width * 0.55 ,
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Theme.of(context).primaryColor == Colors.black
+                  ? Colors.blueGrey[900]
+                  : Colors.white.withOpacity(0.95),
+              borderRadius: BorderRadius.circular(15.0),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black, offset: Offset(0, 5), blurRadius: 10),
+              ],
+            ),
+            child: Loader(),
+          ),
+        );
+      },
+    );
+  }
+
+
   @override
   void dispose() {
     //noticeBloc.dispose();
@@ -62,8 +101,10 @@ class _NoticeScreenState extends State<NoticeScreen> {
   }
 
   void _getStaredList() async {
+
     _startedLista = await _provider.fetchStaredNoticeTitle();
     _streamController.sink.add(_startedLista);
+
   }
 
   @override
@@ -156,11 +197,13 @@ class _NoticeScreenState extends State<NoticeScreen> {
                       stream: _stream, //noticeBloc.noticeCategories,
                       builder: (context, AsyncSnapshot<dynamic> snapshot1) {
                         if (snapshot1.hasData) {
+                          //
                           return StreamBuilder(
                               stream: noticeBloc.noticeCategories,
                               builder: (context,
                                   AsyncSnapshot<List<Academic>> snapshot) {
                                 if (snapshot.hasData) {
+                                  Navigator.pop(loaderCotext);
                                   noticeType = snapshot.data;
                                   return ListView.builder(
                                     padding: EdgeInsets.symmetric(
@@ -196,13 +239,16 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                   return errorWidget(snapshot.error);
                                 } else {
                                   return Center(
-                                      child: CircularProgressIndicator());
+                                      child: SizedBox(height: 10,),
+                                  );
                                 }
                               });
                         } else if (snapshot1.hasError) {
                           return errorWidget(snapshot1.error);
                         } else {
-                          return Center(child: CircularProgressIndicator());
+
+                          return SizedBox(height: 10,);
+                          //Center(child: CircularProgressIndicator());
                         }
                       }),
                 ),
