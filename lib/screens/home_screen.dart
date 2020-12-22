@@ -16,6 +16,8 @@ import 'package:glug_app/widgets/error_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:glug_app/screens/club_activity_search.dart';
 
+import 'blog_info.dart';
+
 class HomeScreen extends StatefulWidget {
   static final id = 'homescreen';
 
@@ -110,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Blog(post: item),
+                    builder: (context) => BlogInfo(post: item),
                   ));
             },
             child: Container(
