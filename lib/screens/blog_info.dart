@@ -178,52 +178,63 @@ class _MyClassState extends State<BlogInfo> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              constraints: BoxConstraints.expand(
-                height: 250.0,
-              ),
-              alignment: Alignment.bottomLeft,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: post.thumbnail_image != null
-                      ? CachedNetworkImageProvider(post.thumbnail_image)
-                      : AssetImage('images/glug_logo.jpeg'),
-                  fit: BoxFit.cover,
+            Stack(children: [
+              Hero(
+                tag: post.title+post.thumbnail_image,
+                child: Container(
+                  alignment: Alignment.bottomLeft,
+                  constraints: BoxConstraints.expand(
+                    height: 250.0,
+                  ),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: post.thumbnail_image != null
+                          ? CachedNetworkImageProvider(post.thumbnail_image)
+                          : AssetImage('images/glug_logo.jpeg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
-              child: Wrap(
-                direction: Axis.vertical,
-                spacing: 10,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(bottom: 90.0),
-                    height: 50.0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                      ),
-                      color: Colors.white,
-                      onPressed: () {
-                        Navigator.of(context).pop(true);
-                      },
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20.0),
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.5),
-                      // color: Color.fromARGB(210, 255, 255, 255),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(50.0),
-                        bottomRight: Radius.circular(50.0),
+              Container(
+                constraints: BoxConstraints.expand(
+                  height: 250.0,
+                ),
+                alignment: Alignment.bottomLeft,
+                child: Wrap(
+                  direction: Axis.vertical,
+                  spacing: 10,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(bottom: 90.0),
+                      height: 50.0,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                        ),
+                        color: Colors.white,
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        },
                       ),
                     ),
-                    child: _getDate(post.date_to_show),
-                  ),
-                ],
+                    Container(
+                      margin: EdgeInsets.only(bottom: 20.0),
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor.withOpacity(0.5),
+                        // color: Color.fromARGB(210, 255, 255, 255),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(50.0),
+                          bottomRight: Radius.circular(50.0),
+                        ),
+                      ),
+                      child: _getDate(post.date_to_show),
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ]),
             SizedBox(
               height: 20.0,
             ),

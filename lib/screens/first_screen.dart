@@ -215,13 +215,14 @@ class _FirstScreenState extends State<FirstScreen> {
             //   ),
             // ),
             body: SafeArea(
-              child: Column(
+              child:
+              Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: isDrawerOpen
                             ? SizedBox()
                             : IconButton(

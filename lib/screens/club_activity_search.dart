@@ -109,8 +109,10 @@ class _ClubActivitySearch extends State<ClubActivitySearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-            padding: EdgeInsets.all(30),
+        body: SafeArea(
+        child:
+        Padding(
+            padding: EdgeInsets.all(10),
             child: Column(
               children: [
                 TextFormField(
@@ -135,6 +137,7 @@ class _ClubActivitySearch extends State<ClubActivitySearch> {
                     }))
               ],
             )),
+    )
     );
   }
 }

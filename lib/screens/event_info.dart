@@ -8,7 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class EventInfo extends StatefulWidget {
   final Event event;
-  EventInfo({Key key, @required this.event}) : super(key: key);
+  var hash;
+  EventInfo({Key key, @required this.event,this.hash}) : super(key: key);
 
   @override
   _MyClassState createState() => _MyClassState(event);
@@ -177,6 +178,9 @@ class _MyClassState extends State<EventInfo> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+           // Hero(
+            //  tag: widget.hash,
+             // child:
             Container(
               constraints: BoxConstraints.expand(
                 height: 250.0,
@@ -207,6 +211,7 @@ class _MyClassState extends State<EventInfo> {
                       },
                     ),
                   ),
+
                   Container(
                     margin: EdgeInsets.only(bottom: 20.0),
                     height: 50.0,
@@ -222,7 +227,7 @@ class _MyClassState extends State<EventInfo> {
                   ),
                 ],
               ),
-            ),
+            ),//),
             SizedBox(
               height: 20.0,
             ),

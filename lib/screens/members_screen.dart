@@ -44,7 +44,27 @@ class _MembersScreenState extends State<MembersScreen> {
     super.dispose();
   }
 
+  List<Profile> p;
+
   void _group(List<Profile> profiles) {
+    p= new List();
+    profiles.forEach((element) {
+      p.add(element);
+    });
+
+    p.forEach((profile) {
+      if(profile.yearName==2) {
+        if (contributors.contains(profile.firstName)) {
+          _contributors.add(ProfileTile(
+            profile: profile,
+            isContributor: true,
+          ));
+        }
+      }
+    });
+
+
+    profiles.sort((a, b) => a.firstName.compareTo(b.firstName));
     profiles.forEach((profile) {
 
       if (profile.yearName == 2) {
@@ -59,14 +79,7 @@ class _MembersScreenState extends State<MembersScreen> {
 
     });
 
-    _secondYears.forEach((profileTile) {
-      if (contributors.contains(profileTile.profile.firstName)) {
-        _contributors.add(ProfileTile(
-          profile: profileTile.profile,
-          isContributor: true,
-        ));
-      }
-    });
+
     _thirdYears.forEach((profileTile) {
       if (contributors.contains(profileTile.profile.firstName)) {
         _contributors.add(ProfileTile(
@@ -83,6 +96,8 @@ class _MembersScreenState extends State<MembersScreen> {
         ));
       }
     });
+
+
   }
 
   @override

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
@@ -46,6 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+   int i=0;
+  String getRandString(int len) {
+    var random = Random.secure();
+    var values = List<int>.generate(len, (i) =>  random.nextInt(255));
+    return base64UrlEncode(values);
+  }
+
   _buildEventList(List<Event> events) {
     events.removeWhere((event) => event.title == null);
     events.removeWhere((event) => DateTime.parse(event.event_timing)
@@ -53,27 +63,41 @@ class _HomeScreenState extends State<HomeScreen> {
         .isBefore(DateTime(DateTime.now().year - 1, 1, 1).toLocal()));
     List<Widget> eventWidgets = events
         .map(
-          (item) => GestureDetector(
+          (item){
+           var random = getRandString(10);
+           print(events.length);
+            return
+            GestureDetector(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => EventInfo(event: item),
+                    builder: (context) => EventInfo(event: item,hash:random),
                   ));
             },
-            child: Container(
+            child: Stack(
+              children:[
+
+                //Hero(tag: random, child:
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    image: DecorationImage(
+                      image: item.event_image != null
+                          ? CachedNetworkImageProvider(
+                        item.event_image,
+                      )
+                          : AssetImage("images/glug_logo.jpeg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+            ),
+               // ),
+
+            Container(
               alignment: Alignment.bottomCenter,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                image: DecorationImage(
-                  image: item.event_image != null
-                      ? CachedNetworkImageProvider(
-                          item.event_image,
-                        )
-                      : AssetImage("images/glug_logo.jpeg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+
               child: Container(
                 height: 50.0,
                 child: Center(
@@ -96,7 +120,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-          ),
+            ]
+          ));}
         )
         .toList();
 
@@ -106,53 +131,58 @@ class _HomeScreenState extends State<HomeScreen> {
   _buildBlogList(List<BlogPost> blogs) {
     blogs.removeWhere((blog) => blog.title == null);
     List<Widget> blogWidgets = blogs
-        .map(
-          (item) => GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BlogInfo(post: item),
-                  ));
-            },
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                image: DecorationImage(
-                  image: item.thumbnail_image != null
-                      ? CachedNetworkImageProvider(
-                          item.thumbnail_image,
-                        )
-                      : AssetImage("images/glug_logo.jpeg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Container(
-                height: 50.0,
-                child: Center(
-                  child: Text(
-                    item.title,
-                    style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
+        .map((item) => GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlogInfo(post: item),
+                    ));
+              },
+              child: Stack(children: [
+                Hero(
+                    tag: item.title+item.thumbnail_image,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        image: DecorationImage(
+                          image: item.thumbnail_image != null
+                              ? CachedNetworkImageProvider(
+                                  item.thumbnail_image,
+                                )
+                              : AssetImage("images/glug_logo.jpeg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 50.0,
+                    child: Center(
+                      child: Text(
+                        item.title,
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    overflow: TextOverflow.ellipsis,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                      ),
+                      color: Theme.of(context).primaryColor.withOpacity(0.5),
+                      // color: Color.fromARGB(225, 255, 255, 255),
+                    ),
                   ),
                 ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
-                  ),
-                  color: Theme.of(context).primaryColor.withOpacity(0.5),
-                  // color: Color.fromARGB(225, 255, 255, 255),
-                ),
-              ),
-            ),
-          ),
-        )
+              ]),
+            ))
         .toList();
 
     return blogWidgets;
@@ -162,8 +192,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: SafeArea(child:
-        Column(children: [
+        body: SafeArea(
+            child: Column(children: [
           Padding(
             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: Row(
