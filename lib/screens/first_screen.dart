@@ -64,7 +64,7 @@ class _FirstScreenState extends State<FirstScreen> {
         margin: EdgeInsets.symmetric(
             vertical: MediaQuery.of(context).size.width * 0.02),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -90,7 +90,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 }
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                 height: screenHeight * 0.65,
                 width: screenWidth * 0.88,
                 child: Column(
