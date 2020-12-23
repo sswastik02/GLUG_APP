@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: "Nexa-Bold",
-                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontSize: MediaQuery.of(context).size.width * 0.052,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: "Nexa-Bold",
-                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontSize: MediaQuery.of(context).size.width * 0.052,
                             fontWeight: FontWeight.bold,
                             color: Colors.deepOrange),
                       ),
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: "Nexa-Bold",
-                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontSize: MediaQuery.of(context).size.width * 0.052,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: "Nexa-Bold",
-                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontSize: MediaQuery.of(context).size.width * 0.052,
                             fontWeight: FontWeight.bold,
                             color: Colors.deepOrange),
                       ),

@@ -17,7 +17,7 @@ class AboutUS extends StatelessWidget {
       m.substring(0, 3),
       style: TextStyle(
         fontFamily: "Nexa-Bold",
-        fontSize: MediaQuery.of(context).size.height * 0.03,
+        fontSize: MediaQuery.of(context).size.width * 0.052,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -25,7 +25,7 @@ class AboutUS extends StatelessWidget {
       m.substring(3, 5),
       style: TextStyle(
         fontFamily: "Nexa-Bold",
-        fontSize: MediaQuery.of(context).size.height * 0.03,
+        fontSize: MediaQuery.of(context).size.width * 0.052,
         color: Colors.deepOrange,
         fontWeight: FontWeight.bold,
       ),
@@ -34,7 +34,7 @@ class AboutUS extends StatelessWidget {
       m.substring(5),
       style: TextStyle(
         fontFamily: "Nexa-Bold",
-        fontSize: MediaQuery.of(context).size.height * 0.03,
+        fontSize: MediaQuery.of(context).size.width * 0.052,
         color: Colors.deepOrange,
         fontWeight: FontWeight.bold,
       ),
@@ -75,7 +75,7 @@ class AboutUS extends StatelessWidget {
                     'About Us',
                     style: TextStyle(
                       fontFamily: "Nexa-Bold",
-                      fontSize: MediaQuery.of(context).size.height * 0.03,
+                      fontSize: MediaQuery.of(context).size.width * 0.052,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -112,7 +112,7 @@ class AboutUS extends StatelessWidget {
                   Text(
                       "Being a bunch of FOSS enthusiasts, we promote the idea of “free things are the best things”. We strive to elevate the tech culture in our college and believe that this can only be done by giving people digital resources and knowledge in all realms from hardware to software and data to design."),
                   SizedBox(
-                    height: 10,
+                    height: MediaQuery.of(context).size.height * 0.05,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

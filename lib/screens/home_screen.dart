@@ -99,7 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     item.title,
                     style: TextStyle(
-                      fontFamily: "Montserrat",
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -157,7 +156,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         item.title,
                         style: TextStyle(
-                          fontFamily: "Montserrat",
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -209,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Club Activities',
                         style: TextStyle(
                           fontFamily: "Nexa-Bold",
-                          fontSize: MediaQuery.of(context).size.height * 0.03,
+                          fontSize: MediaQuery.of(context).size.width * 0.052,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -258,8 +256,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                     fontFamily: "Nexa-Bold",
                                     fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                        MediaQuery.of(context).size.width *
+                                            0.052,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
@@ -268,8 +266,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                     fontFamily: "Nexa-Bold",
                                     fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                        MediaQuery.of(context).size.width *
+                                            0.052,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -279,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   fontFamily: "Nexa-Bold",
                                   fontSize:
-                                      MediaQuery.of(context).size.height * 0.03,
+                                      MediaQuery.of(context).size.width * 0.052,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -295,10 +293,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               snapshot.data.error.length > 0)
                             return errorWidget(snapshot.data.error);
 
-                          loadCount++;
-                          if (loadCount >= 3) {
-                            loader.dismiss();
-                          }
+                          // loadCount++;
+                          // if (loadCount >= 3) {
+                          //   loader.dismiss();
+                          // }
 
                           return CarouselSlider(
                             items: _buildEventList(snapshot.data.events),
@@ -319,8 +317,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);
                         } else
-                          loader.showLoader(context);
-                        return SizedBox(height: 10);
+                          return Center(child: CircularProgressIndicator());
+                        //   loader.showLoader(context);
+                        // return SizedBox(height: 10);
                       }),
                   SizedBox(
                     height: 20.0,
@@ -339,8 +338,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                     fontFamily: "Nexa-Bold",
                                     fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                        MediaQuery.of(context).size.width *
+                                            0.052,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
@@ -349,8 +348,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                     fontFamily: "Nexa-Bold",
                                     fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                        MediaQuery.of(context).size.width *
+                                            0.052,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -360,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   fontFamily: "Nexa-Bold",
                                   fontSize:
-                                      MediaQuery.of(context).size.height * 0.03,
+                                      MediaQuery.of(context).size.width * 0.052,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -376,9 +375,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               snapshot.data.error.length > 0)
                             return errorWidget(snapshot.data.error);
                           loadCount++;
-                          if (loadCount >= 3) {
-                            loader.dismiss();
-                          }
+                          // if (loadCount >= 3) {
+                          //   loader.dismiss();
+                          // }
 
                           eventsList = snapshot.data.events;
                           return CarouselSlider(
@@ -400,9 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);
                         } else
-                          return SizedBox(
-                            height: 0,
-                          );
+                          return Center(child: CircularProgressIndicator());
                       }),
                   SizedBox(
                     height: 20.0,
@@ -421,8 +418,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                     fontFamily: "Nexa-Bold",
                                     fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                        MediaQuery.of(context).size.width *
+                                            0.052,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal),
                               ),
@@ -431,8 +428,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                     fontFamily: "Nexa-Bold",
                                     fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.03,
+                                        MediaQuery.of(context).size.width *
+                                            0.052,
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FontStyle.normal,
                                     color: Colors.deepOrange),
@@ -442,7 +439,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(
                                   fontFamily: "Nexa-Bold",
                                   fontSize:
-                                      MediaQuery.of(context).size.height * 0.03,
+                                      MediaQuery.of(context).size.width * 0.052,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.normal,
                                 ),
@@ -456,10 +453,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (snapshot.data.error != null &&
                               snapshot.data.error.length > 0)
                             return errorWidget(snapshot.data.error);
-                          loadCount++;
-                          if (loadCount >= 3) {
-                            loader.dismiss();
-                          }
+                          // loadCount++;
+                          // if (loadCount >= 3) {
+                          //   loader.dismiss();
+                          // }
                           return CarouselSlider(
                             items: _buildBlogList(snapshot.data.blogPosts),
                             options: CarouselOptions(
@@ -479,9 +476,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasError) {
                           return errorWidget(snapshot.error);
                         } else
-                          return SizedBox(
-                            height: 0,
-                          );
+                          return Center(child: CircularProgressIndicator());
                       }),
                   SizedBox(
                     height: 10.0,

@@ -101,7 +101,7 @@ class ContactUs extends StatelessWidget {
                   'Contact Us',
                   style: TextStyle(
                     fontFamily: "Nexa-Bold",
-                    fontSize: MediaQuery.of(context).size.height * 0.03,
+                    fontSize: MediaQuery.of(context).size.width * 0.052,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

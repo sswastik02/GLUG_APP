@@ -24,8 +24,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
   StreamController _streamController;
   Stream _stream;
   var _userEmail = "";
- Loader loader;
- int loadCount=0;
+  Loader loader;
+  int loadCount = 0;
 
   void changeNoticeType(String noticeType) {
     noticeBloc.fetchCalledNotice(noticeType);
@@ -58,7 +58,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
     loader = Loader();
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -100,7 +99,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                         'Notices',
                         style: TextStyle(
                             fontFamily: "Nexa-Bold",
-                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontSize: MediaQuery.of(context).size.width * 0.052,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -162,7 +161,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                       builder: (context, AsyncSnapshot<dynamic> snapshot1) {
                         if (snapshot1.hasData) {
                           loadCount++;
-                          if(loadCount>=2){
+                          if (loadCount >= 2) {
                             loader.dismiss();
                           }
                           return StreamBuilder(
@@ -170,10 +169,10 @@ class _NoticeScreenState extends State<NoticeScreen> {
                               builder: (context,
                                   AsyncSnapshot<List<Academic>> snapshot) {
                                 if (snapshot.hasData) {
-                                  loadCount++;
-                                  if(loadCount>=2){
-                                    loader.dismiss();
-                                  }
+                                  // loadCount++;
+                                  // if (loadCount >= 2) {
+                                  //   loader.dismiss();
+                                  // }
                                   noticeType = snapshot.data;
                                   return ListView.builder(
                                     padding: EdgeInsets.symmetric(
@@ -218,10 +217,11 @@ class _NoticeScreenState extends State<NoticeScreen> {
                         } else if (snapshot1.hasError) {
                           return errorWidget(snapshot1.error);
                         } else {
-                          loader.showLoader(context);
-                          return SizedBox(
-                            height: 10,
-                          );
+                          return Center(child: CircularProgressIndicator());
+                          // loader.showLoader(context);
+                          // return SizedBox(
+                          //   height: 10,
+                          // );
                           //Center(child: CircularProgressIndicator());
                         }
                       }),

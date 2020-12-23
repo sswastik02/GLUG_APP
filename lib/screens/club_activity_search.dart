@@ -77,7 +77,6 @@ class _ClubActivitySearch extends State<ClubActivitySearch> {
                       child: Text(
                         item.title,
                         style: TextStyle(
-                          fontFamily: "Montserrat",
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -103,30 +102,59 @@ class _ClubActivitySearch extends State<ClubActivitySearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         body: SafeArea(
-      child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: TextFormField(
-                    autofocus: true,
-                    decoration: InputDecoration(hintText: "Search for events"),
-                    onChanged: (value) => {_filter(value)}),
-              ),
-              Expanded(
-                  child: StreamBuilder(
-                      stream: _stream,
-                      builder: (context, snapshot) {
-                        return Expanded(
-                          child: ListView(
-                            children: _buildEventList(snapshot.data),
+          child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            icon: Icon(
+                              Icons.arrow_back,
+                              size: 30,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            }),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          'Search',
+                          style: TextStyle(
+                            fontFamily: "Nexa-Bold",
+                            fontSize: MediaQuery.of(context).size.width * 0.052,
+                            fontWeight: FontWeight.w700,
                           ),
-                        );
-                      }))
-            ],
-          )),
-    ));
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: TextFormField(
+                        autofocus: true,
+                        decoration:
+                            InputDecoration(hintText: "Search for events"),
+                        onChanged: (value) => {_filter(value)}),
+                  ),
+                  Expanded(
+                      child: StreamBuilder(
+                          stream: _stream,
+                          builder: (context, snapshot) {
+                            // return Expanded(
+                            //   child:
+                            return ListView(
+                              children: _buildEventList(snapshot.data),
+                            );
+                            // );
+                          }))
+                ],
+              )),
+        ));
   }
 }

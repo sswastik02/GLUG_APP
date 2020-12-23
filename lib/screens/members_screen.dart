@@ -37,7 +37,7 @@ class _MembersScreenState extends State<MembersScreen> {
   @override
   void initState() {
     profilesBloc.fetchAllProfiles();
-    loader=Loader();
+    loader = Loader();
     super.initState();
   }
 
@@ -121,7 +121,7 @@ class _MembersScreenState extends State<MembersScreen> {
                   'Our Team',
                   style: TextStyle(
                     fontFamily: "Nexa-Bold",
-                    fontSize: MediaQuery.of(context).size.height * 0.03,
+                    fontSize: MediaQuery.of(context).size.width * 0.052,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -246,7 +246,10 @@ class _MembersScreenState extends State<MembersScreen> {
                 return errorWidget(snapshot.error);
               } else
                 loader.showLoader(context);
-                return Center(child:SizedBox(height: 10,));
+              return Center(
+                  child: SizedBox(
+                height: 10,
+              ));
             },
           ))
         ])));

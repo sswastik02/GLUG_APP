@@ -88,7 +88,7 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                       'Starred Notices',
                       style: TextStyle(
                           fontFamily: "Nexa-Bold",
-                          fontSize: MediaQuery.of(context).size.height * 0.03,
+                          fontSize: MediaQuery.of(context).size.width * 0.052,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -103,7 +103,7 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                           stream: _stream, //noticeBloc.noticeCategories,
                           builder: (context, AsyncSnapshot<dynamic> snapshot) {
                             if (snapshot.hasData) {
-                              loader.dismiss();
+                              // loader.dismiss();
                               notices = snapshot.data;
                               notices = notices.toList();
                               return ListView.builder(
@@ -119,8 +119,11 @@ class _StarredNoticeScreenState extends State<StarredNoticeScreen> {
                             } else if (snapshot.hasError) {
                               return errorWidget(snapshot.error);
                             } else {
-                              loader.showLoader(context);
-                              return SizedBox(height: 1,);
+                              return Center(child: CircularProgressIndicator());
+                              // loader.showLoader(context);
+                              // return SizedBox(
+                              //   height: 1,
+                              // );
                             }
                           }),
                     ),

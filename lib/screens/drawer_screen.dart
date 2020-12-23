@@ -273,8 +273,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                                               fontSize: MediaQuery.of(
                                                                           context)
                                                                       .size
-                                                                      .height *
-                                                                  0.03,
+                                                                      .width *
+                                                                  0.052,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w700,

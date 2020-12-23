@@ -54,68 +54,67 @@ class _FirebaseMessagingDemoAppState extends State<FirebaseMessagingDemoApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: SafeArea(child:
-      Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            child: Row(
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      size: 30,
+        backgroundColor: Theme.of(context).primaryColor,
+        body: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Row(
+                  children: [
+                    IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop(true);
+                        }),
+                    SizedBox(
+                      width: 20,
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop(true);
-                    }),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  'Notifications',
-                  style: TextStyle(
-                    fontFamily: "Nexa-Bold",
-                    fontSize: MediaQuery.of(context).size.height * 0.03,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: _messages.isEmpty
-                ? Container(
-                    child: Center(
-                      child: Text(
-                        "No notifications to show",
-                        style: TextStyle(fontSize: 20.0),
+                    Text(
+                      'Notifications',
+                      style: TextStyle(
+                        fontFamily: "Nexa-Bold",
+                        fontSize: MediaQuery.of(context).size.width * 0.052,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )
-                : ListView.builder(
-                    itemCount: _messages == null ? 0 : _messages.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 5.0,
-                        child: Padding(
-                          padding: EdgeInsets.all(15.0),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: _messages.isEmpty
+                    ? Container(
+                        child: Center(
                           child: Text(
-                            _messages[index].message,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                            ),
+                            "No notifications to show",
+                            style: TextStyle(fontSize: 20.0),
                           ),
                         ),
-                      );
-                    },
-                  ),
+                      )
+                    : ListView.builder(
+                        itemCount: _messages == null ? 0 : _messages.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 5.0,
+                            child: Padding(
+                              padding: EdgeInsets.all(15.0),
+                              child: Text(
+                                _messages[index].message,
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+              ),
+            ],
           ),
-        ],
-      ),
-    )
-    );
+        ));
   }
 }
 
