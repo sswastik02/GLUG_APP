@@ -160,10 +160,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
                       stream: _stream, //noticeBloc.noticeCategories,
                       builder: (context, AsyncSnapshot<dynamic> snapshot1) {
                         if (snapshot1.hasData) {
-                          loadCount++;
-                          if (loadCount >= 2) {
-                            loader.dismiss();
-                          }
                           return StreamBuilder(
                               stream: noticeBloc.noticeCategories,
                               builder: (context,
@@ -208,9 +204,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                   return errorWidget(snapshot.error);
                                 } else {
                                   return Center(
-                                    child: SizedBox(
-                                      height: 10,
-                                    ),
+                                    child:Center(child: CircularProgressIndicator())
                                   );
                                 }
                               });

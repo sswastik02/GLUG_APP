@@ -13,6 +13,7 @@ import 'package:glug_app/widgets/loader_w.dart';
 class NoticeTile extends StatefulWidget {
   final Academic notice;
   bool noticeStarred;
+
   final ValueChanged<Academic> onUnStar;
 
    NoticeTile({Key key, @required this.notice,this.noticeStarred,this.onUnStar})
@@ -26,11 +27,13 @@ class _NoticeTileState extends State<NoticeTile> {
   FirestoreProvider _provider;
 
   Loader loader;
+  ProgressDialog progressDialog;
   @override
   void initState() {
     super.initState();
     _provider = new FirestoreProvider();
 
+    progressDialog=ProgressDialog(context);
     loader =Loader();
 
     // _initStarred();
@@ -81,9 +84,9 @@ class _NoticeTileState extends State<NoticeTile> {
       ),
       child: ListTile(
         onTap: () async {
-          loader.showLoader(context);
+          progressDialog.show();
           File pdfFile = await _getFileFromUrl();
-          loader.dismiss();
+          progressDialog.hide();
           pdfFile != null
               ? Navigator.push(
                   context,

@@ -19,6 +19,7 @@ class _MembersScreenState extends State<MembersScreen> {
   List<ProfileTile> _secondYears = [];
   List<ProfileTile> _contributors = [];
 
+
   Loader loader;
 
   List contributors = [
@@ -38,6 +39,7 @@ class _MembersScreenState extends State<MembersScreen> {
   void initState() {
     profilesBloc.fetchAllProfiles();
     loader = Loader();
+
     super.initState();
   }
 
@@ -138,7 +140,7 @@ class _MembersScreenState extends State<MembersScreen> {
                   return errorWidget(snapshot.data.error);
                 }
                 _group(snapshot.data.profiles);
-                loader.dismiss();
+               // loader.dismiss();
 
                 return SingleChildScrollView(
                   child: Column(
@@ -245,11 +247,10 @@ class _MembersScreenState extends State<MembersScreen> {
               } else if (snapshot.hasError) {
                 return errorWidget(snapshot.error);
               } else
-                loader.showLoader(context);
+                //loader.showLoader(context);
               return Center(
-                  child: SizedBox(
-                height: 10,
-              ));
+                  child:CircularProgressIndicator()
+              );
             },
           ))
         ])));
