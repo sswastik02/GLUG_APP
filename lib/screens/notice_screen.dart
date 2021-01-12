@@ -204,8 +204,8 @@ class _NoticeScreenState extends State<NoticeScreen> {
                                   return errorWidget(snapshot.error);
                                 } else {
                                   return Center(
-                                    child:Center(child: CircularProgressIndicator())
-                                  );
+                                      child: Center(
+                                          child: CircularProgressIndicator()));
                                 }
                               });
                         } else if (snapshot1.hasError) {

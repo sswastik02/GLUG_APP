@@ -1,7 +1,10 @@
 import 'package:glug_app/models/blog_response.dart';
+import 'package:glug_app/models/devto_model.dart';
+import 'package:glug_app/models/devto_response.dart';
 import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/models/profile_response.dart';
+import 'package:glug_app/models/techbytes_response.dart';
 import 'package:glug_app/resources/api_provider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:glug_app/resources/database_provider.dart';
@@ -91,4 +94,9 @@ class Repository {
       _apiProvider.fetchProfileData();
 
   Future<Notice> fetchAllNotices() async => _apiProvider.fetchNoticeData();
+
+  Future<DevToResponse> fetchAllDevTo() async => _apiProvider.fetchDevToData();
+
+  Future<TechbytesResponse> fetchAllTechbytes() async =>
+      _apiProvider.fetchTechbytesData();
 }

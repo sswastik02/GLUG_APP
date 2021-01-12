@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:glug_app/models/blog_response.dart';
+import 'package:glug_app/models/devto_model.dart';
+import 'package:glug_app/models/devto_response.dart';
 import 'dart:async';
 import 'package:glug_app/models/event_response.dart';
 import 'package:glug_app/models/notice_model.dart';
 import 'package:glug_app/models/profile_response.dart';
+import 'package:glug_app/models/techbytes_model.dart';
+import 'package:glug_app/models/techbytes_response.dart';
 
 class ApiProvider {
   static final String baseURL = "https://api.nitdgplug.org";
@@ -14,11 +20,15 @@ class ApiProvider {
   static final String linitURL = "$baseURL/api/linit/";
   static final String carouselURL = "$baseURL/api/carousel/";
   static final String timelineUrl = "$baseURL/api/timeline/";
+  static final String techbytesURL = "$baseURL/api/techbytes/";
   static final String noticeURL =
       "https://admin.nitdgp.ac.in/academics/notices";
 
   static final String purgoMalumURL =
       "https://www.purgomalum.com/service/json?text";
+
+  static final String devToURL =
+      "https://dev.to/api/articles?username=nitdgplug";
 
   final Dio _dio = new Dio();
 
@@ -89,8 +99,31 @@ class ApiProvider {
   Future<Notice> fetchNoticeData() async {
     try {
       Response response = await _dio.get(noticeURL);
-      print(response.data.toString());
+      //print(response.data.toString());
       return Notice.fromJson(response.data);
+    } catch (error, stackTrace) {
+      print("Exception occured: $error stackTrace: $stackTrace");
+      return null;
+    }
+  }
+
+  //final Dio _dioDev = new Dio();
+  Future<DevToResponse> fetchDevToData() async {
+    try {
+      Response response = await _dio.get(devToURL);
+      print(response.data.toString());
+      return DevToResponse.fromJSON(response.data);
+    } catch (error, stackTrace) {
+      print("Exception occured: $error stackTrace: $stackTrace");
+      return null;
+    }
+  }
+
+  Future<TechbytesResponse> fetchTechbytesData() async {
+    try {
+      Response response = await _dio.get(techbytesURL);
+      print(response.data.toString());
+      return TechbytesResponse.fromJSON(response.data);
     } catch (error, stackTrace) {
       print("Exception occured: $error stackTrace: $stackTrace");
       return null;

@@ -7,9 +7,10 @@ class DevTo {
     this.title,
     this.description,
     this.coverImage,
-    this.published,
-    this.publishedAt,
+    this.readablePublishDate,
+    this.socialImage,
     this.tagList,
+    this.tags,
     this.slug,
     this.path,
     this.url,
@@ -17,12 +18,15 @@ class DevTo {
     this.commentsCount,
     this.positiveReactionsCount,
     this.publicReactionsCount,
-    this.pageViewsCount,
+    this.collectionId,
+    this.createdAt,
+    this.editedAt,
+    this.crosspostedAt,
+    this.publishedAt,
+    this.lastCommentAt,
     this.publishedTimestamp,
-    this.bodyMarkdown,
     this.user,
     this.organization,
-    this.flareTag,
   });
 
   final String typeOf;
@@ -30,9 +34,10 @@ class DevTo {
   final String title;
   final String description;
   final String coverImage;
-  final bool published;
-  final DateTime publishedAt;
+  final String readablePublishDate;
+  final String socialImage;
   final List<String> tagList;
+  final String tags;
   final String slug;
   final String path;
   final String url;
@@ -40,12 +45,15 @@ class DevTo {
   final int commentsCount;
   final int positiveReactionsCount;
   final int publicReactionsCount;
-  final int pageViewsCount;
+  final dynamic collectionId;
+  final DateTime createdAt;
+  final DateTime editedAt;
+  final dynamic crosspostedAt;
+  final DateTime publishedAt;
+  final DateTime lastCommentAt;
   final DateTime publishedTimestamp;
-  final String bodyMarkdown;
   final User user;
   final Organization organization;
-  final FlareTag flareTag;
 
   factory DevTo.fromRawJson(String str) => DevTo.fromJson(json.decode(str));
 
@@ -57,9 +65,10 @@ class DevTo {
         title: json["title"],
         description: json["description"],
         coverImage: json["cover_image"],
-        published: json["published"],
-        publishedAt: DateTime.parse(json["published_at"]),
+        readablePublishDate: json["readable_publish_date"],
+        socialImage: json["social_image"],
         tagList: List<String>.from(json["tag_list"].map((x) => x)),
+        tags: json["tags"],
         slug: json["slug"],
         path: json["path"],
         url: json["url"],
@@ -67,12 +76,15 @@ class DevTo {
         commentsCount: json["comments_count"],
         positiveReactionsCount: json["positive_reactions_count"],
         publicReactionsCount: json["public_reactions_count"],
-        pageViewsCount: json["page_views_count"],
+        collectionId: json["collection_id"],
+        createdAt: DateTime.parse(json["created_at"]),
+        editedAt: DateTime.parse(json["edited_at"]),
+        crosspostedAt: json["crossposted_at"],
+        publishedAt: DateTime.parse(json["published_at"]),
+        lastCommentAt: DateTime.parse(json["last_comment_at"]),
         publishedTimestamp: DateTime.parse(json["published_timestamp"]),
-        bodyMarkdown: json["body_markdown"],
         user: User.fromJson(json["user"]),
         organization: Organization.fromJson(json["organization"]),
-        flareTag: FlareTag.fromJson(json["flare_tag"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -81,9 +93,10 @@ class DevTo {
         "title": title,
         "description": description,
         "cover_image": coverImage,
-        "published": published,
-        "published_at": publishedAt.toIso8601String(),
+        "readable_publish_date": readablePublishDate,
+        "social_image": socialImage,
         "tag_list": List<dynamic>.from(tagList.map((x) => x)),
+        "tags": tags,
         "slug": slug,
         "path": path,
         "url": url,
@@ -91,41 +104,15 @@ class DevTo {
         "comments_count": commentsCount,
         "positive_reactions_count": positiveReactionsCount,
         "public_reactions_count": publicReactionsCount,
-        "page_views_count": pageViewsCount,
+        "collection_id": collectionId,
+        "created_at": createdAt.toIso8601String(),
+        "edited_at": editedAt.toIso8601String(),
+        "crossposted_at": crosspostedAt,
+        "published_at": publishedAt.toIso8601String(),
+        "last_comment_at": lastCommentAt.toIso8601String(),
         "published_timestamp": publishedTimestamp.toIso8601String(),
-        "body_markdown": bodyMarkdown,
         "user": user.toJson(),
         "organization": organization.toJson(),
-        "flare_tag": flareTag.toJson(),
-      };
-}
-
-class FlareTag {
-  FlareTag({
-    this.name,
-    this.bgColorHex,
-    this.textColorHex,
-  });
-
-  final String name;
-  final String bgColorHex;
-  final String textColorHex;
-
-  factory FlareTag.fromRawJson(String str) =>
-      FlareTag.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory FlareTag.fromJson(Map<String, dynamic> json) => FlareTag(
-        name: json["name"],
-        bgColorHex: json["bg_color_hex"],
-        textColorHex: json["text_color_hex"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "bg_color_hex": bgColorHex,
-        "text_color_hex": textColorHex,
       };
 }
 
