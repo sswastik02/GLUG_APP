@@ -176,6 +176,7 @@ class _DevToScreen extends State<DevToScreen> {
                   ),
                 ]),
           ),
+          Expanded(child:
 
           StreamBuilder(
               stream: devToBloc.alldevArticles,
@@ -192,7 +193,7 @@ class _DevToScreen extends State<DevToScreen> {
                 } else {
                   return Center(child: CircularProgressIndicator());
                 }
-              }),
+              }),)
         ])));
   }
 }
