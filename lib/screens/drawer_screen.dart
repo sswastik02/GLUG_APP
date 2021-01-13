@@ -11,6 +11,8 @@ import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/services/shared_pref_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'devto_screen.dart';
+
 class DrawerScreen extends StatefulWidget {
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
@@ -27,6 +29,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     {'icon': Icons.wc, 'title': "Our team", 'class': MembersScreen()},
     {'icon': Icons.info_outline, 'title': 'About Us', 'class': AboutUS()},
     {'icon': Icons.contacts, 'title': 'Contact Us', 'class': ContactUs()},
+    {'icon': Icons.developer_board, 'title': 'DEV', 'class': DevToScreen()},
   ];
 
   bool isDarkTheme = false;
