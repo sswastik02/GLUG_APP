@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:glug_app/models/themes.dart';
 import 'package:glug_app/screens/about_us_screen.dart';
 import 'package:glug_app/screens/contact_us.dart';
@@ -29,7 +30,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     {'icon': Icons.wc, 'title': "Our team", 'class': MembersScreen()},
     {'icon': Icons.info_outline, 'title': 'About Us', 'class': AboutUS()},
     {'icon': Icons.contacts, 'title': 'Contact Us', 'class': ContactUs()},
-    {'icon': Icons.developer_board, 'title': 'DEV', 'class': DevToScreen()},
+    {'icon': FontAwesomeIcons.dev, 'title': 'DEV', 'class': DevToScreen()},
   ];
 
   bool isDarkTheme = false;
