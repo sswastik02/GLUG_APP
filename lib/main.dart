@@ -1,5 +1,5 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,11 @@ class MainApp extends StatefulWidget {
   _MainApp createState() => _MainApp();
 }
 
+class AppThemes {
+  static const int Light = 0;
+  static const int Dark = 1;
+}
+
 class _MainApp extends State<MainApp> {
   bool _isIntroDone = false;
   bool _isDark = false;
@@ -46,34 +51,41 @@ class _MainApp extends State<MainApp> {
     super.initState();
   }
 
-  Widget _getScreen() {
-    return StreamBuilder<User>(
-      stream: AuthService.authStateChanges,
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData)
-          return Scaffold(
-              body: DoubleBackToCloseApp(
-                  snackBar: const SnackBar(
-                    content: Text('Tap back again to leave'),
-                  ),
-                  child: Stack(
-                    children: [
-                      DrawerScreen(),
-                      FirstScreen(),
-                    ],
-                  )));
-        else
-          return LoginScreen();
-      },
-    );
-  }
+  // Widget _getScreen() {
+  //   return StreamBuilder<User>(
+  //     stream: AuthService.authStateChanges,
+  //     builder: (BuildContext context, snapshot) {
+  //       if (snapshot.hasData)
+  //         return Scaffold(
+  //             body: DoubleBackToCloseApp(
+  //                 snackBar: const SnackBar(
+  //                   content: Text('Tap back again to leave'),
+  //                 ),
+  //                 child: Stack(
+  //                   children: [
+  //                     DrawerScreen(),
+  //                     FirstScreen(),
+  //                   ],
+  //                 )));
+  //       else
+  //         return LoginScreen();
+  //     },
+  //   );
+  // }
+
+  final themeCollection = ThemeCollection(
+    themes: {
+      AppThemes.Light: Themes.lightTheme,
+      AppThemes.Dark: Themes.darkTheme,
+    },
+    fallbackTheme: ThemeData.light(),
+  );
 
   @override
   Widget build(BuildContext context) {
     return DynamicTheme(
-      defaultBrightness: Brightness.dark,
-      data: (brightness) => _isDark ? Themes.darkTheme : Themes.lightTheme,
-      themedWidgetBuilder: (context, theme) {
+      themeCollection: themeCollection,
+      builder: (context, theme) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: "GLUG App",
