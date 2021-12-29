@@ -5,11 +5,11 @@ import 'package:glug_app/widgets/timetable.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:flutter/services.dart';
 
-String section;
+String section; int year;
 class Routine extends StatefulWidget {
 
-  Routine(String x){
-    section=x;
+  Routine(String x, int y){
+    section=x; year=y;
   }
 
   @override
@@ -57,7 +57,7 @@ class _RoutineState extends State<Routine> {
               ),
             ),
             SizedBox(height: 20,),
-            Expanded(child: TimeTable(section))
+            Expanded(child: TimeTable(section,year))
           ],
         ),
       ),

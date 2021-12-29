@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:glug_app/screens/routine.dart';
-import 'package:flutter/services.dart';
+
 class Sections extends StatefulWidget {
 
   @override
@@ -60,9 +60,8 @@ class _SectionsState extends State<Sections> {
                         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                         child: InkWell(
                           onTap: (){
-                            print("He");
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (ctxt) => Routine(String.fromCharCode(index+65))));
+                                MaterialPageRoute(builder: (ctxt) => Routine(String.fromCharCode(index+65),1)));
                           },
                           child: Container(
                             child: Center(child: Text(

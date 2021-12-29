@@ -4,6 +4,7 @@ import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/home_screen.dart';
 import 'package:glug_app/screens/notice_screen.dart';
 import 'sections.dart';
+import 'year.dart';
 
 import 'attendance_tracker_screen.dart';
 
@@ -42,7 +43,7 @@ class _FirstScreenState extends State<FirstScreen> {
       "body": "From now, never miss out on important lectures and materials!",
       "image": "images/eventArtboard.png",
       "color": Color(0xFFF57232),
-      "route": Sections(),
+      "route": Year(),
     },
   ];
 

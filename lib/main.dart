@@ -11,12 +11,15 @@ import 'package:glug_app/screens/login_screen.dart';
 import 'package:glug_app/screens/splash_screen.dart';
 import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/services/shared_pref_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // await Permission.camera.request();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+
   runApp(MainApp());
 }
 
