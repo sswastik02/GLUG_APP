@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:dynamic_themes/dynamic_themes.dart';
 class RoutineData{
 
+  dynamic data =  [ ["","Mon","Tue","Wed","Thu","Fri"],
+  ["7:30 AM-\n8:15 AM","","","","",""],
+  ["9 AM-\n9:45 AM","","","","",""],
+  ["10 AM-\n10:45 AM","","","","",""],
+  ["11 AM-\n11:45 AM","","","","",""],
+  ["12 PM-\n12:45 PM","","","","",""],
+  ["2 PM-\n2:45 PM","","","","",""],
+  ["3 PM-\n3:45 PM","","","","",""],
+  ["4 PM-\n4:45 PM","","","","",""],
+  ["5 PM-\n5:45 PM","","","","",""],
+  ["6:15 PM-\n7 PM","","","","",""]];
+
        Map<int, dynamic> colorScheme = {
          1: Colors.red,
          2: Colors.blue.shade300,
