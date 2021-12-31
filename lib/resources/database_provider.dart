@@ -39,6 +39,7 @@ class DatabaseProvider {
 
   static const String TIME_TABLE = "TIMETABLE";
   static const String TIME = "tme";
+  static const String TIMINGS = "timings";
   static const String MONDAY = "Mon";
   static const String TUESDAY = "Tue";
   static const String WEDNESDAY = "Wed";
@@ -151,6 +152,7 @@ class DatabaseProvider {
       final db = await database;
       await db.execute("CREATE TABLE $TIME_TABLE ("
           "$TIME TEXT PRIMARY KEY,"
+          "$TIMINGS TEXT UNIQUE,"
           "$MONDAY TEXT,"
           "$TUESDAY TEXT,"
           "$WEDNESDAY TEXT,"
@@ -346,11 +348,18 @@ class DatabaseProvider {
     attendanceBloc.fetchAllData();
   }
 
-  updateTimetable(String time, String day, String subject) async {
+  updateTimetableSubject(String time, String day, String subject) async {
     final db = await database;
     await db.rawUpdate(
         'UPDATE $TIME_TABLE SET $day=? WHERE tme=?', ['$subject', '$time']);
     print(subject);
+    timeTableBloc.fetchAllData();
+  }
+
+  updateTimeTableTimings(String time, String timings) async {
+    final db = await database;
+    await db.rawUpdate(
+        'UPDATE $TIME_TABLE SET timings=? WHERE tme=?', ['$timings', '$time']);
     timeTableBloc.fetchAllData();
   }
 
@@ -359,7 +368,7 @@ class DatabaseProvider {
     List<List<String>> time = RoutineData().data as List<List<String>>;
     for (var i = 1; i < time.length; i++) {
       await db.rawInsert(
-          'INSERT INTO $TIME_TABLE VALUES("${RoutineData().data[i][0]}","${RoutineData().data[i][1]}", "${RoutineData().data[i][2]}","${RoutineData().data[i][3]}","${RoutineData().data[i][4]}","${RoutineData().data[i][5]}")');
+          'INSERT INTO $TIME_TABLE VALUES("${RoutineData().data[i][0]}","${RoutineData().data[i][0]}","${RoutineData().data[i][1]}", "${RoutineData().data[i][2]}","${RoutineData().data[i][3]}","${RoutineData().data[i][4]}","${RoutineData().data[i][5]}")');
     }
   }
 
