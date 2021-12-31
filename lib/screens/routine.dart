@@ -8,9 +8,7 @@ import 'package:flutter/services.dart';
 String section; int year;
 class Routine extends StatefulWidget {
 
-  Routine(String x, int y){
-    section=x; year=y;
-  }
+
 
   @override
   _RoutineState createState() => _RoutineState();
@@ -21,6 +19,7 @@ class _RoutineState extends State<Routine> {
   Widget build(BuildContext context) {
     // SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft,DeviceOrientation.landscapeRight]);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: DynamicTheme.of(context).themeId==1 ? Colors.black : Colors.white,
       body: SafeArea(
         child: Column(

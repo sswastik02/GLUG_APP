@@ -61,7 +61,7 @@ class _SectionsState extends State<Sections> {
                         child: InkWell(
                           onTap: (){
                             Navigator.of(context).push(
-                                MaterialPageRoute(builder: (ctxt) => Routine(String.fromCharCode(index+65),1)));
+                                MaterialPageRoute(builder: (ctxt) => Routine()));
                           },
                           child: Container(
                             child: Center(child: Text(

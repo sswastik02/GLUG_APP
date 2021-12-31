@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:glug_app/screens/firebase_messaging_demo_screen.dart';
 import 'package:glug_app/screens/home_screen.dart';
 import 'package:glug_app/screens/notice_screen.dart';
-import 'sections.dart';
-import 'year.dart';
+import 'routine.dart';
 
 import 'attendance_tracker_screen.dart';
 
@@ -39,11 +38,11 @@ class _FirstScreenState extends State<FirstScreen> {
       "route": NoticeScreen(),
     },
     {
-      "title": "Access Routines\nand Lectures",
+      "title": "Customize your\nTimetable",
       "body": "From now, never miss out on important lectures and materials!",
       "image": "images/eventArtboard.png",
       "color": Color(0xFFF57232),
-      "route": Year(),
+      "route": Routine(),
     },
   ];
 

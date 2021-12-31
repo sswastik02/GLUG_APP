@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glug_app/models/themes.dart';
+import 'package:glug_app/resources/database_provider.dart';
+import 'package:glug_app/resources/routine_data.dart';
 import 'package:glug_app/screens/drawer_screen.dart';
 import 'package:glug_app/screens/first_screen.dart';
 import 'package:glug_app/screens/login_screen.dart';
@@ -12,6 +14,7 @@ import 'package:glug_app/screens/splash_screen.dart';
 import 'package:glug_app/services/auth_service.dart';
 import 'package:glug_app/services/shared_pref_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sqflite/sqflite.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +22,15 @@ Future<void> main() async {
   // await Permission.camera.request();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-
+  // await DatabaseProvider.databaseProvider.createTimetable();
+  // await DatabaseProvider.databaseProvider
+  //     .updateTimetable(RoutineData().data[1][0], "Mon", "CSC01");
+  // for (int i = 1; i < 11; i++)
+  //   await DatabaseProvider.databaseProvider.setEmptyTimetable(i);
+  // await DatabaseProvider.databaseProvider.deleteTimetable();
+  // dynamic x = await DatabaseProvider.databaseProvider.getTimeTableData();
+  // print(x);
+  // await DatabaseProvider.databaseProvider.setEmptyTimetable();
   runApp(MainApp());
 }
 

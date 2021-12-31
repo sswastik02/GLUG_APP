@@ -4,9 +4,6 @@ import 'package:glug_app/screens/routine.dart';
 int year;
 class Stream extends StatefulWidget {
 
-  Stream(int y){
-    year=y;
-  }
 
   @override
   _StreamState createState() => _StreamState();
@@ -74,7 +71,7 @@ class _StreamState extends State<Stream> {
                     child: InkWell(
                       onTap: (){
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (ctxt) => Routine(dep[index],year)));
+                            MaterialPageRoute(builder: (ctxt) => Routine()));
                       },
                       child: Container(
                         child: Center(child: Text(
