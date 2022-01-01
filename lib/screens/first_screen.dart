@@ -39,7 +39,7 @@ class _FirstScreenState extends State<FirstScreen> {
     },
     {
       "title": "Customise\nyour Timetable",
-      "body": "From now, never miss out on important lectures and materials!",
+      "body": "Build a customised routine for your daily schedule!",
       "image": "images/eventArtboard.png",
       "color": Color(0xFFF57232),
       "route": Routine(),
