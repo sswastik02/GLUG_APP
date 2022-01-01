@@ -38,7 +38,7 @@ class _FirstScreenState extends State<FirstScreen> {
       "route": NoticeScreen(),
     },
     {
-      "title": "Customize your\nTimetable",
+      "title": "Customise\nyour Timetable",
       "body": "From now, never miss out on important lectures and materials!",
       "image": "images/eventArtboard.png",
       "color": Color(0xFFF57232),

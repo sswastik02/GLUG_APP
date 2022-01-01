@@ -1,15 +1,17 @@
 import 'package:glug_app/resources/routine_data.dart';
 
-dynamic timetableFromMap(dynamic jsons) {
+List<List<dynamic>> timetableFromMap(dynamic jsons) {
   List<List<dynamic>> timetable = List<List<dynamic>>.from(jsons.map((json) => [
         json['tme'],
+        json['timings'],
         json['Mon'],
         json['Tue'],
         json['Wed'],
         json['Thu'],
         json['Fri']
       ]));
-  dynamic timetableFinal = [RoutineData().data[0]] + timetable;
+  List<List<dynamic>> timetableFinal =
+      [RoutineData().data[0] as List<dynamic>] + timetable;
   return timetableFinal;
 }
 

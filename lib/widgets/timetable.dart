@@ -9,8 +9,8 @@ import 'package:glug_app/resources/database_provider.dart';
 import 'package:glug_app/resources/routine_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:glug_app/widgets/error_widget.dart';
+import 'package:glug_app/widgets/timings_routine_form.dart';
 import 'subject_routine.dart';
-import 'package:glug_app/resources/routine_data.dart';
 
 String section;
 int year;
@@ -27,7 +27,7 @@ class TimeTable extends StatefulWidget {
 }
 
 class _TimeTableState extends State<TimeTable> {
-  dynamic data;dynamic color={};
+  dynamic color={};dynamic data;
   //  getData()async{
   //   CollectionReference timetable =
   //   FirebaseFirestore.instance.collection('timetable');
@@ -45,20 +45,21 @@ class _TimeTableState extends State<TimeTable> {
     for(var i = 0;i<11;i++){
       for( var j =0;j<6;j++){
         if(data[i][j]!="" && data[i][j].toString().length>=1 && (i!=0 && j!=0))
-        set.add(data[i][j].toString());
+          set.add(data[i][j].toString());
       }
     }
     int c=1;
     set.forEach((element) {
-         if(c==19)
-           c=0;
-        // print(element);
-        color[element]=routineData.colorScheme[c];
-        // print(color[element]);
-        c++;
+      if(c==19)
+        c=0;
+      // print(element);
+      color[element]=routineData.colorScheme[c];
+      // print(color[element]);
+      c++;
 
     }
     );
+
 
 
   }
@@ -93,7 +94,7 @@ class _TimeTableState extends State<TimeTable> {
     super.dispose();
   }
 
-  _addSubjectDialog(context, map) {
+  _addSubjectOrTimingsDialog(context, map, {timings = false}) {
     showDialog(
       context: context,
       builder: (context) {
@@ -116,7 +117,13 @@ class _TimeTableState extends State<TimeTable> {
                     color: Colors.black, offset: Offset(0, 5), blurRadius: 10),
               ],
             ),
-            child: SubjectRoutine(map: map),
+            child: (timings)
+                ? TimingsRoutine(
+                    map: map,
+                  )
+                : SubjectRoutine(
+                    map: map,
+                  ),
           ),
         );
       },
@@ -137,7 +144,19 @@ class _TimeTableState extends State<TimeTable> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               data = snapshot.data;
-              data = timetableFromMap(data);
+
+              List<List<dynamic>> dataT = timetableFromMap(data);
+              List<List<dynamic>> dataTM = dataT.sublist(1);
+              dataTM = List.from(dataTM.map((list) {
+                List<dynamic> arr = [];
+                for (int i = 1; i < list.length; i++) {
+                  arr = arr + [list[i]];
+                }
+                return arr;
+              }));
+              dataTM = [dataT[0]] + dataTM;
+              data = dataTM;
+              print(data);
               colorSc();
               return Container(
                   child: GridView.count(
@@ -151,28 +170,90 @@ class _TimeTableState extends State<TimeTable> {
                               padding: const EdgeInsets.all(3),
                               child: InkWell(
                                 onTap: () {
-                                  // if (!((index / 6).toInt() == 0 ||
-                                  //     index % 6 == 0)) {
-                                    _addSubjectDialog(context, {
+                                  if (!((index / 6).toInt() == 0 ||
+                                      index % 6 == 0)) {
+                                    _addSubjectOrTimingsDialog(context, {
                                       'name':
                                           "${data[(index / 6).toInt()][index % 6]}",
-                                      'time': "${data[(index / 6).toInt()][0]}",
+                                      'time':
+                                          "${dataT[(index / 6).toInt()][0]}",
                                       'day': "${data[0][index % 6]}",
                                     });
-                                  // }
+                                    // _addSubjectDialog(context, null);
+                                  } else {
+                                    String time =
+                                        "${data[(index / 6).toInt()][index % 6]}";
+                                    String time1 = time
+                                        .substring(0, time.indexOf("-"))
+                                        .trim();
+                                    String time2 = time
+                                        .substring(time.indexOf("-") + 1)
+                                        .trim();
+                                    String meridian1 =
+                                        (time1.contains("AM")) ? "AM" : "PM";
+                                    String meridian2 =
+                                        (time2.contains("AM")) ? "AM" : "PM";
+                                    String time1hm = time1
+                                        .substring(0, time1.indexOf(meridian1))
+                                        .trim();
+                                    String time2hm = time2
+                                        .substring(0, time2.indexOf(meridian2))
+                                        .trim();
+                                    String time1h = (time1hm.contains(":"))
+                                        ? time1hm
+                                            .substring(0, time1hm.indexOf(":"))
+                                            .trim()
+                                        : time1hm.trim();
+                                    String time1m = (time1hm.contains(":"))
+                                        ? time1hm
+                                            .substring(time1hm.indexOf(":") + 1)
+                                            .trim()
+                                        : "00";
+                                    String time2h = (time2hm.contains(":"))
+                                        ? time2hm
+                                            .substring(0, time2hm.indexOf(":"))
+                                            .trim()
+                                        : time2hm.trim();
+                                    String time2m = (time2hm.contains(":"))
+                                        ? time2hm
+                                            .substring(time2hm.indexOf(":") + 1)
+                                            .trim()
+                                        : "00";
+                                    print([
+                                      time1h,
+                                      time1m,
+                                      meridian1,
+                                      time2h,
+                                      time2m,
+                                      meridian2
+                                    ]);
+                                    _addSubjectOrTimingsDialog(
+                                        context,
+                                        {
+                                          "og":
+                                              "${dataT[(index / 6).toInt()][0]}",
+                                          "hr1": "$time1h",
+                                          "min1": "$time1m",
+                                          "mer1": "$meridian1",
+                                          "hr2": "$time2h",
+                                          "min2": "$time2m",
+                                          "mer2": "$meridian2",
+                                        },
+                                        timings: true);
+                                  }
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
                                       color: ((index / 6).toInt() == 0 ||
-                                              index % 6 == 0)
+                                          index % 6 == 0)
                                           ? DynamicTheme.of(context).themeId ==
-                                                  1
-                                              ? Colors.black
-                                              : Colors.white
+                                          1
+                                          ? Colors.black
+                                          : Colors.white
 
                                           : (data[(index / 6).toInt()][index % 6].toString().length<1)?Colors.grey.shade200
-                                      :color[data[(index/6).toInt()][index%6]]
+                                          :color[data[(index/6).toInt()][index%6]]
                                       ),
                                   child: Center(
                                       child: Transform(
@@ -194,7 +275,7 @@ class _TimeTableState extends State<TimeTable> {
                                                           FontWeight.w600),
                                                 )
                                               : Text(
-                                                  "${data[(index / 6).toInt()][index % 6]}",
+                                            "${data[(index / 6).toInt()][index % 6]}",
                                             style: TextStyle(fontSize:
                                             MediaQuery.of(context)
                                                 .size
@@ -202,10 +283,12 @@ class _TimeTableState extends State<TimeTable> {
                                                 0.046,
                                                 fontWeight:
                                                 FontWeight.w600,
-                                              color: Colors.black
+                                                color: Colors.black
 
                                             ),
                                           )
+
+                                          // "1")
                                           // child: Text("${data[section]["${(index/6).toInt()}"][index%6]}",
                                           // style: TextStyle(
                                           //   fontSize: MediaQuery.of(context).size.width * 0.046,

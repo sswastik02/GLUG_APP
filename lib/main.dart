@@ -28,6 +28,12 @@ Future<void> main() async {
   // for (int i = 1; i < 11; i++)
   //   await DatabaseProvider.databaseProvider.setEmptyTimetable(i);
   // await DatabaseProvider.databaseProvider.deleteTimetable();
+  // try {
+  //   await DatabaseProvider.databaseProvider.updateTimeTableTimings(
+  //       RoutineData().data[1][0], RoutineData().data[1][0]);
+  // } catch (error, stacktrace) {
+  //   print("Timings already present");
+  // }
   // dynamic x = await DatabaseProvider.databaseProvider.getTimeTableData();
   // print(x);
   // await DatabaseProvider.databaseProvider.setEmptyTimetable();

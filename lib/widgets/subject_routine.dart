@@ -91,7 +91,7 @@ class _SubjectRoutineState extends State<SubjectRoutine> {
                 color: Colors.deepOrangeAccent,
                 onPressed: () async {
                   // SAVE NEW SUBJECT IN ROUTINE HERE
-                  await _databaseProvider.updateTimetable(
+                  await _databaseProvider.updateTimetableSubject(
                       widget.map["time"], widget.map["day"], _ctrl1.text);
                   Navigator.pop(context);
                 },
